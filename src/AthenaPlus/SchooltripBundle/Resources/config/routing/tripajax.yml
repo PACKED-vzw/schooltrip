@@ -1,0 +1,107 @@
+trip_load_trip:
+    pattern:  /load/{id}
+    defaults: { _controller: "SchooltripBundle:TripAjax:loadTrip" }
+    options:
+        expose: true
+
+trip_update_trip:
+    pattern:  /update/{id}
+    defaults: { _controller: "SchooltripBundle:TripAjax:updateTrip" }
+    options:
+        expose: true
+
+trip_new_trip:
+    pattern:  /new
+    defaults: { _controller: "SchooltripBundle:TripAjax:newTrip" }
+    options:
+        expose: true
+
+trip_delete_trip:
+    pattern:  /del-trip
+    defaults: { _controller: "SchooltripBundle:TripAjax:deleteTrip" }
+    options:
+        expose: true
+
+trip_get_sections:
+    pattern:  /getsections/{id}
+    defaults: { _controller: "SchooltripBundle:TripAjax:getSections" }
+    options:
+        expose: true
+
+update_notification_settings:
+    pattern:  /update-notifications
+    defaults: { _controller: "SchooltripBundle:TripAjax:updateNotificationSettings" }
+    options:
+        expose: true
+
+load_notification_settings:
+    pattern:  /load-notifications
+    defaults: { _controller: "SchooltripBundle:TripAjax:loadNotificationSettings" }
+    options:
+        expose: true
+
+add-new-group:
+    pattern:  /new-group
+    defaults: { _controller: "SchooltripBundle:TripAjax:addNewGroup" }
+    options:
+        expose: true
+
+update-group:
+    pattern:  /update-group/{id}
+    defaults: { _controller: "SchooltripBundle:TripAjax:updateGroup" }
+    options:
+        expose: true
+
+delete-group:
+    pattern:  /delete-group/{id}
+    defaults: { _controller: "SchooltripBundle:TripAjax:deleteGroup" }
+    options:
+        expose: true
+
+add-new-user:
+    pattern:  /new-user/{id}
+    defaults: { _controller: "SchooltripBundle:TripAjax:addNewUser" }
+    options:
+        expose: true
+
+update-user:
+    pattern:  /update-user
+    defaults: { _controller: "SchooltripBundle:TripAjax:updateUser" }
+    options:
+        expose: true
+
+load-groups:
+    pattern:  /load-groups
+    defaults: { _controller: "SchooltripBundle:TripAjax:loadGroups" }
+    options:
+        expose: true
+
+trip-load-group:
+    pattern:  /load-group/{id}
+    defaults: { _controller: "SchooltripBundle:TripAjax:loadGroup" }
+    options:
+        expose: true
+
+trip-load-user:
+    pattern:  /load-user/{id}
+    defaults: { _controller: "SchooltripBundle:TripAjax:loadUser" }
+    options:
+        expose: true
+
+trip-load-users-for-group:
+    pattern:  /load-users/{id}
+    defaults: { _controller: "SchooltripBundle:TripAjax:loadUsers" }
+    options:
+        expose: true
+
+update-profile:
+    pattern:  /update-profile
+    defaults: { _controller: "SchooltripBundle:TripAjax:updateProfile" }
+    options:
+        expose: true
+
+show-notifications:
+    pattern:  /show-notifications
+    defaults: { _controller: "SchooltripBundle:TripAjax:showNotifications" }
+    options:
+        expose: true

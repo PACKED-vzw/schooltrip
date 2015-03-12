@@ -1,0 +1,18 @@
+{% extends '::base.html.twig' %}
+
+{% block contents -%}
+{% if is_granted('ROLE_ADMIN') %}
+
+<p>To see all trips go to: <a href="{{ path('trip') }}"></a></p>
+{% else %}
+
+    <ul>
+        <li><a href="{{ path('journal') }}">Journal</a></li>
+        <li><a href="{{ path('student_single_trip') }}">Student</a></li>
+    </ul>
+
+
+{% endif %}
+
+
+{%  endblock  %}

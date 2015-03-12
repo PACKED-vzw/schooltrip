@@ -1,0 +1,52 @@
+journal:
+    pattern:  /
+    defaults: { _controller: "SchooltripBundle:Journal:index" }
+
+journal_new:
+    pattern: /new
+    defaults: { _controller: "SchooltripBundle:Journal:new" }
+
+journal_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "SchooltripBundle:Journal:delete" }
+    requirements: { _method: post|delete }
+    options:
+        expose: true
+
+journal_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "SchooltripBundle:Journal:edit" }
+
+journal_save_tab:
+    pattern:  /save_tab
+    defaults: { _controller: "SchooltripBundle:Journal:saveTabAjax" }
+    requirements: { _method: post }
+    options:
+        expose: true
+
+journal_load_tab:
+    pattern:  /load_tab
+    defaults: { _controller: "SchooltripBundle:Journal:loadTabAjax" }
+    requirements: { _method: post }
+    options:
+        expose: true
+
+journal_load_record_html:
+    pattern:  /load_record_html
+    defaults: { _controller: "SchooltripBundle:Journal:loadRecordHtmlAjax" }
+    requirements: { _method: post }
+    options:
+        expose: true
+
+journal_storyteller:
+    pattern:  /{id}/show
+    defaults: { _controller: "SchooltripBundle:Journal:storyTeller" }
+    options:
+        expose: true
+
+storyteller_load_record_html:
+    pattern:  /load_record_html_storyteller
+    defaults: { _controller: "SchooltripBundle:Journal:loadRecordHtmlStorytellerAjax" }
+    requirements: { _method: post }
+    options:
+        expose: true

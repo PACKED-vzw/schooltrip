@@ -1,0 +1,13 @@
+{% for notification in notifications %}
+
+    <li>
+        <div class="notifdescr">
+            <i class="fa fa-exclamation-circle"></i>
+            <p><span class="fat">{{ notification.message | raw }}</span></p>
+        </div>
+    </li>
+
+
+{% endfor %}
+
+

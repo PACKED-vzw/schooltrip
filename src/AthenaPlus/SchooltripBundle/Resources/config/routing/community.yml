@@ -1,0 +1,10 @@
+community_index:
+    pattern:  /
+    defaults: { _controller: "SchooltripBundle:Community:index" }
+
+community_load:
+    pattern: /load
+    defaults: { _controller: "SchooltripBundle:Community:load" }
+    requirements: { _method: post }
+    options:
+      expose: true

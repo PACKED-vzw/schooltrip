@@ -1,0 +1,156 @@
+{% extends '::base.html.twig' %}
+
+{% form_theme post_form _self %}
+{% block textarea_widget %}
+    {% spaceless %}
+        <div class="textarea_widget">
+            <textarea {{ block('widget_attributes') }} class="post-text form-control" placeholder="Enter your message ...">{{ value }}</textarea>
+        </div>
+    {% endspaceless %}
+{% endblock textarea_widget %}
+
+
+
+{% block contents -%}
+    <div class="row">
+        <div class="col-md-12 pagetitle">
+            <h2><span>Community</span></h2>
+        </div>
+    </div>
+
+    <br/>
+    <div class="row">
+        <div class="col-md-12">
+            {{ form_start(post_form) }}
+
+            {{ form_errors(post_form) }}
+            <div class="col-md-10">
+                {{ form_widget(post_form.text) }}
+            </div>
+            <div class="col-md-2">
+                {{ form_widget(post_form.submit) }}
+            </div>
+
+
+        </div>
+
+        {{ form_end(post_form) }}
+        <hr>
+
+    </div>
+    <div class="row">
+
+        <div class="col-md-12 community">
+
+
+            </div>
+            {% include 'SchooltripBundle:Community:posts.html.twig' with {"posts": posts } only %}
+            <div id="load-older"><button class="btn btn-trip">Load more <span id="load-more-icon" class="glyphicon glyphicon-chevron-up"> </span></button></div>
+            <div id="loading" class="hidden"><img src="{{ asset('img/ajax-loader.gif') }}"> Loading ... </div>
+            <div id="older-posts" >
+
+        </div>
+    </div>
+
+    </div>
+
+
+
+
+
+
+{%  endblock %}
+{%  block javascripts %}
+{{ parent() }}
+
+<script type="text/javascript">
+    function postForm( $form, callback ){
+
+    /*
+    * Get all form values
+    */
+    var values = {};
+    $.each( $form.serializeArray(), function(i, field) {
+        values[field.name] = field.value;
+    });
+
+    /*
+    * Throw the form values to the server!
+    */
+    $.ajax({
+        type        : $form.attr( 'method' ),
+        url         : $form.attr( 'action' ),
+        data        : values,
+        success     : function(data) {
+            if(data['success']){
+
+
+                $('#community-posts').html(data['posts']);
+                $('#older-posts').html('');
+                $('.post-text').val('');
+            }else {
+                alert('Something went wrong.');
+            }
+
+            }
+
+        });
+   }
+
+
+    $(document).ready(function(){
+
+        var forms = [
+            '[ name="{{ post_form.vars.full_name }}"]'
+        ];
+
+        $( forms.join(',') ).submit( function( e ){
+            e.preventDefault();
+
+            postForm( $(this), function( response ){
+            });
+
+            return false;
+        });
+
+        $('#load-older').on('click', function(){
+            var offset = parseInt($('#community-posts').attr('data-offset'));
+
+            $('#load-older').addClass('hidden');
+            $('#loading').removeClass('hidden');
+            $.ajax({
+                type    : 'POST',
+                url     : Routing.generate("community_load"),
+                data    : {number: 10, offset: offset},
+                complete : function(data){
+                    $('#load-older').removeClass('hidden');
+                    $('#loading').addClass('hidden');
+
+
+                },
+                success : function(data){
+                                 var postsHtml = "";
+
+                                 /*$(data['posts']).each(function(post){
+                                        postsHtml += '<div class="post"><p>' + data['posts'][post].text + '<p><p>' + data['posts'][post].created + '<p><p>' + data['posts'][post].created_by + '<p></div>';
+                                 });*/
+                                 offset = offset + data['length'];
+                                 $('#community-posts').append(data['posts']).attr('data-offset', offset);
+
+                    if(data['length'] == 0){
+                        var alertMessage = '<div id="alert-message" class="fade-in alert alert-info">All posts are loaded!</div>';
+                        $('#community-posts').append(alertMessage);
+                        window.setTimeout(function() {
+                            $("#alert-message").fadeTo(500, 0).slideUp(500, function(){
+                                $(this).remove();
+                            });
+                        }, 3000);
+                    }
+
+
+                          }
+            })
+        });
+        });
+</script>
+{% endblock %}

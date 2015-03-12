@@ -1,0 +1,3 @@
+notifications:
+    pattern:  /
+    defaults: { _controller: "SchooltripBundle:Notification:index" }

@@ -1,0 +1,15 @@
+{% extends '::base.html.twig' %}
+{% block full %}full {% endblock %}
+{% block contents %}
+ <div class="row row-centered loginbox">
+  <div class="col-xs-6 col-centered col-min">
+    <div class="resetform">
+    {% block fos_user_content %}
+        {% include "FOSUserBundle:Resetting:request_content.html.twig" %}
+    {% endblock fos_user_content %}
+    </div>
+
+  </div>
+ </div>
+
+{% endblock %}

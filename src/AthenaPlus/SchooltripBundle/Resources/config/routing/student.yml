@@ -1,0 +1,101 @@
+student_single_trip:
+    pattern:  /t/{id}
+    defaults: { _controller: "SchooltripBundle:Student:singleTrip", id: 0 }
+
+student_load_records:
+    pattern:  /load-records/{id}
+    defaults: { _controller: "SchooltripBundle:Student:loadRecords"}
+    options:
+        expose: true
+
+student_finalise_journal:
+    pattern:  /finalise-journal/j/{id}/{mode}
+    defaults: { _controller: "SchooltripBundle:Student:finaliseJournal", id: 0, mode: "edit" }
+    requirements:
+        mode: edit|preview
+    options:
+        expose: true
+
+student_finished_journal:
+    pattern:  /view/journal/{id}
+    defaults: { _controller: "SchooltripBundle:Student:finishedJournal", id: 0}
+    options:
+        expose: true
+
+student_new_record:
+    pattern:  /new_record/{id}
+    defaults: { _controller: "SchooltripBundle:Student:newRecord" }
+    options:
+        expose: true
+
+student_load_record:
+    pattern:  /load-record/{id}
+    defaults: { _controller: "SchooltripBundle:Student:loadRecord"}
+    options:
+        expose: true
+
+student_save_record:
+    pattern:  /save-record/{id}
+    defaults: { _controller: "SchooltripBundle:Student:saveRecord"}
+    options:
+        expose: true
+
+mark_section_as_ready:
+    pattern:  /section_ready/{id}
+    defaults: { _controller: "SchooltripBundle:Student:markSectionAsReady" }
+    options:
+        expose: true
+
+add_image_record:
+    pattern:  /upload_image
+    defaults: { _controller: "SchooltripBundle:Student:addImage" }
+    options:
+        expose: true
+
+remove_image_record:
+    pattern:  /remove_image
+    defaults: { _controller: "SchooltripBundle:Student:deleteImage" }
+    options:
+        expose: true
+
+student_records_index:
+    pattern:  /records/r/{id}
+    defaults: { _controller: "SchooltripBundle:Student:journalRecords", id: 0 }
+
+add_journal_entry:
+    pattern:  /add_journal_entry/{id}
+    defaults: { _controller: "SchooltripBundle:Student:addJournalEntry" }
+    options:
+        expose: true
+
+edit_time_journal_entry:
+    pattern:  /edit_time_journal_entry/{id}
+    defaults: { _controller: "SchooltripBundle:Student:editTimeJournalEntry" }
+    options:
+        expose: true
+
+update_journal_entry:
+    pattern:  /update_journal_entry/{id}
+    defaults: { _controller: "SchooltripBundle:Student:updateJournalEntry" }
+    options:
+        expose: true
+
+delete_journal_entry:
+    pattern:  /delete_journal_entry/{id}
+    defaults: { _controller: "SchooltripBundle:Student:deleteJournalEntry" }
+    options:
+        expose: true
+
+load_date_journals:
+    pattern:  /load_date_journal/{id}
+    defaults: { _controller: "SchooltripBundle:Student:loadDate" }
+    options:
+        expose: true
+
+clear_journal:
+    pattern:  /clear-journal/{id}
+    defaults: { _controller: "SchooltripBundle:Student:clearJournal" }
+
+evaluation_request:
+    pattern:  /eval-request/{id}
+    defaults: { _controller: "SchooltripBundle:Student:evaluationRequest" }

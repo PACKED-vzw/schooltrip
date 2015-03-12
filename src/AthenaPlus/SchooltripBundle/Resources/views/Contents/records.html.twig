@@ -1,0 +1,576 @@
+{% extends '::base.html.twig' %}
+
+{% block contents -%}
+
+<!-- Page Content -->
+<div class="container">
+<div class="row">
+    <div class="col-md-12 pagetitle">
+        <h2><span>FootbalCamp 2014</span></h2>
+    </div>
+</div>
+
+<!-- Content Left -->
+<div class="row">
+<div class="col-md-4 tripsingle">
+    <div class="tripform">
+        <h3>Brussels - Barcelona</h3>
+        <div class="dateBox">
+
+            <div class="col-md-5">
+                <p>From</p>
+                <p class="dateField">22/08/14</p>
+            </div>
+            <div class="col-md-2 dateArrow">
+                <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
+            </div>
+            <div class="col-md-5">
+                <p>Untill</p>
+                <p class="dateField">29/08/14</p>
+            </div>
+        </div>
+        <div class="boxbottom">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi facilisis luctus imperdiet. Sed sed consequat lorem. Phasellus dapibus hendrerit arcu non eleifend. eu nisi condimentum, aliquam nisl placerat, interdum lacus.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Content Right -->
+<div class="col-md-8 recordbox">
+<h3>Records</h3>
+
+<!-- Dropdown records -->
+<div class="row">
+<!-- Column 1 -->
+<div class="col-md-12" ng-app="recordsManager">
+<div  ng-controller="ListController">
+    {[aapke]}
+</div>
+
+<!-- DropDown 1 -->
+<div class="droprecord" id="accordion" role="tablist" aria-multiselectable="true">
+    <div>
+        <div role="tab" id="headingEntertainment">
+            <h4>
+                <a id="droprecordlink" data-toggle="collapse" data-parent="#accordion" href="#collapse1" aria-expanded="true" aria-controls="collapse1">
+                    <i class="fa  fronticon">1</i><span class="droprecordtitle">22/08/2014</span><i class="indicator glyphicon glyphicon-chevron-down  pull-right droprecordarrow"></i>
+                </a>
+            </h4>
+        </div>
+        <div id="collapse1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading1">
+            <div class="dropPanel">
+                <div class="record-selector">
+                    <div class="record-dropdown">
+                        <label for="age" class="record-selector-label">Select a record <i class="fa fa-question-circle tooltipright" data-toggle="tooltip" data-placement="right" title="Select a record"></i></label>
+                        <select class="form-control selectpicker" data-live-search="true">
+                            <optgroup label="Section Transport">
+                                <option>Bus uren</option>
+                                <option>Toegangstickets</option>
+                            </optgroup>
+                            <optgroup label="Section Hotel & Sleeping">
+                                <option>Hotel 1</option>
+                                <option>Hotel 2</option>
+                                <option>Hotel 3</option>
+                            </optgroup>
+                            <optgroup label="Section Cultural Heritage">
+                                <option>Parc Gaudi</option>
+                                <option>Sagrada Familia</option>
+                                <option>Camp Nou</option>
+                            </optgroup>
+                            <optgroup label="Section Natural">
+                                <option>Stadspark</option>
+                                <option>Park Spoord Noord</option>
+                                <option>Harmonie</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- RECORD BOX 1 -->
+                <div class="record-box-dropdown light">
+                    <div class="row record-box-header">
+                        <div class="col-md-2">
+                            <input type="text" class="form-control" id="date" placeholder="08u30">
+                        </div>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" id="title" placeholder="STADION CAMP NOU">
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control" id="title" placeholder="Mike Junior">
+                        </div>
+                        <div class="col-md-2">
+                            <a href=""><i class="fa fa-close icondelete recordclose"></i></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <textarea class="form-control" rows="5" id="description2" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi facilisis luctus imperdiet. Sed sed consequat lorem. Phasellus dapibus hendrerit arcu non eleifend. eu nisi condimentum, aliquam nisl placerat, interdum lacus. Consectetur adipiscing elit. Morbi facilisis luctus imperdiet. Sed sed consequat lorem. Phasellus dapibus hendrerit arcu non eleifend. eu nisi condimentum, aliquam nisl placerat, interdum lacus."></textarea>
+                        </div>
+                    </div>
+                </div>
+                <!-- END RECORD BOX 1 -->
+
+                <!-- RECORD BOX 2 -->
+                <div class="record-box-dropdown grey last">
+                    <div class="row record-box-header">
+                        <div class="col-md-2">
+                            <input type="text" class="form-control" id="date" placeholder="08u30">
+                        </div>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" id="title" placeholder="STADION CAMP NOU">
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control" id="title" placeholder="Mike Junior">
+                        </div>
+                        <div class="col-md-2">
+                            <a href=""><i class="fa fa-close icondelete recordclose"></i></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <textarea class="form-control" rows="5" id="description2" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi facilisis luctus imperdiet. Sed sed consequat lorem. Phasellus dapibus hendrerit arcu non eleifend. eu nisi condimentum, aliquam nisl placerat, interdum lacus. Consectetur adipiscing elit. Morbi facilisis luctus imperdiet. Sed sed consequat lorem. Phasellus dapibus hendrerit arcu non eleifend. eu nisi condimentum, aliquam nisl placerat, interdum lacus."></textarea>
+                        </div>
+                    </div>
+                </div>
+                <!-- END RECORD BOX 2 -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END DropDown 1 -->
+
+<!-- DropDown 2 -->
+<div class="droprecord" id="accordion" role="tablist" aria-multiselectable="true">
+    <div>
+        <div role="tab" id="headingEntertainment">
+            <h4>
+                <a id="droprecordlink" data-toggle="collapse" data-parent="#accordion" href="#collapse2" aria-expanded="true" aria-controls="collapse2">
+                    <i class="fa  fronticon">2</i><span class="droprecordtitle">23/08/2014</span><i class="indicator glyphicon glyphicon-chevron-down  pull-right droprecordarrow"></i>
+                </a>
+            </h4>
+        </div>
+        <div id="collapse2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading2">
+            <div class="dropPanel">
+                <div class="record-selector">
+                    <div class="record-dropdown">
+                        <label for="age" class="record-selector-label">Select a record <i class="fa fa-question-circle tooltipright" data-toggle="tooltip" data-placement="right" title="Select a record"></i></label>
+                        <select class="form-control selectpicker" data-live-search="true">
+                            <optgroup label="Section Transport">
+                                <option>Bus uren</option>
+                                <option>Toegangstickets</option>
+                            </optgroup>
+                            <optgroup label="Section Hotel & Sleeping">
+                                <option>Hotel 1</option>
+                                <option>Hotel 2</option>
+                                <option>Hotel 3</option>
+                            </optgroup>
+                            <optgroup label="Section Cultural Heritage">
+                                <option>Parc Gaudi</option>
+                                <option>Sagrada Familia</option>
+                                <option>Camp Nou</option>
+                            </optgroup>
+                            <optgroup label="Section Natural">
+                                <option>Stadspark</option>
+                                <option>Park Spoord Noord</option>
+                                <option>Harmonie</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- RECORD BOX 1 -->
+                <div class="record-box-dropdown light">
+                    <div class="row record-box-header">
+                        <div class="col-md-2">
+                            <input type="text" class="form-control" id="date" placeholder="08u30">
+                        </div>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" id="title" placeholder="STADION CAMP NOU">
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control" id="title" placeholder="Mike Junior">
+                        </div>
+                        <div class="col-md-2">
+                            <a href=""><i class="fa fa-close icondelete recordclose"></i></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <textarea class="form-control" rows="5" id="description2" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi facilisis luctus imperdiet. Sed sed consequat lorem. Phasellus dapibus hendrerit arcu non eleifend. eu nisi condimentum, aliquam nisl placerat, interdum lacus. Consectetur adipiscing elit. Morbi facilisis luctus imperdiet. Sed sed consequat lorem. Phasellus dapibus hendrerit arcu non eleifend. eu nisi condimentum, aliquam nisl placerat, interdum lacus."></textarea>
+                        </div>
+                    </div>
+                </div>
+                <!-- END RECORD BOX 1 -->
+
+                <!-- RECORD BOX 2 -->
+                <div class="record-box-dropdown grey last">
+                    <div class="row record-box-header">
+                        <div class="col-md-2">
+                            <input type="text" class="form-control" id="date" placeholder="08u30">
+                        </div>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" id="title" placeholder="STADION CAMP NOU">
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control" id="title" placeholder="Mike Junior">
+                        </div>
+                        <div class="col-md-2">
+                            <a href=""><i class="fa fa-close icondelete recordclose"></i></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <textarea class="form-control" rows="5" id="description2" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi facilisis luctus imperdiet. Sed sed consequat lorem. Phasellus dapibus hendrerit arcu non eleifend. eu nisi condimentum, aliquam nisl placerat, interdum lacus. Consectetur adipiscing elit. Morbi facilisis luctus imperdiet. Sed sed consequat lorem. Phasellus dapibus hendrerit arcu non eleifend. eu nisi condimentum, aliquam nisl placerat, interdum lacus."></textarea>
+                        </div>
+                    </div>
+                </div>
+                <!-- END RECORD BOX 2 -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END DropDown 2 -->
+
+<!-- DropDown 3 -->
+<div class="droprecord" id="accordion" role="tablist" aria-multiselectable="true">
+    <div>
+        <div role="tab" id="headingEntertainment">
+            <h4>
+                <a id="droprecordlink" data-toggle="collapse" data-parent="#accordion" href="#collapse3" aria-expanded="true" aria-controls="collapse3">
+                    <i class="fa  fronticon">3</i><span class="droprecordtitle">24/08/2014</span><i class="indicator glyphicon glyphicon-chevron-down  pull-right droprecordarrow"></i>
+                </a>
+            </h4>
+        </div>
+        <div id="collapse3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading3">
+            <div class="dropPanel">
+                <div class="record-selector">
+                    <div class="record-dropdown">
+                        <label for="age" class="record-selector-label">Select a record <i class="fa fa-question-circle tooltipright" data-toggle="tooltip" data-placement="right" title="Select a record"></i></label>
+                        <select class="form-control selectpicker" data-live-search="true">
+                            <optgroup label="Section Transport">
+                                <option>Bus uren</option>
+                                <option>Toegangstickets</option>
+                            </optgroup>
+                            <optgroup label="Section Hotel & Sleeping">
+                                <option>Hotel 1</option>
+                                <option>Hotel 2</option>
+                                <option>Hotel 3</option>
+                            </optgroup>
+                            <optgroup label="Section Cultural Heritage">
+                                <option>Parc Gaudi</option>
+                                <option>Sagrada Familia</option>
+                                <option>Camp Nou</option>
+                            </optgroup>
+                            <optgroup label="Section Natural">
+                                <option>Stadspark</option>
+                                <option>Park Spoord Noord</option>
+                                <option>Harmonie</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- RECORD BOX 1 -->
+                <div class="record-box-dropdown light">
+                    <div class="row record-box-header">
+                        <div class="col-md-2">
+                            <input type="text" class="form-control" id="date" placeholder="08u30">
+                        </div>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" id="title" placeholder="STADION CAMP NOU">
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control" id="title" placeholder="Mike Junior">
+                        </div>
+                        <div class="col-md-2">
+                            <a href=""><i class="fa fa-close icondelete recordclose"></i></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <textarea class="form-control" rows="5" id="description2" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi facilisis luctus imperdiet. Sed sed consequat lorem. Phasellus dapibus hendrerit arcu non eleifend. eu nisi condimentum, aliquam nisl placerat, interdum lacus. Consectetur adipiscing elit. Morbi facilisis luctus imperdiet. Sed sed consequat lorem. Phasellus dapibus hendrerit arcu non eleifend. eu nisi condimentum, aliquam nisl placerat, interdum lacus."></textarea>
+                        </div>
+                    </div>
+                </div>
+                <!-- END RECORD BOX 1 -->
+
+                <!-- RECORD BOX 2 -->
+                <div class="record-box-dropdown grey last">
+                    <div class="row record-box-header">
+                        <div class="col-md-2">
+                            <input type="text" class="form-control" id="date" placeholder="08u30">
+                        </div>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" id="title" placeholder="STADION CAMP NOU">
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control" id="title" placeholder="Mike Junior">
+                        </div>
+                        <div class="col-md-2">
+                            <a href=""><i class="fa fa-close icondelete recordclose"></i></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <textarea class="form-control" rows="5" id="description2" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi facilisis luctus imperdiet. Sed sed consequat lorem. Phasellus dapibus hendrerit arcu non eleifend. eu nisi condimentum, aliquam nisl placerat, interdum lacus. Consectetur adipiscing elit. Morbi facilisis luctus imperdiet. Sed sed consequat lorem. Phasellus dapibus hendrerit arcu non eleifend. eu nisi condimentum, aliquam nisl placerat, interdum lacus."></textarea>
+                        </div>
+                    </div>
+                </div>
+                <!-- END RECORD BOX 2 -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END DropDown 3 -->
+
+<!-- DropDown 4 -->
+<div class="droprecord" id="accordion" role="tablist" aria-multiselectable="true">
+    <div>
+        <div role="tab" id="headingEntertainment">
+            <h4>
+                <a id="droprecordlink" data-toggle="collapse" data-parent="#accordion" href="#collapse4" aria-expanded="true" aria-controls="collapse4">
+                    <i class="fa  fronticon">4</i><span class="droprecordtitle">25/08/2014</span><i class="indicator glyphicon glyphicon-chevron-down  pull-right droprecordarrow"></i>
+                </a>
+            </h4>
+        </div>
+        <div id="collapse4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading4">
+            <div class="dropPanel">
+                <div class="record-selector">
+                    <div class="record-dropdown">
+                        <label for="age" class="record-selector-label">Select a record <i class="fa fa-question-circle tooltipright" data-toggle="tooltip" data-placement="right" title="Select a record"></i></label>
+                        <select class="form-control selectpicker" data-live-search="true">
+                            <optgroup label="Section Transport">
+                                <option>Bus uren</option>
+                                <option>Toegangstickets</option>
+                            </optgroup>
+                            <optgroup label="Section Hotel & Sleeping">
+                                <option>Hotel 1</option>
+                                <option>Hotel 2</option>
+                                <option>Hotel 3</option>
+                            </optgroup>
+                            <optgroup label="Section Cultural Heritage">
+                                <option>Parc Gaudi</option>
+                                <option>Sagrada Familia</option>
+                                <option>Camp Nou</option>
+                            </optgroup>
+                            <optgroup label="Section Natural">
+                                <option>Stadspark</option>
+                                <option>Park Spoord Noord</option>
+                                <option>Harmonie</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- RECORD BOX 1 -->
+                <div class="record-box-dropdown light">
+                    <div class="row record-box-header">
+                        <div class="col-md-2">
+                            <input type="text" class="form-control" id="date" placeholder="08u30">
+                        </div>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" id="title" placeholder="STADION CAMP NOU">
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control" id="title" placeholder="Mike Junior">
+                        </div>
+                        <div class="col-md-2">
+                            <a href=""><i class="fa fa-close icondelete recordclose"></i></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <textarea class="form-control" rows="5" id="description2" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi facilisis luctus imperdiet. Sed sed consequat lorem. Phasellus dapibus hendrerit arcu non eleifend. eu nisi condimentum, aliquam nisl placerat, interdum lacus. Consectetur adipiscing elit. Morbi facilisis luctus imperdiet. Sed sed consequat lorem. Phasellus dapibus hendrerit arcu non eleifend. eu nisi condimentum, aliquam nisl placerat, interdum lacus."></textarea>
+                        </div>
+                    </div>
+                </div>
+                <!-- END RECORD BOX 1 -->
+
+                <!-- RECORD BOX 2 -->
+                <div class="record-box-dropdown grey last">
+                    <div class="row record-box-header">
+                        <div class="col-md-2">
+                            <input type="text" class="form-control" id="date" placeholder="08u30">
+                        </div>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" id="title" placeholder="STADION CAMP NOU">
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control" id="title" placeholder="Mike Junior">
+                        </div>
+                        <div class="col-md-2">
+                            <a href=""><i class="fa fa-close icondelete recordclose"></i></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <textarea class="form-control" rows="5" id="description2" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi facilisis luctus imperdiet. Sed sed consequat lorem. Phasellus dapibus hendrerit arcu non eleifend. eu nisi condimentum, aliquam nisl placerat, interdum lacus. Consectetur adipiscing elit. Morbi facilisis luctus imperdiet. Sed sed consequat lorem. Phasellus dapibus hendrerit arcu non eleifend. eu nisi condimentum, aliquam nisl placerat, interdum lacus."></textarea>
+                        </div>
+                    </div>
+                </div>
+                <!-- END RECORD BOX 2 -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END DropDown 4 -->
+
+<!-- DropDown 5 -->
+<div class="droprecord" id="accordion" role="tablist" aria-multiselectable="true">
+    <div>
+        <div role="tab" id="headingEntertainment">
+            <h4>
+                <a id="droprecordlink" data-toggle="collapse" data-parent="#accordion" href="#collapse5" aria-expanded="true" aria-controls="collapse5">
+                    <i class="fa  fronticon">5</i><span class="droprecordtitle">26/08/2014</span><i class="indicator glyphicon glyphicon-chevron-down  pull-right droprecordarrow"></i>
+                </a>
+            </h4>
+        </div>
+        <div id="collapse5" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading5">
+            <div class="dropPanel">
+                <div class="record-selector">
+                    <div class="record-dropdown">
+                        <label for="age" class="record-selector-label">Select a record <i class="fa fa-question-circle tooltipright" data-toggle="tooltip" data-placement="right" title="Select a record"></i></label>
+                        <select class="form-control selectpicker" data-live-search="true">
+                            <optgroup label="Section Transport">
+                                <option>Bus uren</option>
+                                <option>Toegangstickets</option>
+                            </optgroup>
+                            <optgroup label="Section Hotel & Sleeping">
+                                <option>Hotel 1</option>
+                                <option>Hotel 2</option>
+                                <option>Hotel 3</option>
+                            </optgroup>
+                            <optgroup label="Section Cultural Heritage">
+                                <option>Parc Gaudi</option>
+                                <option>Sagrada Familia</option>
+                                <option>Camp Nou</option>
+                            </optgroup>
+                            <optgroup label="Section Natural">
+                                <option>Stadspark</option>
+                                <option>Park Spoord Noord</option>
+                                <option>Harmonie</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- RECORD BOX 1 -->
+                <div class="record-box-dropdown light">
+                    <div class="row record-box-header">
+                        <div class="col-md-2">
+                            <input type="text" class="form-control" id="date" placeholder="08u30">
+                        </div>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" id="title" placeholder="STADION CAMP NOU">
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control" id="title" placeholder="Mike Junior">
+                        </div>
+                        <div class="col-md-2">
+                            <a href=""><i class="fa fa-close icondelete recordclose"></i></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <textarea class="form-control" rows="5" id="description2" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi facilisis luctus imperdiet. Sed sed consequat lorem. Phasellus dapibus hendrerit arcu non eleifend. eu nisi condimentum, aliquam nisl placerat, interdum lacus. Consectetur adipiscing elit. Morbi facilisis luctus imperdiet. Sed sed consequat lorem. Phasellus dapibus hendrerit arcu non eleifend. eu nisi condimentum, aliquam nisl placerat, interdum lacus."></textarea>
+                        </div>
+                    </div>
+                </div>
+                <!-- END RECORD BOX 1 -->
+
+                <!-- RECORD BOX 2 -->
+                <div class="record-box-dropdown grey last">
+                    <div class="row record-box-header">
+                        <div class="col-md-2">
+                            <input type="text" class="form-control" id="date" placeholder="08u30">
+                        </div>
+                        <div class="col-md-5">
+                            <input type="text" class="form-control" id="title" placeholder="STADION CAMP NOU">
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control" id="title" placeholder="Mike Junior">
+                        </div>
+                        <div class="col-md-2">
+                            <a href=""><i class="fa fa-close icondelete recordclose"></i></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <textarea class="form-control" rows="5" id="description2" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi facilisis luctus imperdiet. Sed sed consequat lorem. Phasellus dapibus hendrerit arcu non eleifend. eu nisi condimentum, aliquam nisl placerat, interdum lacus. Consectetur adipiscing elit. Morbi facilisis luctus imperdiet. Sed sed consequat lorem. Phasellus dapibus hendrerit arcu non eleifend. eu nisi condimentum, aliquam nisl placerat, interdum lacus."></textarea>
+                        </div>
+                    </div>
+                </div>
+                <!-- END RECORD BOX 2 -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END DropDown 5 -->
+
+</div>
+<!-- END Column 2 -->
+</div>
+<!-- END Row -->
+
+</div>
+<div class="col-md-12 go-to-journal-button">
+    <a href="#" class="newtripbutton">Go to Jounal</a>
+</div>
+</div>
+</div>
+{%  endblock %}
+{%  block javascripts %}
+    {{ parent() }}
+    <script>
+    "use strict";
+    var app = angular.module('recordsManager', [])
+            .config(function($interpolateProvider){
+                $interpolateProvider.startSymbol('{[').endSymbol(']}');
+            }
+
+    );
+
+    app.controller('ListController', function ( $scope, $http ){
+        $scope.aapke = "hond";
+
+        $scope.getSections = function(trip_id){
+            var records = {};
+            $http({
+                url: Routing.generate('load_sections', {id: trip_id}),
+                method: "POST",
+                data: {"foo":"bar"}
+            }).success(function(data, status, headers, config) {
+                var records = data;
+            }).error(function(data, status, headers, config) {
+                alert("Error when trying to get section data.");
+
+            });
+
+            return records;
+        };
+
+        console.log($scope.getSections(1));
+
+
+        $scope.getSection= function(){
+
+        };
+
+        $scope.updateRecord = function(){
+
+        };
+
+    });
+
+
+
+
+
+
+
+    </script>
+
+
+
+
+{%  endblock %}

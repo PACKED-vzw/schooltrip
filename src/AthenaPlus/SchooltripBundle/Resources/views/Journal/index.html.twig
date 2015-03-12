@@ -1,0 +1,79 @@
+{% extends '::base.html.twig' %}
+
+{% block contents%}
+
+    <button class="btn btn-primary" data-toggle="modal" data-target="#new-journal-modal">Create new journal</button>
+
+    <div class="modal fade" id="new-journal-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+
+                <div class="well">
+
+                        <form method="post" action="{{ path('journal_new') }}">
+                            <h4>Give journal a name</h4>
+                            <input type="text" id="journal-name" name="journal-name" class="form-control">
+
+                            <h4>Select trip</h4>
+
+
+                            <select name="trip" id="trip">
+                                {%  for trip in trips %}
+                                    <option value="{{ trip.id }}">{{ trip.title }}</option>
+                                {%  endfor %}
+                            </select>
+                            <h4>Select number of tabs</h4>
+
+                            <p>One tab is one day</p>
+
+                            <select name="numberOfTabs" id="number-of-tabs">
+                                {% for i in 1..100 %}
+                                   <option value="{{ i }}">{{ i }}</option>
+                                {% endfor %}
+                            </select>
+                            <hr>
+                            <input type="submit" class="btn btn-theme" id="btn-new-journal" value="Create new journal">
+                        </form>
+               </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <h1>Previously created journals</h1>
+
+    <table class="table records_list">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td>{{ entity.title }}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('journal_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+
+
+
+    {% endblock %}
+    {%  block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/journal.js') }}"></script>
+
+    {%  endblock %}

@@ -1,0 +1,12 @@
+<h1>Trip edit</h1>
+
+    {{ form(edit_form) }}
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('trip_show', { 'id': entity.id }) }}">
+            Back to trip
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>

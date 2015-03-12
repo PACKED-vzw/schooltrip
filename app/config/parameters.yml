@@ -1,0 +1,17 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_driver: pdo_mysql
+    database_host: 127.0.0.1
+    database_port: null
+    database_name: schooltrip
+    database_user: root
+    database_password: fullminibus99
+    mailer_transport: gmail
+    mailer_host: localhost
+    mailer_user: packedwebmailer
+    mailer_password: ditiseenzwakwachtwoord123
+    locale: en
+    secret: DJOkH2ftqaVNh2ysV01J
+    debug_toolbar: true
+    debug_redirects: false
+    use_assetic_controller: true

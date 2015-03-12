@@ -1,0 +1,52 @@
+student_records_index:
+    pattern:  /records
+    defaults: { _controller: "SchooltripBundle:Contents:studentRecordsIndex" }
+
+student_sections_index:
+    pattern:  /sections
+    defaults: { _controller: "SchooltripBundle:Contents:studentSectionsIndex" }
+
+contents_trip_detail:
+    pattern:  /trip/{id}
+    defaults: { _controller: "SchooltripBundle:Contents:detail" }
+
+submit_bookmarklet:
+    pattern: /submit
+    defaults: { _controller: "SchooltripBundle:Contents:submit" }
+
+contents_section_ajax_load:
+    pattern: /load-sections
+    defaults: { _controller: "SchooltripBundle:Contents:loadSectionInformationAjax" }
+    options:
+      expose: true
+
+contents_records_ajax_load:
+    pattern: /load-records
+    defaults: { _controller: "SchooltripBundle:Contents:loadRecordListAjax" }
+    options:
+      expose: true
+
+save_record_ajax:
+    pattern: /save-ajax
+    defaults: { _controller: "SchooltripBundle:Contents:saveRecordAjax"}
+    options:
+      expose: true
+
+load_record_ajax:
+    pattern:  /load
+    defaults: { _controller: "SchooltripBundle:Contents:loadRecordAjax" }
+    options:
+        expose: true
+
+
+change_state_ajax:
+    pattern:  /change-state
+    defaults: { _controller: "SchooltripBundle:Contents:changeStateAjax" }
+    options:
+        expose: true
+
+get_state_ajax:
+    pattern:  /get-state
+    defaults: { _controller: "SchooltripBundle:Contents:getStateAjax" }
+    options:
+        expose: true

@@ -1,0 +1,375 @@
+{% extends '::base.html.twig' %}
+
+{% block contents -%}
+    <div class="row">
+        <div class="col-md-12 pagetitle">
+            <h2><span>Trip list</span></h2>
+        </div>
+    </div>
+
+    <!-- Tables triplist data -->
+    <div class="table-responsive datatable">
+    <table class="table table-no-border" cellspacing="0px">
+    <thead>
+    <tr>
+        <th></th>
+        <th colspan="2"><div class="singletitle"><h4><span><a href="#">Title <i class="fa fa-caret-down arrowtitle"></i></a></span></h4></div></th>
+        <th colspan="2"><div class="singletitle"><h4><span><a href="#">Location <i class="fa fa-caret-down arrowtitle"></i></a></span></h4></div></th>
+        <th colspan="2"><div class="singletitle"><h4><span><a href="#">Date <i class="fa fa-caret-down arrowtitle"></i></a></span></h4></div></th>
+        <th colspan="2"><div class="singletitle"><h4><span><a href="#">Group <i class="fa fa-caret-down arrowtitle"></i></a></span></h4></div></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr class="datatr">
+            <td class="rownumber">{{ loop.index }}</td>
+            <td colspan="2" class="rowtrip">{{ entity.title }}</td>
+            <td colspan="2" class="rowlocation">{{ entity.departure }} - {{ entity.destination }}</td>
+            <td colspan="2" class="rowdate">{{ entity.dateFrom | date('d/m/Y') }} - {{ entity.dateTo | date('d/m/Y')}}</td>
+            <td colspan="2" class="rowgroup">
+                {% for group in entity.groups %}
+                    <span class="group-enum">{{ group.name }}</span>
+                {% endfor %}
+            </td>
+            <td class="rowedit"><a class="editbutton button-edit"  data-toggle="modal" href="#editModalTriplist" data-id="{{ entity.id }}">Edit</a></td>
+            <td class="rowparam"><a class="editbutton button-manage" data-toggle="modal" href="#paramModalTriplist" data-id="{{ entity.id }}">Manage sections</a></td>
+            <td class="rowgoto">
+                <ul class="goto-actions">
+                    <li><a href="{{ path('student_single_trip', { 'id' : entity.id}) }}">Student</a></li>
+                    <li>{% if (entity.journal.journalDates is defined ) and entity.journal.journalDates|length>0   %}<a href="{{ path('student_finished_journal', { 'id' : entity.id}) }}">Journal</a>{% else %}Journal not ready yet{% endif %}</li>
+                </ul>
+            </td>
+            <td class="rowdelete"><a class="trip-delete" data-id="{{ entity.id }}"><i class="fa fa-close icondelete"></a></td>
+        </tr>
+    {% endfor %}
+
+
+    </tbody>
+    </table>
+    </div>
+    <div class="row">
+        <div class="col-md-12 pagetitle">
+            <a data-toggle="modal" href="#createModalTriplist" class="newtripbutton">Create New Trip</a>
+
+            <!-- Modal CREATE NEW TRIP -->
+            <div class="modal fade" id="createModalTriplist" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">Create a new Trip</h4>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="form-group">
+                                <label for="title" class="modallabel">Title</label>
+                                <input type="text" class="form-control" id="new-title" placeholder="Fill in the title">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="description" class="modallabel">Description</label>
+                                <textarea class="form-control" rows="5" id="new-description" placeholder="Fill in the description"></textarea>
+                            </div>
+
+
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#" class="sectionbutton create-button">Create trip</a>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- END CREATE NEW TRIP modal -->
+
+
+        </div>
+    </div>
+    </div>
+    <!-- /.container -->
+
+
+
+
+    <!-- Modal EDIT TRIP -->
+    <div class="modal fade" id="editModalTriplist" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Edit Trip</h4>
+                </div>
+                <div class="modal-body" id="modal-body-edit">
+                    <div class="form-group">
+                        <label for="title" class="modallabel">Title </label>
+                        <input type="text" class="form-control" id="edit-title" placeholder="Fill in the title">
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <label for="description" class="modallabel">Description</label>
+                        <textarea class="form-control" rows="5" id="edit-description" placeholder="Fill in the description"></textarea>
+                    </div>
+
+                    <div class="alert alert-warning" role="alert">
+                        Groups can only be linked to one trip. Groups in <span class="label label-danger">red</span> are already appointed to another trip. Selecting them here will remove them from the other trip.
+
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-age" class="modallabel">Age group</label>
+                        <select class="form-control selectpicker" multiple title='Choose group' id="edit-age">
+                            {% for group in groups %}
+                                <option value="{{ group.id }}" data-content="<span class='label {% if group.trip %} label-danger {% else %} label-default {% endif %}'>{{ group.name }}</span>">{{ group.name }}</option>
+                            {%  endfor %}
+                        </select>
+                    </div>
+                    <div class="well" style="display: none;" id="journal-created">
+                        <p>
+                            You can't change dates since a journal was already created.
+                        </p>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-date-from">Date from</label>
+                        <input type="text" class="form-control"  id="edit-date-from" name="from">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-date-to">Date to</label>
+                        <input type="text" class="form-control"  id="edit-date-to" name="to">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="departure" class="modallabel">Departure</label>
+                        <input type="text" class="form-control" id="edit-departure" placeholder="Fill in departure city">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="destination" class="modallabel">Destination</label>
+                        <input type="text" class="form-control" id="edit-destination" placeholder="Fill in destination city">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="sectionbutton update-button">Update</a>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- END Modal EDIT TRIP -->
+
+
+    <!-- Modal Parameters Triplist  -->
+    <div class="modal fade" id="paramModalTriplist" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Manage sections</h4>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-no-border" cellspacing="0px">
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="sectionbutton" id="create-new-section">Create new section</a>
+                    <a href="#" class="sectionbutton" id="back-to-sections" style="display: none;">Back to sections overview</a>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- END Modal Parameters Triplist 1 -->
+
+    <!-- handlebar templates -->
+    {% verbatim %}
+        <script id="section-template" type="text/x-handlebars-template">
+            <tr class="datatr section-row" id="section-row-{{ id }}">
+                <td class="iconmodal"><i class="fa {{ type }}"></i></td>
+                <td colspan="3" class="modaldescr">{{ title }}</td>
+                <td class="modaledit" data-id="{{ id }}"><a href="#" data-id="{{ id }}" class="modaleditbutton edit-section-btn" id="section-edit-button-{{ id }}">Edit</a></td>
+                <td class="modalparam" data-id="{{ id }}"><a href="#"  data-id="{{ id }}"class="modalparambutton">Manage parameters</a></td>
+                <td class="modaldelete" data-id="{{ id }}"><a href="#" data-id="{{ id }}" class="section-delete-btn"><i class="fa fa-close iconmodaldelete"></a></td>
+            </tr>
+        </script>
+        <script id="open-section-template" type="text/x-handlebars-template">
+            <tr class="datatr openbox" id="edit-section-{{ id }}">
+                    <form role="form">
+                    <td colspan="4">
+                    <div class="form-group">
+                    <label for="title" class="modallabel">Title</label>
+            <input type="text" class="form-control" id="section-title-{{ id }}" placeholder="Fill in the title" value="{{ title }}">
+                    </div>
+            <div class="form-group">
+                <label for="section-genre-{{ id }}" class="modallabel">Genre</label>
+
+                <select id="section-genre-{{ id }}" class="form-control">
+                        <option value="fa-cutlery" {{#ifCond type '==' 'fa-cutlery'}}selected{{/ifCond}}>Food</option>
+                        <option value="fa-bus" {{#ifCond type '==' 'fa-bus'}}selected{{/ifCond}}>Transport</option>
+                        <option value="fa-heart" {{#ifCond type '==' 'fa-heart'}}selected{{/ifCond}}>Culture</option>
+                        <option value="fa-futbol-o" {{#ifCond type '==' 'fa-futbol-o'}}selected{{/ifCond}}>Sport</option>
+                        <option value="fa-plane" {{#ifCond type '==' 'fa-plane'}}selected{{/ifCond}}>Flight</option>
+                        <option value="fa-bed" {{#ifCond type '==' 'fa-bed'}}selected{{/ifCond}}>Sleep</option>
+                        <option value="fa-university" {{#ifCond type '==' 'fa-university'}}selected{{/ifCond}}>Museum</option>
+                        <option value="fa-tree" {{#ifCond type '==' 'fa-tree'}}selected{{/ifCond}}>Nature</option>
+                        <option value="fa-film" {{#ifCond type '==' 'fa-film'}}selected{{/ifCond}}>Entertainment</option>
+                        <option value="fa-clock-o" {{#ifCond type '==' 'fa-clock-o'}}selected{{/ifCond}}>Hours</option>
+                        <option value="fa-users" {{#ifCond type '==' 'fa-users'}}selected{{/ifCond}}>Tour</option>
+                </select>
+            </div>
+
+
+
+            </td>
+            <td colspan="3">
+            <div class="form-group">
+                <label for="section-description-{{ id }}" class="modallabel">Description</label>
+                <textarea class="form-control" rows="5" id="section-description-{{ id }}" placeholder="Fill in the description">{{ description }}</textarea>
+            </div>
+            </td>
+            </form>
+
+            </tr>
+        </script>
+
+
+        <script id="manage-parameters-template" type="text/x-handlebars-template">
+            <tr class="datatr" id="edit-challenge-row">
+                    <td class="modalDetailTitle">Challenge</td>
+                    <td class="modalDetailDescr" id="syn-challenge">{{ challenge }}</td>
+                    <td class="modaledit"><a href="#" class="modalEditDetailbutton edit-challenge-btn" data-save-method="challenge">Edit</a></td>
+            </tr>
+
+            <tr class="datatr" id="edit-media-row">
+                    <td class="modalDetailTitle">Media</td>
+                    <td class="modalDetailDescr"></td>
+                    <td class="modaledit"><a href="#" class="modalEditDetailbutton edit-media-btn" data-save-method="media">Edit</a></td>
+            </tr>
+
+            <tr class="datatr" id="edit-link-row">
+                    <td class="modalDetailTitle">Link</td>
+            <td class="modalDetailDescr" id="syn-link">{{ link.url }}</td>
+            <td class="modaledit"><a href="#" class="modalEditDetailbutton edit-link-btn" data-save-method="link">Edit</a></td>
+            </tr>
+        </script>
+
+
+
+        <script id="edit-challenge-template" type="text/x-handlebars-template">
+            <div class="datatr section-challenge-open">
+                    <!--<div>
+                        <ul>
+                            {{#each objects}}
+                            <li>{{name}}</li>
+                            {{/each}}
+                        </ul>
+                    </div>-->
+
+                    <div class="form-group">
+                        <label for="challenge-text" class="modallabel">Challenge</label>
+                        <input type="text" class="form-control" id="challenge-text" placeholder="Provide the challenge" value="{{ challenge }}">
+                    </div>
+
+            </div>
+        </script>
+        <script id="edit-media-template" type="text/x-handlebars-template">
+            <div class="datatr section-media-open">
+                <div id="image-edit">
+
+                </div>
+                <div id="parameter-images">
+
+                </div>
+                <div class="form-group">
+                    <a class="sectionbutton add-image-btn">Add image</a>
+                    <input type="button" id="new-image-btn" value="Upload" class="sectionbutton hidden">
+                </div>
+            </div>
+        </script>
+
+
+        <script id="edit-media-template-open" type="text/x-handlebars-template">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="labelimage" class="modallabel">Label</label>
+                        <input type="text" class="form-control" id="media-label-image" placeholder="Fill in the image label" value="{{ label }}">
+                    </div>
+
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="description" class="modallabel">Description</label>
+                        <textarea class="form-control" rows="10" id="media-description" placeholder="Fill in the description">{{ description }}</textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <br/>
+                    <a class="sectionbutton update-image-btn" data-id="{{ id }}">Update image</a>
+                </div>
+
+            </div>
+
+
+        </script>
+
+
+        <script id="edit-link-template" type="text/x-handlebars-template">
+            <div class="datatr section-link-open">
+                <div>
+                    <ul>
+                        {{#each objects}}
+                        <li>{{name}}</li>
+                        {{/each}}
+                    </ul>
+                </div>
+                <div class="form-group">
+                    <label for="link-label-text" class="modallabel">Label</label>
+                    <input type="text" class="form-control" id="link-label-text" placeholder="Label" value="{{ link.label }}">
+                </div>
+                <div class="form-group">
+                    <label for="link-url-text" class="modallabel">Url</label>
+                    <input type="url" class="form-control" id="link-url-text" placeholder="Url" value="{{ link.url }}">
+                </div>
+
+            </div>
+        </script>
+        <script id="section-image-template" type="text/x-handlebars-template">
+            <div class="col-md-3 thumbnail-cell" data-id="{{ id }}" data-uploaded="0">
+                <a href="#" class="thumbnail">
+                    <img src="/{{ thumbnail }}" data-id="{{ id }}" id="{{ id }}">
+                    <a href="#" data-id="{{ id }}" class="closeButtonTopRight close delete-image"><i class="fa fa-close modalicondeletedetail"></i></a>
+            </div>
+        </script>
+    {% endverbatim %}
+
+    {% endblock %}
+
+    {%  block javascripts %}
+        {{ parent() }}
+        <script src="{{ asset('js/admin.js') }}"></script>
+
+        <script>
+            $(function() {
+                $( "#edit-date-from" ).datepicker({
+                    defaultDate: "+1w",
+                    changeMonth: true,
+                    numberOfMonths: 3,
+                    dateFormat: 'dd/mm/yy',
+                    onClose: function( selectedDate ) {
+                        $( "#to" ).datepicker( "option", "minDate", selectedDate );
+                    }
+                });
+                $( "#edit-date-to" ).datepicker({
+                    defaultDate: "+1w",
+                    changeMonth: true,
+                    numberOfMonths: 3,
+                    dateFormat: 'dd/mm/yy',
+                    onClose: function( selectedDate ) {
+                        $( "#from" ).datepicker( "option", "maxDate", selectedDate );
+                    }
+                });
+            });
+        </script>
+
+
+
+    {%  endblock %}

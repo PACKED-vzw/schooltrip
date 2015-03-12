@@ -1,0 +1,652 @@
+{% extends '::base.html.twig' %}
+
+{% block contents -%}
+
+
+    <div class="well">
+        You currently don't have any trip assigned ... // user hangt vast aan group en group aan
+    </div>
+    <!-- Page Content -->
+    <div class="container">
+    <div class="row">
+        <div class="col-md-12 pagetitle">
+            <h2><span>FootbalCamp 2014</span></h2>
+        </div>
+    </div>
+
+    <!-- Content Left -->
+    <div class="row">
+    <div class="col-md-4 tripsingle">
+        <div class="tripform">
+            <h3>Brussels - Barcelona</h3>
+            <div class="dateBox">
+
+                <div class="col-md-5">
+                    <p>From</p>
+                    <p class="dateField">23/11/14</p>
+                </div>
+                <div class="col-md-2 dateArrow">
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
+                </div>
+                <div class="col-md-5">
+                    <p>Untill</p>
+                    <p class="dateField">28/11/14</p>
+                </div>
+            </div>
+            <div class="boxbottom">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi facilisis luctus imperdiet. Sed sed consequat lorem. Phasellus dapibus hendrerit arcu non eleifend. eu nisi condimentum, aliquam nisl placerat, interdum lacus.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content Right -->
+    <div class="col-md-8 recordbox">
+    <h3>Records</h3>
+
+    <!-- Dropdown records -->
+    <div class="row">
+    <!-- Column 1 -->
+    <div class="col-md-6">
+
+    <!-- Food & Drinks -->
+    <div class="droprecord" id="accordion" role="tablist" aria-multiselectable="true">
+        <div>
+            <div role="tab" id="headingEntertainment">
+                <h4>
+                    <a id="droprecordlink" data-toggle="collapse" data-parent="#accordion" href="#collapseFood" aria-expanded="true" aria-controls="collapseFood">
+                        <i class="fa fa-cutlery fronticon"></i><span class="droprecordtitle">Food & Drinks</span><i class="indicator glyphicon glyphicon-chevron-down  pull-right droprecordarrow"></i>
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseFood" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFood">
+                <div class="dropPanel">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi facilisis luctus imperdiet. Sed sed consequat lorem. Phasellus dapibus hendrerit arcu non eleifend. eu nisi condimentum, aliquam nisl placerat, interdum lacus.</p>
+                    <p class="smalllinks">Find 3 Tapa-bars in Barcelona!</p>
+                    <p class="smalllinks">http://www.google.com</p>
+                    <a data-toggle="modal" href="#manageRecordsFood" class="managelink"><h4 class="managerecords">Manage record</h4></a>
+                    <!-- Modal RECORDS FOOD & DRINKS -->
+                    <div class="modal fade" id="manageRecordsFood" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 class="modal-title">Records</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <h4><i class="fa fa-cutlery"></i> Food & Drinks </h4>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi facilisis luctus imperdiet. Sed sed consequat lorem. Phasellus dapibus hendrerit arcu non eleifend. eu nisi condimentum, aliquam nisl placerat, interdum lacus.</p>
+                                    <div class="recordboxes">
+                                        <p class="smalllinks">Find 3 tapas bars in Barcelona!</p>
+                                        <p class="smalllinks">http://www.major-yom.be</p>
+                                    </div>
+                                    <div class="row">
+                                        <p class="clear">
+                                        <hr>
+                                    </div>
+
+                                    <table class="table table-no-border" cellspacing="0px">
+                                        <tbody>
+                                        <tr class="datatr">
+                                            <td class="modalDetailTitle">Mike Junior</td>
+                                            <td class="modalDetailDescr">Openingsuren Bar Tapas</td>
+                                            <td class="modaledit"><a href="#" class="modalEditDetailbutton">Edit</a></td>
+                                            <td class="modaldelete"><a href=""><i class="fa fa-close modalicondeletedetail"></a></td>
+                                        </tr>
+                                        <tr class="datatr">
+                                            <td class="modalDetailTitle bluetemporary">Mike Junior</td>
+                                            <td class="modalDetailDescr bluetemporary">Media bar tapas</td>
+                                            <td class="modaledit bluetemporary"><a href="#" class="modalEditDetailbutton">Edit</a></td>
+                                            <td class="modaldelete bluetemporary"><a href=""><i class="fa fa-close modalicondeletedetailwhite"></a></td>
+                                        </tr>
+                                        <tr class="datatr openbox">
+                                            <td colspan="4">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="labelimage" class="modallabel">Title <i class="fa fa-question-circle tooltipright" data-toggle="tooltip" data-placement="right" title="Here comes the title"></i></label>
+                                                            <input type="text" class="form-control" id="labelimage" placeholder="Fill in the image label">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="url" class="modallabel">Url <i class="fa fa-question-circle tooltipright" data-toggle="tooltip" data-placement="right" title="Here comes the image url"></i></label>
+                                                            <input type="text" class="form-control" id="url" placeholder="Fill in the image url">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="searchimage" class="modallabel">Upload media <i class="fa fa-question-circle tooltipright" data-toggle="tooltip" data-placement="right" title="Upload your image file here"></i></label>
+                                                            <input type="text" class="form-control" id="searchimage" placeholder="Search for image">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="file" id="searchimage" class="uploadTextModal">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="description" class="modallabel">Description <i class="fa fa-question-circle tooltipbottom" data-toggle="tooltip" data-placement="bottom" title="Here comes the image description"></i></label>
+                                                            <textarea class="form-control" rows="10" id="description" placeholder="Fill in the description"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-3">
+                                                    <a href="#" class="thumbnail">
+                                                        <img src="http://major-lab.be/schooltrip/img/icons/apple-touch-icon-57x57.png" alt="...">
+                                                        <a href="#" class="closeButtonTopRight"><i class="fa fa-close modalicondeletedetail"></i></a>
+                                                    </a>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <a href="#" class="thumbnail">
+                                                        <img src="http://major-lab.be/schooltrip/img/icons/apple-touch-icon-57x57.png" alt="...">
+                                                        <a href="#" class="closeButtonTopRight"><i class="fa fa-close modalicondeletedetail"></i></a>
+                                                    </a>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <a href="#" class="thumbnail">
+                                                        <img src="http://major-lab.be/schooltrip/img/icons/apple-touch-icon-57x57.png" alt="...">
+                                                        <a href="#" class="closeButtonTopRight"><i class="fa fa-close modalicondeletedetail"></i></a>
+                                                    </a>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <a href="#" class="thumbnail">
+                                                        <img src="http://major-lab.be/schooltrip/img/icons/apple-touch-icon-57x57.png" alt="...">
+                                                        <a href="#" class="closeButtonTopRight"><i class="fa fa-close modalicondeletedetail"></i></a>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr class="datatr">
+                                            <td class="modalDetailTitle">Mike Junior</td>
+                                            <td class="modalDetailDescr">Openingsuren Bar Tapas</td>
+                                            <td class="modaledit"><a href="#" class="modalEditDetailbutton">Edit</a></td>
+                                            <td class="modaldelete"><a href=""><i class="fa fa-close modalicondeletedetail"></a></td>
+                                        </tr>
+                                        <tr class="datatr">
+                                            <td class="modalDetailTitle">Mike Junior</td>
+                                            <td class="modalDetailDescr">Openingsuren Bar Tapas</td>
+                                            <td class="modaledit"><a href="#" class="modalEditDetailbutton">Edit</a></td>
+                                            <td class="modaldelete"><a href=""><i class="fa fa-close modalicondeletedetail"></a></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <a href="#" class="sectionbutton">Create New Record</a>
+                                </div>
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div>
+                    <!-- END Modal RECORDS FOOD & DRINKS -->
+                    <h4 class="bottomDropRecords">This is finished</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hotel & Sleeping -->
+    <div class="droprecord" id="accordion" role="tablist" aria-multiselectable="true">
+        <div>
+            <div role="tab" id="headingHotel">
+                <h4>
+                    <a id="droprecordlink" data-toggle="collapse" data-parent="#accordion" href="#collapseHotel" aria-expanded="true" aria-controls="collapseFood">
+                        <i class="fa fa-home fronticon"></i><span class="droprecordtitle">Hotel & Sleeping</span><i class="indicator glyphicon glyphicon-chevron-down  pull-right droprecordarrow"></i>
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseHotel" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingHotel">
+                <div class="dropPanel">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi facilisis luctus imperdiet. Sed sed consequat lorem. Phasellus dapibus hendrerit arcu non eleifend. eu nisi condimentum, aliquam nisl placerat, interdum lacus.</p>
+                    <p class="smalllinks">Find 3 Tapa-bars in Barcelona!</p>
+                    <p class="smalllinks">http://www.google.com</p>
+                    <a data-toggle="modal" href="#manageRecordsHotel" class="managelink"><h4 class="managerecords">Manage record</h4></a>
+                    <!-- Modal RECORDS HOTEL & SLEEPING -->
+                    <div class="modal fade" id="manageRecordsHotel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 class="modal-title">Records</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <h4><i class="fa fa-home"></i> Hotel & Sleeping </h4>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi facilisis luctus imperdiet. Sed sed consequat lorem. Phasellus dapibus hendrerit arcu non eleifend. eu nisi condimentum, aliquam nisl placerat, interdum lacus.</p>
+                                    <div class="recordboxes">
+                                        <p class="smalllinks">Find 3 tapas bars in Barcelona!</p>
+                                        <p class="smalllinks">http://www.major-yom.be</p>
+                                    </div>
+                                    <div class="row">
+                                        <p class="clear">
+                                        <hr>
+                                    </div>
+
+                                    <table class="table table-no-border" cellspacing="0px">
+                                        <tbody>
+                                        <tr class="datatr">
+                                            <td class="modalDetailTitle">Mike Junior</td>
+                                            <td class="modalDetailDescr">Openingsuren Bar Tapas</td>
+                                            <td class="modaledit"><a href="#" class="modalEditDetailbutton">Edit</a></td>
+                                            <td class="modaldelete"><a href=""><i class="fa fa-close modalicondeletedetail"></a></td>
+                                        </tr>
+                                        <tr class="datatr">
+                                            <td class="modalDetailTitle bluetemporary">Mike Junior</td>
+                                            <td class="modalDetailDescr bluetemporary">Media bar tapas</td>
+                                            <td class="modaledit bluetemporary"><a href="#" class="modalEditDetailbutton">Edit</a></td>
+                                            <td class="modaldelete bluetemporary"><a href=""><i class="fa fa-close modalicondeletedetailwhite"></a></td>
+                                        </tr>
+                                        <tr class="datatr openbox">
+                                            <td colspan="4">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="labelimage" class="modallabel">Title <i class="fa fa-question-circle tooltipright" data-toggle="tooltip" data-placement="right" title="Here comes the title"></i></label>
+                                                            <input type="text" class="form-control" id="labelimage" placeholder="Fill in the image label">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="url" class="modallabel">Url <i class="fa fa-question-circle tooltipright" data-toggle="tooltip" data-placement="right" title="Here comes the image url"></i></label>
+                                                            <input type="text" class="form-control" id="url" placeholder="Fill in the image url">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="searchimage" class="modallabel">Upload media <i class="fa fa-question-circle tooltipright" data-toggle="tooltip" data-placement="right" title="Upload your image file here"></i></label>
+                                                            <input type="text" class="form-control" id="searchimage" placeholder="Search for image">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="file" id="searchimage" class="uploadTextModal">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="description" class="modallabel">Description <i class="fa fa-question-circle tooltipbottom" data-toggle="tooltip" data-placement="bottom" title="Here comes the image description"></i></label>
+                                                            <textarea class="form-control" rows="10" id="description" placeholder="Fill in the description"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-3">
+                                                    <a href="#" class="thumbnail">
+                                                        <img src="http://major-lab.be/schooltrip/img/icons/apple-touch-icon-57x57.png" alt="...">
+                                                        <a href="#" class="closeButtonTopRight"><i class="fa fa-close modalicondeletedetail"></i></a>
+                                                    </a>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <a href="#" class="thumbnail">
+                                                        <img src="http://major-lab.be/schooltrip/img/icons/apple-touch-icon-57x57.png" alt="...">
+                                                        <a href="#" class="closeButtonTopRight"><i class="fa fa-close modalicondeletedetail"></i></a>
+                                                    </a>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <a href="#" class="thumbnail">
+                                                        <img src="http://major-lab.be/schooltrip/img/icons/apple-touch-icon-57x57.png" alt="...">
+                                                        <a href="#" class="closeButtonTopRight"><i class="fa fa-close modalicondeletedetail"></i></a>
+                                                    </a>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <a href="#" class="thumbnail">
+                                                        <img src="http://major-lab.be/schooltrip/img/icons/apple-touch-icon-57x57.png" alt="...">
+                                                        <a href="#" class="closeButtonTopRight"><i class="fa fa-close modalicondeletedetail"></i></a>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr class="datatr">
+                                            <td class="modalDetailTitle">Mike Junior</td>
+                                            <td class="modalDetailDescr">Openingsuren Bar Tapas</td>
+                                            <td class="modaledit"><a href="#" class="modalEditDetailbutton">Edit</a></td>
+                                            <td class="modaldelete"><a href=""><i class="fa fa-close modalicondeletedetail"></a></td>
+                                        </tr>
+                                        <tr class="datatr">
+                                            <td class="modalDetailTitle">Mike Junior</td>
+                                            <td class="modalDetailDescr">Openingsuren Bar Tapas</td>
+                                            <td class="modaledit"><a href="#" class="modalEditDetailbutton">Edit</a></td>
+                                            <td class="modaldelete"><a href=""><i class="fa fa-close modalicondeletedetail"></a></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <a href="#" class="sectionbutton">Create New Record</a>
+                                </div>
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div>
+                    <!-- END Modal RECORDS HOTEL & SLEEPING -->
+
+                    <h4 class="bottomDropRecords">This is finished</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TRANSPORT -->
+    <div class="droprecord" id="accordion" role="tablist" aria-multiselectable="true">
+        <div>
+            <div role="tab" id="headingTransport">
+                <h4>
+                    <a id="droprecordlink" data-toggle="collapse" data-parent="#accordion" href="#collapseTransport" aria-expanded="true" aria-controls="collapseTransport">
+                        <i class="fa fa-bus fronticon"></i><span class="droprecordtitle">Transport</span><i class="indicator glyphicon glyphicon-chevron-down  pull-right droprecordarrow"></i>
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseTransport" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTransport">
+                <div class="dropPanel">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi facilisis luctus imperdiet. Sed sed consequat lorem. Phasellus dapibus hendrerit arcu non eleifend. eu nisi condimentum, aliquam nisl placerat, interdum lacus.</p>
+                    <p class="smalllinks">Find 3 Tapa-bars in Barcelona!</p>
+                    <p class="smalllinks">http://www.google.com</p>
+                    <a data-toggle="modal" href="#manageRecordsTransport" class="managelink"><h4 class="managerecords">Manage record</h4></a>
+                    <!-- Modal TRANSPORT-->
+                    <div class="modal fade" id="manageRecordsTransport" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 class="modal-title">Records</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <h4><i class="fa fa-bus"></i> Transport</h4>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi facilisis luctus imperdiet. Sed sed consequat lorem. Phasellus dapibus hendrerit arcu non eleifend. eu nisi condimentum, aliquam nisl placerat, interdum lacus.</p>
+                                    <div class="recordboxes">
+                                        <p class="smalllinks">Find 3 tapas bars in Barcelona!</p>
+                                        <p class="smalllinks">http://www.major-yom.be</p>
+                                    </div>
+                                    <div class="row">
+                                        <p class="clear">
+                                        <hr>
+                                    </div>
+
+                                    <table class="table table-no-border" cellspacing="0px">
+                                        <tbody>
+                                        <tr class="datatr">
+                                            <td class="modalDetailTitle">Mike Junior</td>
+                                            <td class="modalDetailDescr">Openingsuren Bar Tapas</td>
+                                            <td class="modaledit"><a href="#" class="modalEditDetailbutton">Edit</a></td>
+                                            <td class="modaldelete"><a href=""><i class="fa fa-close modalicondeletedetail"></a></td>
+                                        </tr>
+                                        <tr class="datatr">
+                                            <td class="modalDetailTitle bluetemporary">Mike Junior</td>
+                                            <td class="modalDetailDescr bluetemporary">Media bar tapas</td>
+                                            <td class="modaledit bluetemporary"><a href="#" class="modalEditDetailbutton">Edit</a></td>
+                                            <td class="modaldelete bluetemporary"><a href=""><i class="fa fa-close modalicondeletedetailwhite"></a></td>
+                                        </tr>
+                                        <tr class="datatr openbox">
+                                            <td colspan="4">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="labelimage" class="modallabel">Title <i class="fa fa-question-circle tooltipright" data-toggle="tooltip" data-placement="right" title="Here comes the title"></i></label>
+                                                            <input type="text" class="form-control" id="labelimage" placeholder="Fill in the image label">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="url" class="modallabel">Url <i class="fa fa-question-circle tooltipright" data-toggle="tooltip" data-placement="right" title="Here comes the image url"></i></label>
+                                                            <input type="text" class="form-control" id="url" placeholder="Fill in the image url">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="searchimage" class="modallabel">Upload media <i class="fa fa-question-circle tooltipright" data-toggle="tooltip" data-placement="right" title="Upload your image file here"></i></label>
+                                                            <input type="text" class="form-control" id="searchimage" placeholder="Search for image">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="file" id="searchimage" class="uploadTextModal">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="description" class="modallabel">Description <i class="fa fa-question-circle tooltipbottom" data-toggle="tooltip" data-placement="bottom" title="Here comes the image description"></i></label>
+                                                            <textarea class="form-control" rows="10" id="description" placeholder="Fill in the description"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-3">
+                                                    <a href="#" class="thumbnail">
+                                                        <img src="http://major-lab.be/schooltrip/img/icons/apple-touch-icon-57x57.png" alt="...">
+                                                        <a href="#" class="closeButtonTopRight"><i class="fa fa-close modalicondeletedetail"></i></a>
+                                                    </a>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <a href="#" class="thumbnail">
+                                                        <img src="http://major-lab.be/schooltrip/img/icons/apple-touch-icon-57x57.png" alt="...">
+                                                        <a href="#" class="closeButtonTopRight"><i class="fa fa-close modalicondeletedetail"></i></a>
+                                                    </a>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <a href="#" class="thumbnail">
+                                                        <img src="http://major-lab.be/schooltrip/img/icons/apple-touch-icon-57x57.png" alt="...">
+                                                        <a href="#" class="closeButtonTopRight"><i class="fa fa-close modalicondeletedetail"></i></a>
+                                                    </a>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <a href="#" class="thumbnail">
+                                                        <img src="http://major-lab.be/schooltrip/img/icons/apple-touch-icon-57x57.png" alt="...">
+                                                        <a href="#" class="closeButtonTopRight"><i class="fa fa-close modalicondeletedetail"></i></a>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr class="datatr">
+                                            <td class="modalDetailTitle">Mike Junior</td>
+                                            <td class="modalDetailDescr">Openingsuren Bar Tapas</td>
+                                            <td class="modaledit"><a href="#" class="modalEditDetailbutton">Edit</a></td>
+                                            <td class="modaldelete"><a href=""><i class="fa fa-close modalicondeletedetail"></a></td>
+                                        </tr>
+                                        <tr class="datatr">
+                                            <td class="modalDetailTitle">Mike Junior</td>
+                                            <td class="modalDetailDescr">Openingsuren Bar Tapas</td>
+                                            <td class="modaledit"><a href="#" class="modalEditDetailbutton">Edit</a></td>
+                                            <td class="modaldelete"><a href=""><i class="fa fa-close modalicondeletedetail"></a></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <a href="#" class="sectionbutton">Create New Record</a>
+                                </div>
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div>
+                    <!-- END Modal RECORDS FOOD & DRINKS -->
+                    <h4 class="bottomDropRecords">This is finished</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </div>
+    <!-- END Column 1 -->
+
+    <!-- START Column 2 -->
+    <div class="col-md-6">
+
+        <!-- Entertainment -->
+        <div class="droprecord" id="accordion" role="tablist" aria-multiselectable="true">
+            <div>
+                <div role="tab" id="headingEntertainment">
+                    <h4>
+                        <a id="droprecordlink" data-toggle="collapse" data-parent="#accordion" href="#collapseEntertainment" aria-expanded="true" aria-controls="collapseEntertainment">
+                            <i class="fa fa-smile-o fronticon"></i><span class="droprecordtitle">Entertainment</span><i class="indicator glyphicon glyphicon-chevron-down  pull-right droprecordarrow"></i>
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseEntertainment" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingEntertainment">
+                    <div class="dropPanel">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi facilisis luctus imperdiet. Sed sed consequat lorem. Phasellus dapibus hendrerit arcu non eleifend. eu nisi condimentum, aliquam nisl placerat, interdum lacus.</p>
+                        <p class="smalllinks">Find 3 Tapa-bars in Barcelona!</p>
+                        <p class="smalllinks">http://www.google.com</p>
+                        <a data-toggle="modal" href="#manageRecordsEntertainment" class="managelink"><h4 class="managerecords">Manage record</h4></a>
+                        <!-- Modal RECORDS ENTERTAINMENT -->
+                        <div class="modal fade" id="manageRecordsEntertainment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title">Records</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h4><i class="fa fa-smile-o"></i> Entertainment </h4>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi facilisis luctus imperdiet. Sed sed consequat lorem. Phasellus dapibus hendrerit arcu non eleifend. eu nisi condimentum, aliquam nisl placerat, interdum lacus.</p>
+                                        <div class="recordboxes">
+                                            <p class="smalllinks">Find 3 tapas bars in Barcelona!</p>
+                                            <p class="smalllinks">http://www.major-yom.be</p>
+                                        </div>
+                                        <div class="row">
+                                            <p class="clear">
+                                            <hr>
+                                        </div>
+
+                                        <table class="table table-no-border" cellspacing="0px">
+                                            <tbody>
+                                            <tr class="datatr">
+                                                <td class="modalDetailTitle">Mike Junior</td>
+                                                <td class="modalDetailDescr">Openingsuren Bar Tapas</td>
+                                                <td class="modaledit"><a href="#" class="modalEditDetailbutton">Edit</a></td>
+                                                <td class="modaldelete"><a href=""><i class="fa fa-close modalicondeletedetail"></a></td>
+                                            </tr>
+                                            <tr class="datatr">
+                                                <td class="modalDetailTitle bluetemporary">Mike Junior</td>
+                                                <td class="modalDetailDescr bluetemporary">Media bar tapas</td>
+                                                <td class="modaledit bluetemporary"><a href="#" class="modalEditDetailbutton">Edit</a></td>
+                                                <td class="modaldelete bluetemporary"><a href=""><i class="fa fa-close modalicondeletedetailwhite"></a></td>
+                                            </tr>
+                                            <tr class="datatr openbox">
+                                                <td colspan="4">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="labelimage" class="modallabel">Title <i class="fa fa-question-circle tooltipright" data-toggle="tooltip" data-placement="right" title="Here comes the title"></i></label>
+                                                                <input type="text" class="form-control" id="labelimage" placeholder="Fill in the image label">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="url" class="modallabel">Url <i class="fa fa-question-circle tooltipright" data-toggle="tooltip" data-placement="right" title="Here comes the image url"></i></label>
+                                                                <input type="text" class="form-control" id="url" placeholder="Fill in the image url">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="searchimage" class="modallabel">Upload media <i class="fa fa-question-circle tooltipright" data-toggle="tooltip" data-placement="right" title="Upload your image file here"></i></label>
+                                                                <input type="text" class="form-control" id="searchimage" placeholder="Search for image">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <input type="file" id="searchimage" class="uploadTextModal">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="description" class="modallabel">Description <i class="fa fa-question-circle tooltipbottom" data-toggle="tooltip" data-placement="bottom" title="Here comes the image description"></i></label>
+                                                                <textarea class="form-control" rows="10" id="description" placeholder="Fill in the description"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-3">
+                                                        <a href="#" class="thumbnail">
+                                                            <img src="http://major-lab.be/schooltrip/img/icons/apple-touch-icon-57x57.png" alt="...">
+                                                            <a href="#" class="closeButtonTopRight"><i class="fa fa-close modalicondeletedetail"></i></a>
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <a href="#" class="thumbnail">
+                                                            <img src="http://major-lab.be/schooltrip/img/icons/apple-touch-icon-57x57.png" alt="...">
+                                                            <a href="#" class="closeButtonTopRight"><i class="fa fa-close modalicondeletedetail"></i></a>
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <a href="#" class="thumbnail">
+                                                            <img src="http://major-lab.be/schooltrip/img/icons/apple-touch-icon-57x57.png" alt="...">
+                                                            <a href="#" class="closeButtonTopRight"><i class="fa fa-close modalicondeletedetail"></i></a>
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <a href="#" class="thumbnail">
+                                                            <img src="http://major-lab.be/schooltrip/img/icons/apple-touch-icon-57x57.png" alt="...">
+                                                            <a href="#" class="closeButtonTopRight"><i class="fa fa-close modalicondeletedetail"></i></a>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr class="datatr">
+                                                <td class="modalDetailTitle">Mike Junior</td>
+                                                <td class="modalDetailDescr">Openingsuren Bar Tapas</td>
+                                                <td class="modaledit"><a href="#" class="modalEditDetailbutton">Edit</a></td>
+                                                <td class="modaldelete"><a href=""><i class="fa fa-close modalicondeletedetail"></a></td>
+                                            </tr>
+                                            <tr class="datatr">
+                                                <td class="modalDetailTitle">Mike Junior</td>
+                                                <td class="modalDetailDescr">Openingsuren Bar Tapas</td>
+                                                <td class="modaledit"><a href="#" class="modalEditDetailbutton">Edit</a></td>
+                                                <td class="modaldelete"><a href=""><i class="fa fa-close modalicondeletedetail"></a></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a href="#" class="sectionbutton">Create New Record</a>
+                                    </div>
+                                </div><!-- /.modal-content -->
+                            </div><!-- /.modal-dialog -->
+                        </div>
+                        <!-- END Modal RECORDS ENTERTAINMENT -->
+
+
+                        <h4 class="bottomDropRecords">This is finished</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cultural Heritage -->
+        <div class="droprecord" id="accordion" role="tablist" aria-multiselectable="true">
+            <div>
+                <div role="tab" id="headingCultural">
+                    <h4>
+                        <a id="droprecordlink" data-toggle="collapse" data-parent="#accordion" href="#collapseCultural" aria-expanded="true" aria-controls="collapseEntertainment">
+                            <i class="fa fa-university fronticon"></i><span class="droprecordtitle">Cultural Heritage</span><i class="indicator glyphicon glyphicon-chevron-down  pull-right droprecordarrow"></i>
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseCultural" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingCultural">
+                    <div class="dropPanel">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi facilisis luctus imperdiet. Sed sed consequat lorem. Phasellus dapibus hendrerit arcu non eleifend. eu nisi condimentum, aliquam nisl placerat, interdum lacus.</p>
+                        <p class="smalllinks">Find 3 Tapa-bars in Barcelona!</p>
+                        <p class="smalllinks">http://www.google.com</p>
+                        <a href="#" alt="Manage record" class="managelink"><h4 class="managerecords">Manage record</h4></a>
+                        <h4 class="bottomDropRecords">This is finished</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Nature -->
+        <div class="droprecord finished" id="accordion" role="tablist" aria-multiselectable="true">
+            <div>
+                <div role="tab" id="headingNature">
+                    <h4>
+                        <a id="droprecordlink" data-toggle="collapse" data-parent="#accordion" href="#collapseNature" aria-expanded="true" aria-controls="collapseEntertainment">
+                            <i class="fa fa-tree fronticon"></i><span class="droprecordtitle">Nature</span><i class="indicator glyphicon glyphicon-chevron-down  pull-right droprecordarrow"></i>
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseNature" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingNature">
+                    <div class="dropPanel">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi facilisis luctus imperdiet. Sed sed consequat lorem. Phasellus dapibus hendrerit arcu non eleifend. eu nisi condimentum, aliquam nisl placerat, interdum lacus.</p>
+                        <p class="smalllinks">Chop some trees!</p>
+                        <p class="smalllinks">http://www.nature.com</p>
+                        <a href="#" alt="Manage record" class="managelink"><h4 class="managerecords">Manage record</h4></a>
+                        <h4 class="bottomDropRecords">This is finished</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </div>
+    <!-- END Column 2 -->
+
+    </div>
+    <div class="col-md-8 go-to-journal-button">
+        <a href="#" class="newtripbutton">Prepare records for journal</a>
+    </div>
+    </div>
+    </div>
+
+    <!-- /.container -->
+{% endblock %}

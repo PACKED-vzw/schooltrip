@@ -1,0 +1,13 @@
+
+{% for record in records %}
+<div class="record-list-item">
+    <span class="label label-default record-list-user">{{ record.user }}</span>
+    <span class="record-list-title">{{ record.title }}</span>
+    <span class="badge badge-default record-list-id">{{ record.id }}</span>
+    <span class="record-list-btns">
+        <a class="btn btn-theme btn-edit-entry btn-sm" title="{{ record.id }}"><span class="glyphicon glyphicon-pencil"></span></a>
+        <a class="btn btn-danger btn-delete-entry btn-sm" title="{{ record.id }}"><span class="glyphicon glyphicon-trash"></span></a>
+    </span>
+</div>
+{% endfor %}
+<a class="btn btn-theme btn-edit-entry" title="0">Add new record</a>

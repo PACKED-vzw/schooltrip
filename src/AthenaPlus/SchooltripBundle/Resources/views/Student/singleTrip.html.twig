@@ -1,0 +1,210 @@
+{% extends '::base.html.twig' %}
+
+{% block contents %}
+
+<div class="row">
+    <div class="col-md-12 pagetitle">
+        <h2><span>{{ trip.title }}</span></h2>
+    </div>
+</div>
+
+<!-- Content Left -->
+<div class="row">
+<div class="col-md-4 tripsingle">
+    <div class="tripform">
+        <h3>{{ trip.departure }} - {{ trip.destination }} </h3>
+        <div class="dateBox">
+
+            <div class="col-md-5">
+                <p>From</p>
+                <p class="dateField">{{ trip.dateFrom | date('d/m/Y') }}</p>
+            </div>
+            <div class="col-md-2 dateArrow">
+                <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
+            </div>
+            <div class="col-md-5">
+                <p>Untill</p>
+                <p class="dateField">{{ trip.dateTo | date('d/m/Y') }}</p>
+            </div>
+        </div>
+        <div class="boxbottom">
+            <p>
+                {{ trip.description }}
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Content Right -->
+<div class="col-md-8 recordbox">
+<h3>Records</h3>
+
+<!-- Dropdown records -->
+<div class="row">
+<!-- Column 1 -->
+<div class="col-md-12">
+
+<!-- Food & Drinks -->
+
+
+{% for section in trip.sections %}
+
+    <div class="droprecord {% if section.ready %}finished {% endif %}" id="accordion" role="tablist" aria-multiselectable="true">
+        <div>
+            <div role="tab" id="headingEntertainment">
+                <h4>
+                    <a id="droprecordlink" data-toggle="collapse" data-parent="#accordion" href="#collapse-section{{ section.id }}" aria-expanded="true" aria-controls="collapseFood">
+                        <i class="fa {{ section.type }} fronticon"></i><span class="droprecordtitle">{{ section.title }}</span><i class="indicator glyphicon glyphicon-chevron-down  pull-right droprecordarrow"></i>
+                    </a>
+                </h4>
+            </div>
+            <div id="collapse-section{{ section.id }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{ section.id }}">
+                <div class="dropPanel">
+                    <p>{{ section.description }}</p>
+
+                    <p class="smalllinks">{% if section.parameters['challenge']  is defined %} {{ section.parameters['challenge'] }} {% endif %}</p>
+                    <p class="smalllinks">{% if section.parameters['link']['url']  is defined %}<a href="{{ section.parameters['link']['url'] }}">{{ section.parameters['link']['label']  }}</a> {% endif %}</p>
+                    <a data-toggle="modal" href="#manageRecords{{ section.id }}" class="managelink"><h4 class="managerecords" data-id="#records-table-{{ section.id }}" data-section="{{ section.id }}">Manage record</h4></a>
+                    <!-- Modal RECORDS FOOD & DRINKS -->
+                    <div class="modal fade" id="manageRecords{{ section.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 class="modal-title">Records</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <h4><i class="fa {{ section.type }}"></i> {{ section.title }}</h4>
+                                    <p>{{ section.description }}</p>
+                                    <div class="recordboxes">
+                                        <p class="smalllinks">{% if section.parameters['challenge']  is defined %} {{ section.parameters['challenge'] }} {% endif %}</p>
+                                        <p class="smalllinks">{% if section.parameters['link']['url']  is defined %}<a href="{{ section.parameters['link']['url'] }}">{{ section.parameters['link']['label']  }}</a>{%  endif %}</p>
+                                    </div>
+                                    <div class="row">
+                                        <p class="clear">
+                                        </p>
+                                        <hr>
+                                    </div>
+                                    <table class="table table-no-border" cellspacing="0px">
+                                        <tbody id="records-table-{{ section.id }}">
+
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <a href="#" class="sectionbutton create-new-record" data-id="{{ section.id }}">Create New Record</a>
+                                    {% if section.ready %}
+                                        <a href="#" class="sectionbutton mark-section-ready" data-id="{{ section.id }}">I guess section isn't ready after all!</a>
+                                    {% else %}
+                                        <a href="#" class="sectionbutton mark-section-ready" data-id="{{ section.id }}">Section is ready</a>
+                                    {% endif %}
+
+                                </div>
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div>
+                    <!-- END Modal RECORDS FOOD & DRINKS -->
+                    <h4 class="bottomDropRecords">{% if section.ready %}This section is finished {% else %} Not yet finshed{% endif %}</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+
+
+
+
+</div>
+<div class="col-md-8 go-to-journal-button">
+    {%  if tripReady %}
+    <a href="{% if is_granted('ROLE_ADMIN') %} {{ path('student_records_index', { id : trip.id})}}{% else %} {{ path('student_records_index')}}{% endif %}" class="newtripbutton btn-color-green">All ready! Go to journal preparation</a>
+    {% else %}
+    <p>Finish all sections to proceed!</p>
+    {%  endif %}
+</div>
+</div>
+<!-- handlebar templates -->
+{% verbatim %}
+<script id="row-template" type="text/x-handlebars-template">
+    <tr class="datatr" id="record-row-{{ id }}">
+        <td class="modalDetailTitle">{{ user }}</td>
+        <td class="modalDetailDescr">{{ title }}</td>
+        <td class="modaledit" data-id="{{ id }}"><a href="#" data-id="{{ id }}" class="modaleditbutton edit-record-btn" id="edit-record-button-{{ id }}">Edit</a></td>
+        <td class="modaldelete" data-id="{{ id }}"><a href=""><a href="#" data-id="{{ id }}" class="record-delete-btn"></td>
+    </tr>
+</script>
+
+<script id="open-record-template" type="text/x-handlebars-template">
+    <tr class="datatr openbox" id="edit-record-{{ id }}">
+        <td colspan="4">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="labelimage" class="modallabel">Title </label>
+                        <input type="text" class="form-control" id="record-title-{{ id }}" value="{{ title }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="url" class="modallabel">Url </label>
+                        <input type="text" class="form-control record" id="record-url-{{ id }}" value="{{ url }}">
+                    </div>
+                    <!--<div class="form-group">
+                        <label for="searchimage" class="modallabel">Upload media <i class="fa fa-question-circle tooltipright" data-toggle="tooltip" data-placement="right" title="Upload your image file here"></i></label>
+                        <input type="text" class="form-control" id="searchimage" placeholder="Search for image">
+                    </div>-->
+                    <div class="form-group">
+                        <a class="sectionbutton add-image-btn" data-id="{{ id }}">Add image</a>
+                        <input type="button" id="new-image-btn" value="Upload" data-id="{{ id }}" class="sectionbutton hidden">
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="description" class="modallabel">Description </label>
+                        <textarea class="form-control" rows="10" id="record-description-{{ id }}" placeholder="Fill in the description">{{ description }}</textarea>
+                    </div>
+                </div>
+            </div>
+            <div id="record-images" class="row">
+
+            </div>
+            <div id="europeana-search" class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="europeana-search-input" class="modallabel">Search images on europeana...</label>
+                        <input class="form-control" type="text" id="europeana-search-input">
+                        <input type="button" id="europeana-search-btn" class="btn" value="Search" data-id={{ id }}>
+
+                    </div>
+                    <div id="europeana-results">
+
+                    </div>
+                </div>
+            </div>
+
+        </td>
+    </tr>
+</script>
+
+<script id="record-image-template" type="text/x-handlebars-template">
+    <div class="col-md-3 thumbnail-cell" data-id="{{ id }}" data-uploaded="0">
+        <a href="#" class="thumbnail thumbnail-{{ type }}">
+            <img src="/{{ thumbnail }}" data-id="{{ id }}" id="{{ id }}">
+            <a href="#" data-id="{{
+            id }}" class="closeButtonTopRight close delete-image"><i class="fa fa-close modalicondeletedetail"></i></a>
+    </div>
+</script>
+
+<script id="europeana-image-template" type="text/x-handlebars-template">
+            <img class="europeana-image" src='{{ edmPreview }}' data-link='{{ guid }}' data-title='{{ title }}' data-description='{{ dcDescription }}' >
+</script>
+
+
+
+{% endverbatim %}
+
+{% endblock %}
+{%  block javascripts %}
+{{ parent() }}
+    <script src="{{ asset('js/student.js') }}"></script>
+{%  endblock %}

@@ -1,0 +1,32 @@
+entry:
+    pattern:  /
+    defaults: { _controller: "SchooltripBundle:Entry:index" }
+    options:
+        expose: true
+
+entry_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "SchooltripBundle:Entry:show" }
+
+entry_new:
+    pattern:  /new
+    defaults: { _controller: "SchooltripBundle:Entry:new" }
+
+entry_create:
+    pattern:  /create
+    defaults: { _controller: "SchooltripBundle:Entry:create" }
+    requirements: { _method: post }
+
+entry_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "SchooltripBundle:Entry:edit" }
+
+entry_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "SchooltripBundle:Entry:update" }
+    requirements: { _method: post|put }
+
+entry_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "SchooltripBundle:Entry:delete" }
+    requirements: { _method: post|delete }

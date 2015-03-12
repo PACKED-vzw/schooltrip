@@ -1,0 +1,149 @@
+{% extends '::base.html.twig' %}
+
+{% block contents %}
+    <div class="row main-journal" data-journal="{{ journal.id }}">
+        <div class="col-md-12 pagetitle">
+            <h2><span>{{ trip.title }}</span></h2>
+        </div>
+    </div>
+
+    <!-- Content Left -->
+    <div class="row">
+        <div class="col-md-4 tripsingle">
+            <div class="tripform">
+                <h3>{{ trip.departure }} - {{ trip.destination }} </h3>
+                <div class="dateBox">
+
+                    <div class="col-md-5">
+                        <p>From</p>
+                        <p class="dateField">{{ trip.dateFrom | date('d/m/Y') }}</p>
+                    </div>
+                    <div class="col-md-2 dateArrow">
+                        <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
+                    </div>
+                    <div class="col-md-5">
+                        <p>Untill</p>
+                        <p class="dateField">{{ trip.dateTo | date('d/m/Y') }}</p>
+                    </div>
+                </div>
+                <div class="boxbottom">
+                    <p>
+                        {{ trip.description }}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- Content Right -->
+        <div class="col-md-8 recordbox">
+            <h3>Records</h3>
+
+            <!-- Dropdown records -->
+            <div class="row">
+                <!-- Column 1 -->
+                <div class="col-md-12">
+
+                    <!-- DropDown 1 -->
+                    {% for key, date in journal.dates %}
+                        <div class="journal-records-row" id="accordion" role="tablist" aria-multiselectable="true">
+                            <div>
+                                <div role="tab" id="heading-records-{{ key }}" class="heading-records" data-id="{{ key }}">
+                                    <h4>
+                                        <a id="droprecordlink{{ key }}" data-toggle="collapse" data-parent="#accordion" href="#collapse_date_{{ key }}" aria-expanded="true" aria-controls="collapse1">
+                                            <i class="fa  fronticon">{{ key }}</i><span class="droprecordtitle">{{ date.dateString }}</span><i class="indicator glyphicon glyphicon-chevron-down pull-right droprecordarrow"></i>
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapse_date_{{ key }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading1">
+                                    <div class="dropPanel">
+                                        <div class="alert alert-info alert-record-select" role="alert">Select the records here and fill in a date for display in the journal.<br/> You can edit the records further in the next step.</div>
+                                        <div class="record-selector" id="record-selector-{{ key }}">
+                                            <div class="record-dropdown">
+
+                                                <label  class="record-selector-label">Select a record </label>
+                                                <select class="form-control selectpicker" data-live-search="true">
+                                                    {% for section in sections %}
+                                                        <optgroup label="Section {{ section.title }}">
+                                                            {% for entry in section.entries %}
+                                                            <option value="{{ entry.id }}">{{ entry.title }}</option>
+                                                            {% endfor %}
+                                                        </optgroup>
+                                                    {% endfor %}
+
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="date-record-boxes" id="date-record-boxes-{{ key }}">
+
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END DropDown 1 -->
+                    {% endfor %}
+                </div>
+                <!-- END Column 2 -->
+    </div>
+    <!-- END Row -->
+
+    </div>
+    <div class="col-md-12 go-to-journal-button">
+        {% if journal.evaluationRequest %}
+            <a href="" class="newtripbutton btn-color-green">REQUEST WAS SENT!</a>
+        {% else %}
+            <a href="{{ path('evaluation_request', { id: journal.id}) }}" class="newtripbutton">I AM READY, REQUEST EVALUATION!</a>
+        {% endif %}
+        <a href="{% if is_granted('ROLE_ADMIN') %} {{ path('student_finalise_journal', { id : trip.id, mode: 'preview'})}}{% else %}  {{ path('student_finalise_journal', { id : 0, mode: 'preview'})}}{% endif %}" class="newtripbutton">PREVIEW</a>
+        <a href="{% if is_granted('ROLE_ADMIN') %} {{ path('student_finalise_journal', { id : trip.id, mode: 'edit'})}}{% else %} {{ path('student_finalise_journal', { id : 0, mode: 'edit'}) }} {% endif %}" class="newtripbutton">MAKE FINAL EDITS</a>
+    </div>
+    </div>
+    {% verbatim %}
+    <script id="date-template" type="text/x-handlebars-template">
+
+    </script>
+    <script id="date-record-template" type="text/x-handlebars-template">
+
+        <!-- RECORD BOX 1 -->
+        <div class="record-box-dropdown light">
+            <div class="row record-box-header">
+                <div class="col-md-2">
+                    <input type="text"  class="form-control time-picker" id="hour-{{ id }}" placeholder="08:30" value="{{ hour }}">
+                </div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" placeholder="{{ title }}" disabled>
+                </div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" placeholder="{{ user }}" disabled>
+                </div>
+                <div class="col-md-2">
+                    <input type="button" class="btn btn-edit-datetab-entry" data-id="{{ id }}" value="Edit time">
+                </div>
+                <div class="col-md-2">
+                    <input type="button" class="btn btn-danger btn-delete-datetab-entry" data-id="{{ id }}" value="Remove">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <textarea class="form-control" rows="5" disabled>{{ text }}</textarea>
+                </div>
+            </div>
+        </div>
+        <!-- END RECORD BOX 1 -->
+
+
+    </script>
+
+
+
+
+
+    {% endverbatim %}
+{% endblock %}
+{%  block javascripts %}
+    {{ parent() }}
+
+    <script src="{{ asset('js/student.js') }}"></script>
+{%  endblock %}

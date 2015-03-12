@@ -1,0 +1,8 @@
+web/resources/
+web/bundles/
+web/img*
+vendor/*
+web/media
+web/uploads*
+app/cache/*
+app/logs/*

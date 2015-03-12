@@ -1,0 +1,42 @@
+<h3>{{ section.title }}</h3>
+
+<div id="contents-parameters">
+    <div class="bs-callout bs-callout-info">
+        <h4>Description</h4>
+        <p>{{ section.description }}</p>
+    </div>
+
+    <div class="bs-callout bs-callout-info">
+
+        <h4>Extra information</h4>
+        <p> Following additional information was provided.</p>
+
+
+
+    <table class="table">
+            {% for parameter in section.parameters  %}
+                <tr>
+                    <th>
+                        {{ parameter.value }}
+                        {% if parameter.challenge is defined %}
+                            <p class="contents-challenge">{{ parameter.challenge }}</p>
+                        {% endif %}
+                    </th>
+                    <td>
+
+                    {% if parameter.type == 'media' %}
+                        {%  for media in parameter.resource %}
+                            <img class="img-thumbnail" src="{{ media.src }}" title="{{ media.id }}"/>
+                        {% endfor %}
+                    {% else %}
+                        <a href="{{ parameter.resource }}">{{ parameter.resource }}</a>
+                    {% endif %}
+                    </td>
+                </tr>
+            {%  endfor  %}
+    </table>
+
+    </div>
+
+
+</div>

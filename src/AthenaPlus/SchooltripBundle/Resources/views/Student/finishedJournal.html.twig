@@ -1,0 +1,129 @@
+{% extends '::base.html.twig' %}
+
+{% block contents %}
+    <!-- Page Content -->
+    <div class="container main-journal" data-journal="{{ journal.id }}">
+
+    <div class="row tab-row">
+    <div class="pagetitle">
+
+    <!-- COLUMN DATA TABS -->
+    <div class="col-xs-4 col-md-3">
+        <div class="tabbable tabs-left">
+            <ul class="nav nav-tabs">
+                {% for key, date in journal.journalDates %}
+                <li>
+                    <a href="#tab-{{loop.index}}" data-toggle="tab">
+                        <div role="tab" >
+                            <div class="tabButton">
+                                <h4><span class="tabNumber">{{loop.index}}</span><span class="tabButtonTitle">{{ date.dateString }}</span></h4>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+
+    <!-- COLUMN TAB CONTENT RIGHT -->
+    <div class="col-xs-8 col-md-9 tabContent">
+
+        <div class="tab-content">
+            {% for key, date in journal.journalDates %}
+                <div class="tab-pane {%  if key == 1 %} active {% endif %}" id="tab-{{loop.index}}">
+                    <div class="tabJournal">
+                        <!-- JOURNAL FORM 1 -->
+                        <div class="journalForm">
+                            <h3><span class="journalFormTitleNumber">{{loop.index}}</span>{{ date.dateString }}</h3>
+                            {% for entry in date.entries %}                                        <!-- JournalBox PART 1 -->
+                                        <div class="journalBox {% if loop.index is even %} dark {% endif %} complete">
+                                            <div class="row journalSection">
+                                                <div class="col-xs-3 col-md-2">
+                                                    <p class="time-complete">{{entry.hour}}</p>
+                                                </div>
+                                                <div class="col-xs-9 col-md-10">
+                                                    <p class="title-complete">{{ entry.title }}</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="row journalSection">
+                                                <div class="col-xs-3 col-md-2">
+                                                    <a href="#" class="thumbnail">
+                                                        <img src="{% if  entry.primary_image.thumbnail is defined %}/{{ entry.primary_image.thumbnail }} {% else %}/img/dummy-image.png{% endif %}" alt="Primary image">
+                                                    </a>
+                                                </div>
+                                                <div class="col-xs-9 col-md-10">
+                                                    <p class="body-complete readmore">{{ entry.text }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="row journalSection">
+                                                <div class="col-xs-12 col-md-12">
+                                                    {% if entry.extra_title %}<h4>{{ entry.extra_title }}</h4>{% endif %}
+                                                    {% if entry.extra_description %}<p class="body-complete readmore">{{ entry.extra_description }}</p>{% endif %}
+                                                </div>
+                                            </div>
+                                            {% for image in entry.other_images  %}
+                                                <div class="col-md-2">
+                                                    <a href="#" class="thumbnail">
+                                                        <img src="/{{ image.thumbnail }}" alt="{{ image.label }}">
+
+                                                    </a>
+                                                    {% if image.type == "europeana" %}<a href="{{ image.link }}" target="_blank" class="closeButtonTopRight"><i class="fa fa-external-link-square icon-europeana"></i></a>{% endif %}
+                                                </div>
+                                            {% endfor %}
+
+                                        </div>
+
+
+                            {% endfor %}
+
+
+
+
+                        </div>
+                        <!-- END JOURNAL FORM -->
+
+                    </div>
+                </div>
+
+            {% endfor %}
+
+
+        </div>
+    </div>
+    <!-- /tabs -->
+
+    </div>
+    </div>
+    </div>
+
+
+    <!-- /.container -->
+
+
+    {% verbatim %}
+    <script id="date-template" type="text/x-handlebars-template">
+
+    </script>
+    <script id="date-record-template" type="text/x-handlebars-template">
+
+    </script>
+
+
+
+    {% endverbatim %}
+    {% endblock %}
+{%  block javascripts %}
+    {{ parent() }}
+    <script>
+        $('.readmore').readmore({
+            speed: 75,
+            lessLink: '<a href="#" class="sectionbutton right">Read Less</a>',
+            moreLink: '<a href="#" class="sectionbutton right">Read More</a>',
+            collapsedHeight: 200
+        });
+    </script>
+    <script src="{{ asset('js/student.js') }}"></script>
+{%  endblock %}

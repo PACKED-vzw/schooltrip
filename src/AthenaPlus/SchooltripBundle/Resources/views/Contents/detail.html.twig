@@ -1,0 +1,111 @@
+{% extends '::base.html.twig' %}
+
+{% block contents -%}
+    <h1>{{ trip.title }}</h1>
+    <h3>A trip from <span class="label label-default">{{ trip.departure }}</span> <span class="glyphicon glyphicon-arrow-right"></span> <span class="label label-default">{{ trip.destination }}</span>  </h3>
+    <div class="well">
+        {{ trip.description }}
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modal-edit-section" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="modal-title">Complete section</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="all-records">
+                        <div id="section-meta-information">
+
+                        </div>
+                        <h2>Records</h2>
+                        <div id="contents-section-records">
+
+                            <a class="btn btn-theme btn-edit-entry" title="0">Add new record</a>
+                        </div>
+                        <div id="ready-container">
+                            <table class="table">
+                                <th><label for="section-ready">Ready</label></th>
+                                <td><input id="section-ready" type="checkbox"></td>
+                            </table>
+                        </div>
+                    </div>
+                    <div id="edit-entry" class="hidden">
+                        <table class="table table-hover">
+                            <tr>
+                                <th><label for="entry-title">Title</label></th>
+                                <td><input type="text" id="entry-title" class="form-control"></td>
+                            </tr>
+                            <tr>
+                                <th><label for="entry-description">Description</label></th>
+                                <td><textarea id="entry-description" class="form-control"></textarea></td>
+                            </tr>
+                        </table>
+                        <h3>Add resources</h3>
+                        <table class="table table-hovered" id="items">
+                            <thead>
+                            <tr>
+                                <th>
+                                    Item
+                                </th>
+                                <th>
+                                    Type
+                                </th>
+                                <th>
+                                    Resource
+                                </th>
+                                <th>
+                                    Remove?
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody id="items-body">
+
+                            </tbody>
+                        </table>
+
+
+                        <div>
+                            <a id="new-row" class="btn btn-primary">{%  trans  %}Add new resource{%  endtrans %}</a>
+                            <br/>
+                            <hr>
+                            <a class="btn btn-theme" id="btn-return-entries">Save this record and return to section</a>
+
+                        </div>
+
+                    </div>
+                    <div class="hidden" id="media-entry">
+                        {% include 'SchooltripBundle:Media:mediaPicker.html.twig' with {"media": media } only %}
+                        <p>
+
+                            <a class="btn btn-theme btn-back-to-edit">Add selected media and go back</a>
+                        </p>
+
+                    </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="btn-contents-save-section">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2>Sections</h2>
+    <a class="btn btn-theme" id="reset-cloud">Reset</a>
+    <div id="cloud-ctn">
+        <div id="content-cloud">
+            {% for section in trip.sections %}
+                <div title="{{ section.id }}" class="section-cloud {% if section.ready %}section-ready{%  endif %}">{{ section.title }}</div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('js/contents.js') }}"></script>
+{% endblock %}

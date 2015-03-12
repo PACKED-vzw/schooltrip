@@ -1,0 +1,153 @@
+{% extends '::base.html.twig' %}
+
+{% block contents %}
+    <!-- Page Content -->
+    <div class="container main-journal" data-journal="{{ journal.id }}">
+
+    <div class="row tab-row">
+    <div class="pagetitle">
+
+    <!-- COLUMN DATA TABS -->
+    <div class="col-xs-4 col-md-3">
+        <div class="tabbable tabs-left">
+            <ul class="nav nav-tabs">
+                {% for key, date in journal.journalDates %}
+                <li>
+                    <a href="#tab-{{loop.index}}" data-toggle="tab">
+                        <div role="tab" >
+                            <div class="tabButton">
+                                <h4><span class="tabNumber">{{loop.index}}</span><span class="tabButtonTitle">{{ date.dateString }}</span></h4>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+
+    <!-- COLUMN TAB CONTENT RIGHT -->
+    <div class="col-xs-8 col-md-9 tabContent">
+        {%  if mode == 'preview' %}
+
+            <div class="row">
+                <div class="alert alert-danger" role="alert">
+                    <p><em>Warning!</em> You are in preview mode. You can check your journal here before starting to edit.</p> <p>Changes made here will not be saved!</p>
+                    <br/>
+                    <a href="{% if is_granted('ROLE_ADMIN') %} {{ path('student_records_index', { id : trip.id})}}{% else %} {{ path('student_records_index')}}{% endif %}" class="btn">Return to journal preparation.</a>
+
+                </div>
+            </div>
+        {%  endif %}
+        <div class="tab-content">
+            {% for key, date in journal.journalDates %}
+                <div class="tab-pane {%  if key == 1 %} active {% endif %}" id="tab-{{loop.index}}">
+                    <div class="tabJournal">
+                        <!-- JOURNAL FORM 1 -->
+                        <div class="journalForm">
+                            <h3><span class="journalFormTitleNumber">{{loop.index}}</span>{{ date.dateString }}</h3>
+                            {% for entry in date.entries %}
+                                <div class="journalBox {% if loop.index is odd %} dark {% endif %}">
+                                    <div class="row journalSection">
+                                        <div class="col-xs-3 col-md-2">
+                                            <input type="text" class="time-picker form-control edit-date" id="date-{{ entry.id }}" value="{{entry.hour}}">
+                                        </div>
+                                        <div class="col-xs-9 col-md-10">
+                                            <input type="text" class="form-control edit-title" id="title-{{ entry.id }}" value="{{ entry.title }}">
+                                        </div>
+                                    </div>
+
+                                    <div class="row journalSection">
+                                        <div class="col-xs-3 col-md-2">
+                                            <a href="#" class="thumbnail">
+                                                <img src="{% if  entry.primary_image.thumbnail is defined %}/{{ entry.primary_image.thumbnail }} {% else %}/img/dummy-image.png{% endif %}" alt="Primary image">
+                                            </a>
+                                        </div>
+                                        <div class="col-xs-9 col-md-10">
+                                            <textarea class="form-control edit-description" rows="5" id="description-{{ entry.id }}">{{ entry.text }}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="row journalSection">
+                                        <div class="col-xs-12 col-md-12">
+                                            <input type="text" class="form-control marginBox" id="extra-title-{{ entry.id }}" placeholder="Enter an extra title" value="{{ entry.extra_title }}">
+                                            <textarea class="form-control" rows="5" id="extra-description-{{ entry.id }}" placeholder="Enter an extra description"></textarea>
+                                        </div>
+                                    </div>
+                                    {% for image in entry.other_images  %}
+                                        <div class="col-md-2">
+                                            <a href="#" class="thumbnail">
+                                                <img src="/{{ image.thumbnail }}" alt="{{ image.label }}">
+
+                                            </a>
+                                            {% if image.type == "europeana" %}<a href="{{ image.link }}" target="_blank" class="closeButtonTopRight"><i class="fa fa-external-link-square icon-europeana"></i></a>{% endif %}
+
+                                        </div>
+                                    {% endfor %}
+                                    <div class="row journalSection">
+                                        <div class="col-xs-12 col-md-12">
+                                            {%  if mode == 'edit' %}
+                                            <input type="button" data-id="{{ entry.id }}" data-datetab-id="{{ key }}" class="sectionbutton save-record-entry" value="Save">
+                                            {%  endif %}
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+                            {% endfor %}
+
+
+
+
+                        </div>
+                        <!-- END JOURNAL FORM -->
+
+                    </div>
+                </div>
+
+            {% endfor %}
+            {%  if mode != 'preview' %}
+            <div class="journalBox dark lastJournalBox">
+
+
+                <div class="col-md-12 right journal-buttons-box">
+
+                    <a href="{{ path('evaluation_request', {id: journal.id}) }}" class="journalButton btn-color-red" id="clear-journal">Clear journal</a>
+                    <a href="{{ path('student_finished_journal', {id: trip.id}) }}" class="journalButton">Preview</a>
+                </div>
+
+            </div>
+            {% endif %}
+
+        </div>
+    </div>
+    <!-- /tabs -->
+
+    </div>
+    </div>
+    </div>
+
+
+    <!-- /.container -->
+
+
+    {% verbatim %}
+    <script id="date-template" type="text/x-handlebars-template">
+
+    </script>
+    <script id="date-record-template" type="text/x-handlebars-template">
+
+    </script>
+
+
+
+
+
+    {% endverbatim %}
+    {% endblock %}
+{%  block javascripts %}
+    {{ parent() }}
+
+    <script src="{{ asset('js/student.js') }}"></script>
+{%  endblock %}

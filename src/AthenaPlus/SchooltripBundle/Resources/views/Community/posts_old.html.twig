@@ -1,0 +1,15 @@
+<div id="community-posts">
+    {% for post in posts | reverse %}
+        <div class="post-row">
+            <div class="icon-post-box">
+
+            </div>
+            <div class="bubble">
+                <strong>{{ post.created_by }}</strong><br/>
+                {{ post.text }}<br/>
+
+            </div>
+            <span class="created-at">{{ post.created |date("d/m/Y H:m:s") }}</span><br/>
+        </div>
+    {%  endfor %}
+</div>

@@ -1,0 +1,131 @@
+{% extends '::base.html.twig' %}
+
+{% block contents%}
+
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="modal-extra" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Add extra</h4>
+                </div>
+                <div class="modal-body">
+
+                    <table class="table">
+                    <tr class="modal-row">
+                        <th><label for="title-extra">Label</label></th>
+                        <td><input type="text" id="title-extra" class="form-control"></td>
+                    </tr>
+                    <tr class="modal-row">
+                        <th><label for="embed-description-extra">Description</label></th>
+                        <td>
+                            <textarea id="embed-description-extra" class="form-control"></textarea>
+                        </td>
+                    </tr>
+                    <tr class="modal-row">
+                        <th><label for="embed-code-extra">Code</label></th>
+                        <td>
+                            <p class="bg-info">Embed link from youtube.com, google maps (http://www.google.com/mapmaker), ...</p>
+                            <textarea id="embed-code-extra" class="form-control"></textarea>
+                        </td>
+                    </tr>
+
+
+                    </table>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="btn-add-extra">Add</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <h2>Media</h2>
+    <div id="journal-media-block">
+        <ul>
+            {% for file in media %}
+            <li> {% media file, 'big' with {'class': 'mediacoverflow', 'data-id':  file.id } %}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="alert alert-info alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <strong>Hint!</strong> You can double click the images in the coverflow to add them to the tab!
+    </div>
+
+    <h2>Tabs</h2>
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs">
+
+        {% for tab in journal.tabs %}
+        <li><a class="journal-tab" href="#tab_{{ tab.id }}" title="{{ tab.id }}" data-toggle="tab" id="media_tab_{{ tab.id }}">
+                {% if tab.date %}
+                {{ tab.date |date("l d F o") }}
+                {% else %}
+                Click on tab to set date
+                {% endif %}
+            </a>
+        </li>
+        {% endfor %}
+
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        {% for tab in journal.tabs %}
+        <div class="tab-pane" id="tab_{{ tab.id }}">
+
+            <table class="table table-hover tab-table">
+            <tr class="select-date">
+                <th><label for="tab_date_{{ tab.id }}">Select date</label></th>
+                <td><input type="text" id="tab_date_{{ tab.id }}" data-target="#media_tab_{{ tab.id }}" class="form-control datepicker-field" {% if tab.date %}value="{{ tab.date |date("d/m/Y") }}"{% endif %}></td>
+            </tr>
+            </table>
+
+            <h2>Insert content</h2>
+            <table class="table tab-table">
+                <tr class="select-records">
+                    <th><label for="tab_select_records_{{ tab.id }}">Select records</label></th>
+                    <td><select class="select2-records" id="tab_select_records_{{ tab.id }}">
+                            {% for section in sections %}
+                                <optgroup label="Section {{ section.title }}">
+                                    {% for record in section.entries %}
+                                        <option value="{{ record.id }}">{{ record.title }}</option>
+                                    {% endfor %}
+                                </optgroup>
+
+                            {% endfor %}
+                        </select>
+                        <div class="tab_records_selected_ctn">
+                            <h3>Records</h3>
+                            <ul id="tab_records_selected_{{ tab.id }}">
+
+
+
+                            </ul>
+                        </div>
+
+
+
+
+                    </td>
+
+                </tr>
+            </table>
+            <hr>
+            <a class="btn btn-theme btn-save-tab" title="{{ tab.id }}">Save changes</a>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{%  block javascripts %}
+{{ parent() }}
+<script src="{{ asset('js/journal.js') }}"></script>
+{%  endblock %}

@@ -1,0 +1,17 @@
+{% extends '::base.html.twig' %}
+
+{% block contents -%}
+
+
+    <ul>
+    {% for trip in trips %}
+        <li><a href="{{ path('contents_trip_detail', {id : trip.id}) }}">{{ trip.id }} - {{ trip.title }}</a></li>
+    {% endfor %}
+    </ul>
+    {% endblock %}
+
+
+ {% block javascripts %}
+
+
+{% endblock %}

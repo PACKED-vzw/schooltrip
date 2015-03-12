@@ -1,0 +1,17 @@
+
+<ul id="community-posts" class="timeline2" data-offset="10">
+    {% for post in posts | reverse %}
+
+        <li class="timeline2-inverted">
+            <div class="timeline2-badge"><i class="glyphicon glyphicon-user"></i></div>
+            <div class="timeline2-panel">
+                <div class="timeline2-body">
+                    <p class="timeline2-date">{{ post.id }}{{ post.created |date("d/m/Y H:m:s") }}</p>
+                    <p class="communityUser">{{ post.created_by }}</p>
+                    <p>{{ post.text }}</p>
+                </div>
+            </div>
+        </li>
+    {%  endfor %}
+
+</ul>

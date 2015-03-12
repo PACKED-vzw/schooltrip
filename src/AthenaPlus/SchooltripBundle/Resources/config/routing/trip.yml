@@ -1,0 +1,36 @@
+trip:
+    pattern:  /
+    defaults: { _controller: "SchooltripBundle:Trip:index" }
+
+trip_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "SchooltripBundle:Trip:show" }
+
+trip_new:
+    pattern:  /new
+    defaults: { _controller: "SchooltripBundle:Trip:new" }
+
+trip_create:
+    pattern:  /create
+    defaults: { _controller: "SchooltripBundle:Trip:create" }
+    requirements: { _method: post }
+
+trip_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "SchooltripBundle:Trip:edit" }
+
+trip_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "SchooltripBundle:Trip:update" }
+    requirements: { _method: post|put }
+
+trip_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "SchooltripBundle:Trip:delete" }
+    requirements: { _method: post|delete }
+
+trip_load_sections:
+    pattern:  /load_sections
+    defaults: { _controller: "SchooltripBundle:Trip:loadSections" }
+    options:
+        expose: true

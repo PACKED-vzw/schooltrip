@@ -1,0 +1,3 @@
+overview:
+    pattern:  /
+    defaults: { _controller: "SchooltripBundle:Trip:overview" }

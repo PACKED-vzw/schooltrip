@@ -1,0 +1,108 @@
+{% extends '::base.html.twig' %}
+
+{% block contents%}
+    <ul class="nav nav-tabs">
+        {% for tab in journal.tabs %}
+            <li><a class="journal-tab" href="#tab_{{ tab.id }}" title="{{ tab.id }}" data-toggle="tab" id="media_tab_{{ tab.id }}">
+                    {% if tab.date %}
+                        {{ tab.date |date("l d F o") }}
+                    {% else %}
+                        No date set
+                    {% endif %}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+
+
+    {% for tab in journal.tabs %}
+        <div class="tab-content">
+            {% for tab in journal.tabs %}
+                <div class="tab-pane" id="tab_{{ tab.id }}">
+
+                    {%  for records in tab.content %}
+                        {# {{ dump(iets) }} #}
+                        <div class="storyline-ctn">
+                        {% for record in records %}
+                            <div class="storyline-record">
+                                <div class="pull-left">
+
+                                    <span class="label label-primary label-large">{{ record.time }}</span>
+                                </div>
+                                <div class="full_record_info">
+                                    {% for full_record in full_records %}
+                                        {% if full_record.id == record.id %}
+                                            <h3>{{ full_record.title }}</h3>
+                                            <p>{{ full_record.text }}</p>
+                                            <h4>Links</h4>
+                                            {% for item in full_record.items  %}
+                                                {% if item.type == "url" %}
+                                                    <li>{{ item.value }} | {{ item.resource }}</li>
+                                                {% endif %}
+                                            {% endfor %}
+                                            <h4>media</h4>
+                                         {% for item in full_record.items  %}
+
+                                            {% if item.type == "media" %}
+
+                                                    <p>{{ item.value }}<br/>
+                                                        {% for resource in item.resource %}
+                                                            <img src="{{resource.src}}" title="{{ resource.id }}" alt="{{ item.value }}">
+                                                        {%  endfor %}
+                                                    </p>
+
+                                            {% endif %}
+                                           {% endfor %}
+                                            {% endif %}
+                                    {%  endfor %}
+                                    <p>Remarks: {{ record.remarks }}</p>
+
+
+                                    <h4>Extra</h4>
+                                    <ul>
+                                    {% for extra in record.extra %}
+                                        {% if extra.type == 'image' %}
+                                            <li>
+                                                <img src="{{extra.image_src}}" alt="{{extra.title}}" title="{{extra.image_id}}">
+                                                <span class="label label-default">{{extra.title}}</span>
+                                                <span>{{ extra.description }}</span>
+
+                                            </li>
+                                        {% elseif extra.type == 'iframe' %}
+                                            <li>
+                                                <div class="code-content">
+                                                    {{extra.code | raw}}
+                                                </div>
+                                                <span class="label label-default">{{extra.title}}</span>
+                                                <span>{{ extra.description }}</span>
+                                            </li>
+                                        {% endif %}
+
+
+
+                                    {% endfor %}
+                                    </ul>
+                                </div>
+                                <hr>
+
+                               <!--<pre>
+                                 {{ dump(record) }}
+                               </pre>-->
+
+                            </div>
+
+                        {% endfor %}
+                        </div>
+                    {%  endfor %}
+
+                </div>
+            {% endfor %}
+        </div>
+    {%  endfor  %}
+
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+<script src="{{ asset('js/storyteller.js') }}"></script>
+
+{% endblock %}

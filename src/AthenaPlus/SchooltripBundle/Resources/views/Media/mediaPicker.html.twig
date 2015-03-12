@@ -1,0 +1,5 @@
+<div class="media-ctn">
+    {% for file in media %}
+        {% thumbnail file, 'small' with {'class': 'media-file', 'data-id':  file.id } %}
+    {% endfor %}
+</div>

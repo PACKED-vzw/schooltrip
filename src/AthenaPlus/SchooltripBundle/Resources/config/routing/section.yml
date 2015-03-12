@@ -1,0 +1,44 @@
+section:
+    pattern:  /
+    defaults: { _controller: "SchooltripBundle:Section:index" }
+
+section_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "SchooltripBundle:Section:show" }
+
+section_new:
+    pattern:  /new
+    defaults: { _controller: "SchooltripBundle:Section:new" }
+
+section_create:
+    pattern:  /create
+    defaults: { _controller: "SchooltripBundle:Section:create" }
+    requirements: { _method: post }
+
+section_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "SchooltripBundle:Section:edit" }
+
+section_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "SchooltripBundle:Section:update" }
+    requirements: { _method: post|put }
+
+section_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "SchooltripBundle:Section:delete" }
+    requirements: { _method: post|delete }
+
+section_ajax_save:
+    pattern:  /save
+    defaults: { _controller: "SchooltripBundle:Section:saveAjax" }
+    options:
+        expose: true
+
+section_ajax_load:
+    pattern:  /load
+    defaults: { _controller: "SchooltripBundle:Section:loadAjax" }
+    options:
+        expose: true
+
+

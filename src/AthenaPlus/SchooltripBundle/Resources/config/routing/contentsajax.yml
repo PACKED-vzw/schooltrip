@@ -1,0 +1,72 @@
+load_sections:
+    pattern:  /load_sections/{id}
+    defaults: { _controller: "SchooltripBundle:ContentsAjax:loadSections" }
+    options:
+        expose: true
+
+load_section:
+    pattern:  /load_section/{id}
+    defaults: { _controller: "SchooltripBundle:ContentsAjax:loadSection" }
+    options:
+        expose: true
+
+new_section:
+    pattern:  /new_section/{id}
+    defaults: { _controller: "SchooltripBundle:ContentsAjax:newSection" }
+    options:
+        expose: true
+
+
+save_section:
+    pattern:  /save_section
+    defaults: { _controller: "SchooltripBundle:ContentsAjax:saveSection" }
+    options:
+        expose: true
+
+delete_section:
+    pattern:  /delete_section/{id}
+    defaults: { _controller: "SchooltripBundle:ContentsAjax:deleteSection" }
+    options:
+        expose: true
+
+load_section_parameters:
+    pattern:  /load_parameters/{id}
+    defaults: { _controller: "SchooltripBundle:ContentsAjax:loadParameters" }
+    options:
+        expose: true
+
+save_section_parameters:
+    pattern:  /save_parameters/{id}
+    defaults: { _controller: "SchooltripBundle:ContentsAjax:saveParameters" }
+    options:
+        expose: true
+
+add_image_section:
+    pattern:  /upload_image
+    defaults: { _controller: "SchooltripBundle:ContentsAjax:addImage" }
+    options:
+        expose: true
+
+remove_image_section:
+    pattern:  /remove_image
+    defaults: { _controller: "SchooltripBundle:ContentsAjax:deleteImage" }
+    options:
+        expose: true
+
+load_images_section:
+    pattern:  /load_images
+    defaults: { _controller: "SchooltripBundle:ContentsAjax:loadImages" }
+    options:
+        expose: true
+
+load_image_section:
+    pattern:  /load_image
+    defaults: { _controller: "SchooltripBundle:ContentsAjax:loadImage" }
+    options:
+        expose: true
+
+update_image_section:
+    pattern:  /update_image
+    defaults: { _controller: "SchooltripBundle:ContentsAjax:updateImage" }
+    options:
+        expose: true

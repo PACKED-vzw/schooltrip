@@ -1,0 +1,153 @@
+{% extends '::base.html.twig' %}
+
+{% block contents -%}
+
+    <div class="modal fade" id="edit-section">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Edit section</h4>
+                </div>
+                <div class="modal-body">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#edit_section" data-toggle="tab">Edit section</a></li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="edit_section">
+                            <table class="table table-info">
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <label for="title">{% trans %}Topic{% endtrans %} <span class="tooltip-label glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="left" title="{% trans %}Provide topic{% endtrans %}"></span></label>
+                                    </td>
+                                    <td>
+                                        <div class="form-group">
+                                            <input type="text" id="title" value="" placeholder="{% trans %}Provide title{% endtrans %}" class="form-control" />
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <table class="table table-info">
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <label for="description">Description <span class="tooltip-label glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="left" title="{% trans %}Provide description{% endtrans %}"></span></label>
+                                    </td>
+                                    <td>
+                                        <div class="form-group">
+                                            <textarea type="text" id="description" value="" placeholder="{% trans %}Provide description{% endtrans %}" class="form-control" ></textarea>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <hr>
+                            <h3>Parameters</h3>
+                            <table class="table table-hovered" id="parameters">
+                                <thead>
+                                <tr>
+                                    <th>
+                                        Parameter
+                                    </th>
+                                    <th>
+                                        Type
+                                    </th>
+                                    <th>
+                                        Resource
+                                    </th>
+                                    <th>
+                                        Remove?
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody id="parameters-body">
+
+                                </tbody>
+                            </table>
+
+
+                            <div>
+                                <a id="new-row" class="btn btn-theme btn-primary">{%  trans  %}Add new parameter{%  endtrans %}</a>
+                            </div>
+
+                        </div>
+                        <div class="tab-pane" id="media">
+                            {% include 'SchooltripBundle:Media:mediaPicker.html.twig' with {"media": media } only %}
+                            <p>
+                                <a class="btn btn-theme btn-back-to-edit">Add selected media and go back</a>
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button id="save-section" type="button" data-parent-id="{{ entity.id }}" data-id="0" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <h1>Trip</h1>
+
+    <table class="record_properties table">
+        <tbody>
+
+            <tr>
+                <th>Title</th>
+                <td>{{ entity.title }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ entity.description }}</td>
+            </tr>
+            <tr>
+                <th>Departure</th>
+                <td>{{ entity.departure }}</td>
+            </tr>
+            <tr>
+                <th>Destination</th>
+                <td>{{ entity.destination }}</td>
+            </tr>
+            <tr>
+                <th>Age group</th>
+                <td>{{ entity.ageGroup }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <div>
+    <a class="btn btn-theme" href="{{ path('trip_edit', { 'id': entity.id }) }}">
+        Edit
+    </a>
+        </div>
+    <h3>Manage sections</h3>
+    <div class="alert alert-info alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        Possible space for instruction information. Currently under discussion...
+    </div>
+
+    <div class="well" id="sections-container">
+        <div id="sections-trip">
+            {% include 'SchooltripBundle:Trip:sections.html.twig' with {"sections": entity.sections } only %}
+
+        </div>
+        <a class="btn btn-theme btn-add-section" data-toggle="modal" data-target="#edit-section" >
+            Add section
+        </a>
+    </div>
+    <a href="{{ path('trip') }}">
+        Back to the list
+    </a>
+
+    {{ form(delete_form) }}
+
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+<script src="{{ asset('js/sections.js') }}"></script>
+
+{% endblock %}

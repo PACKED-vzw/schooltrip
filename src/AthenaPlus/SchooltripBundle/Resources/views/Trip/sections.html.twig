@@ -1,0 +1,16 @@
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th>Section</th>
+        <th>Edit</th>
+        <th>Remove?</th>
+    </tr>
+    </thead>
+    {% for section in sections %}
+        <tr>
+            <td> {{ section.title }} </td>
+            <td><a class="btn btn-theme btn-edit-section" title="{{ section.id }}" > Edit</a></td>
+            <td><a class="btn btn-primary btn-embossed btn-danger btn-sm btn-delete-section" title="{{ section.id }}">X</a></td>
+        </tr>
+    {% endfor %}
+</table>

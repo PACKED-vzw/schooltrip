@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+
+<html class="{% block full %}{% endblock %}" lang="en">
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="{{ block('full') }} no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>{% block title %}SchoolTrip {% endblock %}</title>
+    <meta name="description" content="SchoolTrip Packed VZW">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="img/icons/favicon.ico" type="image/x-icon" />
+    <!-- Apple Touch Icons -->
+    <link rel="apple-touch-icon" href="img/icons/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" sizes="57x57" href="img/icons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="img/icons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="img/icons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon" sizes="144x144" href="img/icons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon" sizes="60x60" href="img/icons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon" sizes="120x120" href="img/icons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon" sizes="76x76" href="img/icons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="img/icons/apple-touch-icon-152x152.png" />
+    <!-- Windows 8 Tile Icons -->
+    <meta name="msapplication-square70x70logo" content="smalltile.png" />
+    <meta name="msapplication-square150x150logo" content="mediumtile.png" />
+    <meta name="msapplication-wide310x150logo" content="widetile.png" />
+    <meta name="msapplication-square310x310logo" content="largetile.png" />
+
+    {% block stylesheets %}
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+        <!-- Bootstrap core CSS -->
+        <link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href="{{asset('css/normalize.css')}}" rel="stylesheet">
+        <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+        <link href="{{asset('css/bootstrap.css') }}" rel="stylesheet">
+        <link href="{{asset('css/jquery.flipster.css') }}" rel="stylesheet">
+        <link href="{{asset('css/main.css') }}" rel="stylesheet">
+        <link href="{{asset('css/font-awesome.min.css') }}" rel="stylesheet">
+        <link href="{{asset('css/datepicker3.css') }}" rel="stylesheet">
+        <link href="{{asset('css/select2.css') }}" rel="stylesheet">
+        <link href="{{asset('css/select2-bootstrap.css') }}" rel="stylesheet">
+        <link href="{{asset('css/jquery.timepicker.css') }}" rel="stylesheet">
+        <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+
+    {% endblock %}
+    <!--<link rel="stylesheet" href="css/main.css">-->
+
+    <script src="{{asset('js/modernizr-2.6.2-respond-1.1.0.min.js')}}"></script>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+{% block body %}
+<div id="loading-modal">
+    <img id="loading-modal-spinner" src="{{ asset('img/ajax-loader.gif') }}">
+</div>
+<!--[if lt IE 7]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
+
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#"><img src="{{ asset('img/Logo_SchoolTrip_Packed.png') }}" alt="Logo Schooltrip Packed"/></a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                {% if app.user %}
+                <li>
+                    <a href="{{ path('overview') }}">Home</a>
+                </li>
+                <li>
+                    <a href="{{ path('community_index') }}">Community</a>
+                </li>
+                <li>
+                    <a href="http://wiki.athenaplus.eu/index.php/SchoolTrip" target="_blank">Help</a>
+                </li>
+                <!-- Notification Dropdown -->
+
+                <li class="dropdown">
+                    <a href="#" data-toggle="dropdown"><i class="fa fa-bell-o notifbell"><span class="notification-counter">!</span></i></a>
+                    <div class="dropdown-menu notifmenu">
+                        <h4>Notifications</h4>
+                        <ul class="seconddrop" id="notification-list">
+
+
+                        </ul>
+                        <a href="{{ path('notifications') }}"><h4 id="morenotif">See more notifications</h4></a>
+                    </div>
+                </li>
+
+
+                <li>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">{{ app.user }} <i class="fa fa-caret-down arrowtitle"></i></a>
+                    <ul class="dropdown-menu" id="user" role="menu">
+                        {% if is_granted('ROLE_ADMIN') %}
+                        <li><a data-toggle="modal" href="#notificationModal">Notifications</a></li>
+                        <li><a data-toggle="modal" href="#groupModal" id="load-group-modal">Groups</a></li>
+                        <li><a data-toggle="modal" href="#profileModal">Profile</a></li>
+                        {% endif %}
+                        <li><a href="{{ path('fos_user_security_logout') }}" class="last">Sign out</a></li>
+                    </ul>
+                </li>
+
+                {% else %}
+                <li>
+                    <a href="{{ path('fos_user_security_login') }}">Sign In</a>
+                </li>
+
+                {% endif %}
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+{% block contents %}
+
+{% endblock %}
+  <!-- modals -->
+    <!-- Groups Modal -->
+    {% if app.user %}
+    <div class="modal fade" id="groupModal" tabindex="-1" role="dialog" aria-labelledby="Profile" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content profilebox">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Groups</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div>
+                            <a href="#" class="groupLink">
+                                <p class="groupIcon"><i class="fa fa-users"></i></p>
+                                <p class="groupDescription new-group">Add group</p>
+                            </a>
+                        </div>
+                        <div class="group-list">
+
+                        </div>
+                        <div id="open-edit-group">
+
+
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.End Groups modal -->
+    <!-- Notifications Settings Modal -->
+    <div class="modal fade" id="notificationModal" tabindex="-1" role="dialog" aria-labelledby="Profile" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content profilebox">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Settings Notifications</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row" >
+                        <p class="modalDescription">Choose which notifications you want to receive :
+                            <!-- Column 1 -->
+                        <div class="col-md-12">
+                            <a href="#" id="notifRecords" class="settingNotif">Records <i class="fa fa-question-circle tooltipbottom" data-toggle="tooltip" data-placement="right" title="This is setting A"></i></a>
+                            <a href="#" id="notifMessages" class="settingNotif">Messages <i class="fa fa-question-circle tooltipbottom" data-toggle="tooltip" data-placement="right" title="This is setting C"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="sectionbutton" id="save-notifications">Save</a>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.End Notifications Settings modal -->
+    <!-- Profile Modal -->
+    <div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="Profile" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content profilebox">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Profile</h4>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-no-border" cellspacing="0px">
+                        <tbody>
+
+
+                        <tr>
+                            <td colspan="2">
+                                <div class="form-group">
+                                    <label for="profile-name" class="modallabel">Name <i class="fa fa-question-circle tooltipright" data-toggle="tooltip" data-placement="right" title="Choose name"></i></label>
+                                    <input type="text" class="form-control" id="profile-name" placeholder="Name" value="{{ app.user }}" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="profile-email" class="modallabel">Email <i class="fa fa-question-circle tooltipright" data-toggle="tooltip" data-placement="right" title="Choose name"></i></label>
+                                    <input type="text" class="form-control" id="profile-email" placeholder="Email" value="{{ app.user.email }}" required>
+                                </div>
+                                <hr>
+                                <div class="form-group">
+                                    <label for="profile-new-pass" class="modallabel">New password <i class="fa fa-question-circle tooltipright" data-toggle="tooltip" data-placement="right" title="Choose password"></i></label>
+                                    <input type="password" class="form-control" id="profile-new-pass" placeholder="Password">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="profile-new-pass-repeat" class="modallabel">Repeat new password <i class="fa fa-question-circle tooltipright" data-toggle="tooltip" data-placement="right" title="Choose password"></i></label>
+                                    <input type="password" class="form-control" id="profile-new-pass-repeat" placeholder="Password">
+                                </div>
+
+
+                                <hr>
+                                <div class="form-group">
+                                    <label for="profile-old-pass" class="modallabel">Password <i class="fa fa-question-circle tooltipright" data-toggle="tooltip" data-placement="right" title="Choose password"></i></label>
+                                    <input type="password" class="form-control" id="profile-old-pass" placeholder="Password" required>
+                                </div>
+
+
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                    <div class="modal-footer">
+                        <a href="#" class="sectionbutton" id="update-profile">Update</a>
+                    </div>
+                </div>
+
+            </div><!-- /.modal-content -->
+
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.End Profile modal -->
+  <!-- /modals -->
+    {% endif %}
+</div>
+<!-- /.container -->
+
+
+<!-- Footer -->
+<footer class="navbar navbar-inverse navbar-fixed-bottom footerbar" role="navigation">
+    <div class="container">
+        <div class="row-fluid show-grid">
+            <div class="col-xs-4 col-md-4 footboxleft">info@packed.be</div>
+            <div class="col-xs-4 col-md-4 footboxcenter"></div>
+            <div class="col-xs-4 col-md-4 footboxright">
+                <!--
+                <a href="http://twitter.com" class="socialbox"><i class="fa fa-twitter"></i></a>
+                <a href="http://facebook.com" class="socialbox"><i class="fa fa-facebook"></i></a>
+                <a href=" class="socialbox lasticon"><i class="fa fa-envelope"></i></a>
+                -->
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Scripts -->
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+    <script src="{{ asset('js/jquery-1.11.1.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/retina-1.1.0.js') }}"></script>
+    <script src="{{ asset('js/jquery.hoverdir.js') }}"></script>
+    <script src="{{ asset('js/jquery.hoverex.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.prettyPhoto.js') }}"></script>
+    <script src="{{ asset('js/jquery.isotope.min.js') }}"></script>
+    <script src="{{ asset('js/notify.min.js') }}"></script>
+    <script src="{{ asset('js/draggable.js') }}"></script>
+    <script src="{{ asset('js/flipster.js') }}"></script>
+    <script src="{{ asset('js/bootstrap-datepicker.js') }}"></script>
+    <script src="{{ asset('js/stupidtable.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap-select.min.js') }}"></script>
+    <script src="{{ asset('js/tinymce/tinymce.min.js') }}"></script>
+    <script src="{{ asset('js/jquery-ui/jquery-ui.min.js') }}"></script>
+    <script src="{{ asset('js/custom.js') }}"></script>
+    <script src="{{ asset('js/transition.js') }}"></script>
+    <script src="{{ asset('js/angular.min.js') }}"></script>
+    <script src="{{ asset('js/handlebars.js') }}"></script>
+
+    <script src="{{ asset('js/jquery.ui.widget.js')}}"></script>
+    <script src="{{ asset('js/jquery.timepicker.min.js')}}"></script>
+    <script src="{{ asset('js/SimpleAjaxUploader.min.js')}}"></script>
+    <script src="{{ asset('js/readmore.min.js')}}"></script>
+
+    <script src="{{ asset('js/base.js') }}"></script>
+{% endblock %}
+
+{%  verbatim %}
+<script id="template-user-open" type="text/x-handlebars-template">
+    <tr >
+        <td colspan="4">
+           <div class="form-group">
+                <label for="user-username" class="modallabel">Name </label>
+                <input type="text" class="form-control" id="user-username" placeholder="Name" value={{ name }}>
+            </div>
+
+            <div class="form-group">
+                <label for="user-email" class="modallabel">Email</label>
+                <input  type="text" class="form-control" id="user-email" placeholder="Email" value={{ email }}>
+            </div>
+
+            <div class="form-group">
+                <label for="user-pass" class="modallabel">Password</label>
+                <input type="password" class="form-control" id="user-pass" placeholder="Password">
+            </div>
+
+            <div class="form-group">
+                <label for="user-confirm-pass" class="modallabel">Confirm password</label>
+                <input type="password" class="form-control" id="user-confirm-pass" placeholder="Confirm password">
+            </div>
+            <div>
+                <a href="#" class="modaleditbutton" id="user-save-user" data-id="{{ id }}" data-group-id="{{ group_id }}">Save user</a>
+            </div>
+        </td>
+
+    </tr>
+</script>
+<script id="template-group" type="text/x-handlebars-template">
+    <div class="col-md-3 trip-group" data-id="{{ id }}">
+        <a href="#" class="groupLink">
+            <p class="groupIcon"><i class="fa fa-users"></i></p><p class="groupDescription">{{ name }}</p>
+        </a>
+    </div>
+</script>
+<script id="template-group-edit" type="text/x-handlebars-template">
+    <div class="col-md-12">
+        <div class="form-group">
+            <label for="group-name">Name</label>
+            <input type="text" class="form-control" value="{{ name }}" id="group-name" name="group-name">
+        </div>
+
+
+        <div class="form-group">
+            <a href="#" class="modaleditbutton" id="add-new-user" data-id="{{ id }}">Add new user</a>
+            <a href="#" class="modaleditbutton" id="save-group-config" data-id="{{ id }}">Save group</a>
+            <a href="#" class="modaleditbutton delete-group" data-id="{{ id }}">Delete group</a>
+        </div>
+        <hr>
+        <h3>Users</h3>
+        <div class="user-group-list">
+        </div>
+        <table class="table table-no-border" cellspacing="0px">
+            <tbody id="individual-user">
+
+
+            </tbody>
+        </table>
+
+
+    </div>
+</script>
+
+<script id="template-user-short" type="text/x-handlebars-template">
+    <a href="#" class="edit-user user-item" data-id={{ id }}>{{ name }}</a>
+</script>
+
+
+
+{%  endverbatim %}
+</body>
+</html>

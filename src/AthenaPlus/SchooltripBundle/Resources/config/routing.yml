@@ -1,0 +1,43 @@
+SchooltripBundle_section:
+    resource: "@SchooltripBundle/Resources/config/routing/section.yml"
+    prefix:   /student/section
+
+SchooltripBundle_trip:
+    resource: "@SchooltripBundle/Resources/config/routing/trip.yml"
+    prefix:   /admin/trip
+
+SchooltripBundle_entry:
+    resource: "@SchooltripBundle/Resources/config/routing/entry.yml"
+    prefix:   /student/entry
+
+SchooltripBundle_section_contents:
+    resource: "@SchooltripBundle/Resources/config/routing/contents.yml"
+    prefix:   /student/contents
+
+SchooltripBundle_journal:
+        resource: "@SchooltripBundle/Resources/config/routing/journal.yml"
+        prefix:   /student/journal
+
+SchooltripBundle_community:
+        resource: "@SchooltripBundle/Resources/config/routing/community.yml"
+        prefix:   /community
+
+SchooltripBundle_notification:
+        resource: "@SchooltripBundle/Resources/config/routing/notification.yml"
+        prefix:   /notifications
+
+SchooltripBundle_trip_ajax:
+        resource: "@SchooltripBundle/Resources/config/routing/tripajax.yml"
+        prefix:   /admin/tripajax
+
+SchooltripBundle_contents_ajax:
+        resource: "@SchooltripBundle/Resources/config/routing/contentsajax.yml"
+        prefix:   /common/tripajax
+
+SchooltripBundle_student:
+        resource: "@SchooltripBundle/Resources/config/routing/student.yml"
+        prefix:   /student/trip
+
+SchooltripBundle_overview:
+        resource: "@SchooltripBundle/Resources/config/routing/overview.yml"
+        prefix:   /
