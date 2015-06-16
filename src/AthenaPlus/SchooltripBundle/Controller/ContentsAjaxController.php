@@ -64,8 +64,15 @@ class ContentsAjaxController extends Controller
      * load challenge
      *
      */
-    public function loadParametersAction(Section $section)
+    public function loadParametersAction($id)
     {
+        $em = $this->getDoctrine()->getManager();
+
+        $section = $em->getRepository('SchooltripBundle:Section')->find($id);
+
+
+        $em->persist($section);
+        $em->flush();
         $parameters = $section->getParameters();
 
 

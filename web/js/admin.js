@@ -323,7 +323,7 @@ function toggleEditLinkSection(id){
 
 
 function toggleParametersSection(id){
-
+    console.log("param");
     if( SchooltripApp.sectionView == 'list' ){
         SchooltripApp.currentSection = id;
         $.ajax({
@@ -346,6 +346,7 @@ function toggleParametersSection(id){
         $('#back-to-sections').hide();
         SchooltripApp.sectionView='list';
     }
+    loadImages(id);
 }
 
 function drawSection(section){
@@ -377,6 +378,7 @@ function drawPane(parameters, template){
 }
 
 function drawParametersSection(parameters){
+    console.log(parameters);
     var source   = $("#manage-parameters-template").html();
     var template = Handlebars.compile(source);
 
@@ -384,6 +386,8 @@ function drawParametersSection(parameters){
 }
 
 function loadImages(sectionId){
+    console.log ('loadimages called ');
+    console.log (sectionId);
     $.ajax({
         type: 'post',
         url: Routing.generate('load_images_section'),
@@ -391,6 +395,7 @@ function loadImages(sectionId){
             'section_id' : sectionId
         },
         success: function(images){
+            console.log (images);
             drawImages(images);
             //$('#parameter-images').html(html);
         }
@@ -419,10 +424,8 @@ function loadImage(sectionId, imageId){
 function drawImages(images){
     $('#parameter-images').html('');
     for (var img in images){
-        if (images.hasOwnProperty(img)){
             var html = drawImage(images[img]);
             $('#parameter-images').append(html);
-        }
 
     }
 }
@@ -628,6 +631,7 @@ $('#paramModalTriplist').on('click', '.edit-link-btn', function(){
 
 $('#paramModalTriplist').on('click', '.edit-media-btn', function(){
     if($(this).hasClass('section-open')){
+        loadImages (SchooltripApp.currentSection);
         saveParameters(SchooltripApp.currentSection, $(this).attr('data-save-method'));
     }
     else {
