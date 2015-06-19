@@ -239,7 +239,7 @@
             <tr class="datatr" id="edit-media-row">
                     <td class="modalDetailTitle">Media</td>
                     <td class="modalDetailDescr"></td>
-                    <td class="modaledit"><a href="#" class="modalEditDetailbutton edit-media-btn" data-save-method="media">Edit</a></td>
+                    <td class="modaledit"><a href="#" class="modalEditDetailbutton edit-media-btn" data-save-method="media" id="media-edit-button">Edit</a></td>
             </tr>
 
             <tr class="datatr" id="edit-link-row">
@@ -269,7 +269,8 @@
             </div>
         </script>
         <script id="edit-media-template" type="text/x-handlebars-template">
-            <div class="datatr section-media-open">
+            <!-- This is where the images *should* go -->
+            <div class="datatr section-media-open" id="img_edit_bar">
                 <div id="image-edit">
 
                 </div>

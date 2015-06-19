@@ -4,7 +4,7 @@ parameters:
     database_host: 127.0.0.1
     database_port: null
     database_name: schooltrip
-    database_user: root
+    database_user: schooltrip
     database_password: fullminibus99
     mailer_transport: gmail
     mailer_host: localhost

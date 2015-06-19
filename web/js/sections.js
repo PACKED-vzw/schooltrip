@@ -182,6 +182,7 @@ App.getParameterId = function(id_string)
 
 App.addParameterRow = function(parameter_value, parameter_resource, parameter_type, parameter_challenge)
 {
+    console.log ('is this being used?');
     if (parameter_value == undefined) { parameter_value = ""};
     if (parameter_resource == undefined) { parameter_resource = ""};
     if (parameter_type == undefined) { parameter_type = "url"};
@@ -262,6 +263,7 @@ App.setCurrentParameter = function(parameter_id){
     App.current_parameter = parameter_id;
 }
 
+/* draws the media for the parameters */
 App.createSelectedMediaBlock = function(parameter, files) {
     $('#med_'+ parameter +' .selected-media').html("");
     for (file in files) {

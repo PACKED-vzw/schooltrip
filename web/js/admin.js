@@ -402,8 +402,10 @@ function loadImages(sectionId){
     })
 }
 
-function loadImage(sectionId, imageId){
 
+function loadImage(sectionId, imageId){
+/* So this should load the images */
+    console.log ('log_images_section');
     $.ajax({
         type: 'post',
         url: Routing.generate('load_image_section'),
@@ -422,12 +424,29 @@ function loadImage(sectionId, imageId){
 
 
 function drawImages(images){
+    console.log ('images');
+    console.log (images);
     $('#parameter-images').html('');
+    var shtml = '';
     for (var img in images){
             var html = drawImage(images[img]);
+        /*$(document).ready(function () {
+            var f = document.getElementById ('parameter-images');
+            console.log (f);
             $('#parameter-images').append(html);
+        });*/
+        shtml = shtml + html;
 
     }
+    console.log (shtml);
+    /* html does not get appended */
+    $('#parameter-images').waitUntilExists (function () {
+        console.log ('we wait');
+        $('#parameter-images').append(shtml);
+    });
+    var f = document.getElementById ('parameter-images');
+    console.log (f);
+
 }
 
 
@@ -629,6 +648,9 @@ $('#paramModalTriplist').on('click', '.edit-link-btn', function(){
     toggleEditPane(SchooltripApp.currentSection, '.section-link-open','.edit-link-btn', '#edit-link-row', 'load_section_parameters', "#edit-link-template");
 });
 
+/*
+This creates the edit form for the "Media" parameter
+ */
 $('#paramModalTriplist').on('click', '.edit-media-btn', function(){
     if($(this).hasClass('section-open')){
         loadImages (SchooltripApp.currentSection);
