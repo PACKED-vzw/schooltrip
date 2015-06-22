@@ -386,7 +386,6 @@ function drawParametersSection(parameters){
 }
 
 function loadImages(sectionId){
-    console.log ('loadimages called ');
     console.log (sectionId);
     $.ajax({
         type: 'post',
@@ -404,7 +403,8 @@ function loadImages(sectionId){
 
 
 function loadImage(sectionId, imageId){
-/* So this should load the images */
+/* So this should load the images
+* In the main form that is*/
     console.log ('log_images_section');
     $.ajax({
         type: 'post',
@@ -414,7 +414,11 @@ function loadImage(sectionId, imageId){
             'image_id'   : imageId
         },
         success: function(image){
+            console.log (image);
             var html = drawImageEdit(image);
+            console.log (html);
+            var f = document.getElementById ('image-edit');
+            console.log (f);
             $('#image-edit').html(html);
 
         }
@@ -425,7 +429,6 @@ function loadImage(sectionId, imageId){
 
 function drawImages(images){
     console.log ('images');
-    console.log (images);
     $('#parameter-images').html('');
     var shtml = '';
     for (var img in images){
@@ -438,14 +441,11 @@ function drawImages(images){
         shtml = shtml + html;
 
     }
-    console.log (shtml);
     /* html does not get appended */
+    /* We use a jquery function I found somewhere until the container id exists, and then append it all */
     $('#parameter-images').waitUntilExists (function () {
-        console.log ('we wait');
         $('#parameter-images').append(shtml);
     });
-    var f = document.getElementById ('parameter-images');
-    console.log (f);
 
 }
 
@@ -461,7 +461,6 @@ function drawImage(image){
 function drawImageEdit(image){
     var source   = $("#edit-media-template-open").html();
     var template = Handlebars.compile(source);
-
     return template(image);
 }
 

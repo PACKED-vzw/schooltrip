@@ -64,7 +64,7 @@ class ContentsAjaxController extends Controller
      * load challenge
      *
      */
-    public function loadParametersAction($id)
+    /*public function loadParametersAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -72,7 +72,8 @@ class ContentsAjaxController extends Controller
 
 
         $em->persist($section);
-        $em->flush();
+        $em->flush();*/
+    public function loadParametersAction (Section $section) {
         $parameters = $section->getParameters();
 
 

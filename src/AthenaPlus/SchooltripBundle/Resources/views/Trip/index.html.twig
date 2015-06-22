@@ -287,6 +287,9 @@
 
         <script id="edit-media-template-open" type="text/x-handlebars-template">
             <div class="row">
+                <img src="{{ thumbnail }}" alt="{{ label }}" class="edit-image" />
+            </div>
+            <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="labelimage" class="modallabel">Label</label>
@@ -336,7 +339,7 @@
         <script id="section-image-template" type="text/x-handlebars-template">
             <div class="col-md-3 thumbnail-cell" data-id="{{ id }}" data-uploaded="0">
                 <a href="#" class="thumbnail">
-                    <img src="/{{ thumbnail }}" data-id="{{ id }}" id="{{ id }}">
+                    <img src="/{{ thumbnail }}" data-id="{{ id }}" id="{{ id }}" />
                     <a href="#" data-id="{{ id }}" class="closeButtonTopRight close delete-image"><i class="fa fa-close modalicondeletedetail"></i></a>
             </div>
         </script>
