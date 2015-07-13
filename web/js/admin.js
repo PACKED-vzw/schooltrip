@@ -483,9 +483,12 @@ function saveSection(id, tripid, title, description, genre ){
             alert("Section saved");
             loadSections();
         },
-        error: function(){
-            alert('An error occurred!');
-        }
+        error: function (jqXHR, textStatus, errorThrown) {
+	alert ('An error occured!');
+	console.log (jqXHR);
+	console.log (textStatus);
+	console.log (errorThrown);
+}
     });
 }
 
@@ -587,9 +590,12 @@ function saveParameters(sectionId, method){
         'success': function(data){
             alert("Parameters saved!");
         },
-        error: function(){
-            alert('An error occurred!');
-        }
+        error: function (jqXHR, textStatus, errorThrown) {
+	alert ('An error occured!');
+	console.log (jqXHR);
+	console.log (textStatus);
+	console.log (errorThrown);
+}
     });
 }
 
@@ -602,9 +608,12 @@ function createNewSection(){
             alert("Section created");
             loadSections();
         },
-        error: function(){
-            alert('An error occurred!');
-        }
+        error: function (jqXHR, textStatus, errorThrown) {
+	alert ('An error occured!');
+	console.log (jqXHR);
+	console.log (textStatus);
+	console.log (errorThrown);
+}
     });
 
 }

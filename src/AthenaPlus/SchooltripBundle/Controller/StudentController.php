@@ -374,9 +374,11 @@ class StudentController extends Controller
 
         foreach($dateTab['entries'] as &$entry){
             $record = $em->getRepository('SchooltripBundle:Entry')->find($entry['original_record_id']);
-            $entry['title'] = $record->getTitle();
-            $entry['user']  = $record->getUser();
-            $entry['text']  = $record->getText();
+            if ($record && is_object($record)) {
+                $entry['title'] = $record->getTitle();
+                $entry['user']  = $record->getUser();
+                $entry['text']  = $record->getText();
+            }
             unset($record);
         }
 

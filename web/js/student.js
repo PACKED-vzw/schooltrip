@@ -93,9 +93,12 @@ function saveRecord(id, title, description, url ){
             alert("Record saved");
             loadRecords(SchooltripApp.currentSectionDom, SchooltripApp.currentSection);
         },
-        error: function(){
-            alert('An error occurred!');
-        }
+        error: function (jqXHR, textStatus, errorThrown) {
+	alert ('An error occured!');
+	console.log (jqXHR);
+	console.log (textStatus);
+	console.log (errorThrown);
+}
     });
 }
 
@@ -107,9 +110,12 @@ function createNewRecord(section_id){
             alert("Record added!");
             loadRecords(SchooltripApp.currentSectionDom, SchooltripApp.currentSection);
         },
-        error: function(){
-            alert('An error occurred!');
-        }
+        error: function (jqXHR, textStatus, errorThrown) {
+	alert ('An error occured!');
+	console.log (jqXHR);
+	console.log (textStatus);
+	console.log (errorThrown);
+}
     });
 }
 
@@ -120,9 +126,12 @@ function markSectionAsReady(section_id){
         'success': function(data){
             location.reload();
         },
-        error: function(){
-            alert('An error occurred!');
-        }
+        error: function (jqXHR, textStatus, errorThrown) {
+	alert ('An error occured!');
+	console.log (jqXHR);
+	console.log (textStatus);
+	console.log (errorThrown);
+}
     });
 }
 
@@ -235,9 +244,12 @@ function addJournalEntry(journalId, dateId, originalRecordId){
         'success' : function(date){
             drawDate(date);
         },
-        'error' : function(){
-            alert("An error occurred!");
-        }
+        error: function (jqXHR, textStatus, errorThrown) {
+	alert ('An error occured!');
+	console.log (jqXHR);
+	console.log (textStatus);
+	console.log (errorThrown);
+}
     });
 
 }
@@ -255,9 +267,12 @@ function editTimeJournalEntry(journalId, dateId, dateEntryId, hour){
         'success' : function(date){
             drawDate(date);
         },
-        'error' : function(){
-            alert("An error occurred!");
-        }
+        error: function (jqXHR, textStatus, errorThrown) {
+	alert ('An error occured!');
+	console.log (jqXHR);
+	console.log (textStatus);
+	console.log (errorThrown);
+}
     });
 
 }
@@ -273,9 +288,12 @@ function updateJournalEntry(journalId, data){
         'success' : function(data){
             alert("Changes saved!");
         },
-        'error' : function(){
-            alert("An error occurred!");
-        }
+        error: function (jqXHR, textStatus, errorThrown) {
+	alert ('An error occured!');
+	console.log (jqXHR);
+	console.log (textStatus);
+	console.log (errorThrown);
+}
     });
 }
 
@@ -290,9 +308,12 @@ function deleteJournalEntry(journalId, dateId, entryId){
         'success' : function(date){
             drawDate(date);
         },
-        'error' : function(){
-            alert("An error occurred!");
-        }
+        error: function (jqXHR, textStatus, errorThrown) {
+	alert ('An error occured!');
+	console.log (jqXHR);
+	console.log (textStatus);
+	console.log (errorThrown);
+}
     });
 }
 
@@ -306,15 +327,20 @@ function loadDateJournal(journalId, dateId){
         'success' : function(date){
             drawDate(date);
         },
-        'error' : function(){
-            alert("An error occurred!");
-        }
+        error: function (jqXHR, textStatus, errorThrown) {
+	alert ('An error occured!');
+	console.log (jqXHR);
+	console.log (textStatus);
+	console.log (errorThrown);
+}
     });
 }
 
 
 
-
+/*
+Draws (HTML) the forms for removing/viewing the date records in the journal.
+ */
 function drawDate(date){
     console.log(date);
     $('#date-record-boxes-' + SchooltripApp.currentDate).html('');
