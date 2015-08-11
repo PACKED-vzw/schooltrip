@@ -47,7 +47,32 @@ UserObject.prototype.drawList = function(users){
     return html;
 };
 
-UserObject.prototype.load = function(user){};
+/**
+ * Create an alert with the .msg property of an error object returned by the server API.
+ * @param error
+ */
+UserObject.prototype.serverErrorHandler = function(error){
+    alert(error.msg);
+};
+
+/**
+ * Function to load a single user identified by id
+ * @param id
+ */
+UserObject.prototype.load = function(id){
+    var self = this;
+    $.ajax({
+        'type' : 'POST',
+        'url'  : Routing.generate('trip-load-user', {id: id}),
+        'success': function(response){
+            var html = self.drawEdit(response);
+            $('#individual-user').html(html);
+        },
+        'error': function(r, status, error){
+            alert('The server returned the following error: ' + status + '(' + error + ')');
+        }
+    })
+};
 
 /**
  * Create a new user from data (form) in group
@@ -66,30 +91,62 @@ UserObject.prototype.create = function(group, data){
                 var html = self.drawList(response);
                 $('.user-group-list').html(html);
                 $('#individual-user').html('');
-                return true;
             } else {
                 /* If it is an object, we have an error on our hands */
-                var error = response;
-                switch(error.code) {
-                    case 'USER_EXISTS':
-                        alert('A user with this e-mail address already exists. Please select a different address.');
-                        break;
-                    default:
-                        alert(error.msg);
-                }
-                return false;
+                self.serverErrorHandler(response);
             }
         },
         'error': function(r, status, error){
             alert('The server returned the following error: ' + status + '(' + error + ')');
-            return false;
         }
     });
 };
 
-UserObject.prototype.save = function(data) {};
+/**
+ * Save an updated user.
+ * @param data
+ */
+UserObject.prototype.update = function(data) {
+    var self = this;
+    $.ajax({
+        'type' : 'POST',
+        'url'  : Routing.generate('update-user'),
+        'data' : data,
+        'success': function(response){
+            /* If the response is an array, it is a list of users that can be passed to this.drawList() */
+            if (response instanceof Array) {
+                var html = self.drawList(response);
+                $('.user-group-list').html(html);
+                $('#individual-user').html('');
+            } else {
+                /* If it is an object, we have an error on our hands */
+                self.serverErrorHandler(response);
+            }
+        },
+        'error': function(r, status, error){
+            alert('The server returned the following error: ' + status + '(' + error + ')');
+        }
+    });
+};
 
-UserObject.prototype.loadFromGroup = function(group){};
+/**
+ * Load all users for a given group identified by id
+ * @param id
+ */
+UserObject.prototype.loadFromGroup = function(id){
+    var self = this;
+    $.ajax({
+        'type' : 'POST',
+        'url'  : Routing.generate('trip-load-users-for-group', {id: id}),
+        'success': function(response){
+            var html = self.drawList(response);
+            $('.user-group-list').html(html);
+        },
+        'error': function(r, status, error){
+            alert('The server returned the following error: ' + status + '(' + error + ')');
+        }
+    })
+};
 
 
 /*
@@ -120,49 +177,16 @@ function saveNewUser(group, data){
 }
 
 function saveUser(data){
-    $.ajax({
-        'type' : 'POST',
-        'url'  : Routing.generate('update-user'),
-        'data' : data,
-        'success': function(users){
-            var html = drawUsers(users);
-            $('.user-group-list').html(html);
-            $('#individual-user').html('');
-        },
-        'error': function(){
-            alert("An error has occurred. Please try again...");
-        }
-    });
+    var uo = new UserObject();
+    uo.update(data);
 }
 
 function loadUsersForGroup(group){
-    $.ajax({
-        'type' : 'POST',
-        'url'  : Routing.generate('trip-load-users-for-group', {id: group}),
-        'success': function(users){
-            var html = drawUsers(users);
-            $('.user-group-list').html(html);
-
-        },
-        'error': function(){
-            alert("An error has occurred. Please try again...");
-        }
-    })
+    var uo = new UserObject();
+    uo.loadFromGroup(group);
 }
 
-
 function loadUser(user){
-    $.ajax({
-        'type' : 'POST',
-        'url'  : Routing.generate('trip-load-user', {id: user}),
-        'success': function(user){
-            var html = drawEditUser(user);
-
-            $('#individual-user').html(html);
-
-        },
-        'error': function(){
-            alert("An error has occurred. Please try again...");
-        }
-    })
+    var uo = new UserObject();
+    uo.load(user);
 }

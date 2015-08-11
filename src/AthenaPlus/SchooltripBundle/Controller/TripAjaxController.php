@@ -226,46 +226,6 @@ class TripAjaxController extends Controller
     }
 
 
-    /**
-     * Create a new user
-     * @param ClassGroup $group
-     * @param Request $request
-     * @return JsonResponse
-     */
-    public function addNewUserAction(ClassGroup $group, Request $request) {
-        $email = $request->get('email');
-        $username = $request->get('username');
-        /* Check whether this user exists */
-        $um = $this->get('fos_user.user_manager');
-        if ($um->findUserByEmail($email) !== null) {
-            /* This user already exists */
-            return new JSONResponse(array('msg' => 'This user already exists!', 'code' => 'USER_EXISTS'));
-        } else {
-            $password  = $request->get('pass');
-            $confirmedPassword = $request->get('confirm_pass');
-
-            $factory = $this->get('security.encoder_factory');
-
-            $user = new User();
-
-            $encoder = $factory->getEncoder($user);
-            $pass = $encoder->encodePassword($password, $user->getSalt());
-            $user->setUsername($username);
-            $user->setEmail($email);
-            $user->setPassword($pass);
-            $user->setGroup($group);
-            $user->setEnabled(true);
-
-            $em = $this->getDoctrine()->getEntityManager();
-            $em->persist($user);
-            $em->flush();
-
-
-            // return user & password
-            return new JsonResponse($this->formatUsers($group->getUsers()));
-        }
-    }
-
     public function updateGroupAction(ClassGroup $group, Request $request)
     {
         $em = $this->getDoctrine()->getEntityManager();
@@ -291,36 +251,6 @@ class TripAjaxController extends Controller
         $groups = $em->getRepository('SchooltripBundle:ClassGroup')->findAll();
 
         return new JsonResponse($this->formatGroups($groups));
-    }
-
-
-    public function updateUserAction(Request $request)
-    {
-        $email     = $request->get('email');
-        $username  = $request->get('username');
-        $password  = $request->get('pass');
-        $confirmedPassword = $request->get('confirm_pass');
-        $id = $request->get('user_id');
-
-
-        $em = $this->getDoctrine()->getEntityManager();
-        $user = $em->getRepository('UserBundle:User')->find($id);
-
-
-        if(($password==$confirmedPassword)&&strlen($password) > 3){
-            $encoderService = $this->get('security.encoder_factory');
-            $encoder = $encoderService->getEncoder($user);
-            $encodedNewPass = $encoder->encodePassword($password, $user->getSalt());
-            $user->setPassword($encodedNewPass);
-        }
-
-        $user->setUsername($username);
-        $user->setEmail($email);
-
-        $em->persist($user);
-        $em->flush();
-
-        return new Response("ok");
     }
 
 
@@ -492,6 +422,85 @@ class TripAjaxController extends Controller
     }
 
     /**
+     * Create a new user
+     * @param ClassGroup $group
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function addNewUserAction(ClassGroup $group, Request $request) {
+        $email = $request->get('email');
+        $username = $request->get('username');
+        /* Check whether this user exists */
+        $um = $this->get('fos_user.user_manager');
+        if ($um->findUserByEmail($email) !== null) {
+            /* This user already exists */
+            return new JSONResponse(array('msg' => 'An user with this e-mail address already exists. Please select a different e-mail address.', 'code' => 'DUPLICATE_MAIL'));
+        } else {
+            $password  = $request->get('pass');
+            $confirmedPassword = $request->get('confirm_pass');
+            if ($password != $confirmedPassword) {
+                return new JSONResponse(array('msg' => 'Provided passwords do not match.', 'code' => 'PASSWD_NOMATCH'));
+            }
+
+            $factory = $this->get('security.encoder_factory');
+
+            $user = new User();
+
+            $encoder = $factory->getEncoder($user);
+            $pass = $encoder->encodePassword($password, $user->getSalt());
+            $user->setUsername($username);
+            $user->setEmail($email);
+            $user->setPassword($pass);
+            $user->setGroup($group);
+            $user->setEnabled(true);
+
+            $em = $this->getDoctrine()->getEntityManager();
+            $em->persist($user);
+            $em->flush();
+
+
+            /* Return a list of users */
+            return new JsonResponse($this->formatUsers($group->getUsers()));
+        }
+    }
+
+    /**
+     * Update a user
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function updateUserAction(Request $request) {
+        $email     = $request->get('email');
+        $username  = $request->get('username');
+        $password  = $request->get('pass');
+        $confirmedPassword = $request->get('confirm_pass');
+        $id = $request->get('user_id');
+        /* Check whether the e-mailaddress was not changed to one already in the DB */
+        $um = $this->get('fos_user.user_manager');
+        if ($um->findUserByEmail($email) !== null) {
+            $c = $um->findUserByEmail($email);
+            if ($c->getId() != $id) {
+                return new JSONResponse(array('msg' => 'An user with this e-mail address already exists. Please select a different e-mail address.', 'code' => 'DUPLICATE_MAIL'));
+            }
+        }
+        $em = $this->getDoctrine()->getEntityManager();
+        $user = $em->getRepository('UserBundle:User')->find($id);
+        if( ($password == $confirmedPassword) && strlen($password) > 3){
+            $encoderService = $this->get('security.encoder_factory');
+            $encoder = $encoderService->getEncoder($user);
+            $encodedNewPass = $encoder->encodePassword($password, $user->getSalt());
+            $user->setPassword($encodedNewPass);
+        }
+        $user->setUsername($username);
+        $user->setEmail($email);
+        $em->persist($user);
+        $em->flush();
+        /* Get all users in the same group as this user */
+        $users = $this->get_users_by_group($user->getGroup());
+        return new JsonResponse($this->formatUsers($users));
+    }
+
+    /**
      * Show a list of notifications in the main toolbar specific for this user
      * @return Response html-templated list of max. 5 notifications
      */
@@ -518,5 +527,17 @@ class TripAjaxController extends Controller
         return $this->render('SchooltripBundle:Base:notificationList.html.twig', array(
             'notifications' => $notifications
         ));
+    }
+
+    /**
+     * Get all users from a group identified by id
+     * @param $id
+     * @return Array
+     */
+    protected function get_users_by_group ($id){
+        $r = $this->getDoctrine()->getRepository('SchooltripBundle:ClassGroup');
+        $q = $r->createQueryBuilder('g')->where('g.id = :id')->setParameter('id', $id)->getQuery();
+        $g = $q->getSingleResult();
+        return $g->getUsers();
     }
 }
