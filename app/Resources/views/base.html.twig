@@ -312,7 +312,10 @@
     <script src="{{ asset('js/jquery.timepicker.min.js')}}"></script>
     <script src="{{ asset('js/SimpleAjaxUploader.min.js')}}"></script>
     <script src="{{ asset('js/readmore.min.js')}}"></script>
-
+    <!-- Handlebar helper must be loaded before users/* -->
+    <script src="{{ asset('js/handlebar_helper/helper.js') }}"></script>
+    <script src="{{ asset('js/users/user_object.js') }}"></script>
+    <script src="{{ asset('js/users/group_object.js') }}"></script>
     <script src="{{ asset('js/base.js') }}"></script>
 {% endblock %}
 

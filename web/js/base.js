@@ -99,34 +99,6 @@ function drawGroups(groups){
     return html;
 }
 
-function drawUser(user){
-    var source   = $("#template-user-short").html();
-    var template = Handlebars.compile(source);
-
-    return template(user);
-}
-
-function drawUsers(users){
-    var html = '';
-    for(var i = 0; i < users.length; i++){
-        html += drawUser(users[i]);
-    }
-    return html;
-}
-
-function drawEditGroup(group){
-    var source   = $("#template-group-edit").html();
-    var template = Handlebars.compile(source);
-
-    return template(group);
-}
-
-function drawEditUser(user){
-    var source   = $("#template-user-open").html();
-    var template = Handlebars.compile(source);
-
-    return template(user);
-}
 
 function updateGroup(group_id, group_name){
     $.ajax({
@@ -157,87 +129,6 @@ function openEditGroup(groupId){
 
 function saveGroup(){
     $('#open-edit-group').html('');
-}
-
-
-
-
-function addNewUser(group){
-    // initialise new user
-    var user = {'group_id' : group, 'id': 0, 'name': 'new user'};
-
-    var html = drawEditUser(user);
-
-    $('#individual-user').html(html);
-
-}
-
-
-function saveNewUser(group, data){
-
-    $.ajax({
-        'type' : 'POST',
-        'url'  : Routing.generate('add-new-user', {id: group}),
-        'data' : data,
-        'success': function(users){
-            var html = drawUsers(users);
-            $('.user-group-list').html(html);
-            $('#individual-user').html('');
-
-
-        },
-        'error': function(){
-            alert("An error has occurred. Please try again...");
-        }
-    });
-}
-
-function saveUser(data){
-    $.ajax({
-        'type' : 'POST',
-        'url'  : Routing.generate('update-user'),
-        'data' : data,
-        'success': function(users){
-            var html = drawUsers(users);
-            $('.user-group-list').html(html);
-            $('#individual-user').html('');
-        },
-        'error': function(){
-            alert("An error has occurred. Please try again...");
-        }
-    });
-}
-
-function loadUsersForGroup(group){
-    $.ajax({
-        'type' : 'POST',
-        'url'  : Routing.generate('trip-load-users-for-group', {id: group}),
-        'success': function(users){
-            var html = drawUsers(users);
-            $('.user-group-list').html(html);
-
-        },
-        'error': function(){
-            alert("An error has occurred. Please try again...");
-        }
-    })
-}
-
-
-function loadUser(user){
-    $.ajax({
-        'type' : 'POST',
-        'url'  : Routing.generate('trip-load-user', {id: user}),
-        'success': function(user){
-            var html = drawEditUser(user);
-
-            $('#individual-user').html(html);
-
-        },
-        'error': function(){
-            alert("An error has occurred. Please try again...");
-        }
-    })
 }
 
 function addNewGroup(){

@@ -227,39 +227,43 @@ class TripAjaxController extends Controller
 
 
     /**
-     * todo: nog meegeven welke trip ?
-     *
+     * Create a new user
+     * @param ClassGroup $group
+     * @param Request $request
+     * @return JsonResponse
      */
-    public function addNewUserAction(ClassGroup $group, Request $request)
-    {
-
+    public function addNewUserAction(ClassGroup $group, Request $request) {
         $email = $request->get('email');
         $username = $request->get('username');
+        /* Check whether this user exists */
+        $um = $this->get('fos_user.user_manager');
+        if ($um->findUserByEmail($email) !== null) {
+            /* This user already exists */
+            return new JSONResponse(array('msg' => 'This user already exists!', 'code' => 'USER_EXISTS'));
+        } else {
+            $password  = $request->get('pass');
+            $confirmedPassword = $request->get('confirm_pass');
 
-        //todo verify password
-        $password  = $request->get('pass');
-        $confirmedPassword = $request->get('confirm_pass');
+            $factory = $this->get('security.encoder_factory');
 
-        $factory = $this->get('security.encoder_factory');
+            $user = new User();
 
-        $user = new User();
+            $encoder = $factory->getEncoder($user);
+            $pass = $encoder->encodePassword($password, $user->getSalt());
+            $user->setUsername($username);
+            $user->setEmail($email);
+            $user->setPassword($pass);
+            $user->setGroup($group);
+            $user->setEnabled(true);
 
-        $encoder = $factory->getEncoder($user);
-        $pass = $encoder->encodePassword($password, $user->getSalt());
-        $user->setUsername($username);
-        $user->setEmail($email);
-        $user->setPassword($pass);
-        $user->setGroup($group);
-        $user->setEnabled(true);
-
-        $em = $this->getDoctrine()->getEntityManager();
-        $em->persist($user);
-        $em->flush();
+            $em = $this->getDoctrine()->getEntityManager();
+            $em->persist($user);
+            $em->flush();
 
 
-        // return user & password
-        return new JsonResponse($this->formatUsers($group->getUsers()));
-
+            // return user & password
+            return new JsonResponse($this->formatUsers($group->getUsers()));
+        }
     }
 
     public function updateGroupAction(ClassGroup $group, Request $request)
