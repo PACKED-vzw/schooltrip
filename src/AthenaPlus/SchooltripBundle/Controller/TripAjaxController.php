@@ -487,21 +487,30 @@ class TripAjaxController extends Controller
 
     }
 
+    /**
+     * Show a list of notifications in the main toolbar specific for this user
+     * @return Response html-templated list of max. 5 notifications
+     */
     public function showNotificationsAction(){
-
-
+        $user = $this->getUser();
         $repository = $this->getDoctrine()
             ->getRepository('SchooltripBundle:Notification');
+        /* Only get notifications for this user, unless we're dealing with an admin */
+        if (in_array('ROLE_ADMIN', $user->getRoles())) {
+            $q = $repository->createQueryBuilder('n')
+                ->orderBy('n.created', 'DESC')
+                ->setMaxResults(5)
+                ->getQuery();
+        } else {
+            $q = $repository->createQueryBuilder('n')
+                ->where('n.user = :user')
+                ->setParameter('user', $user->getUsername())
+                ->orderBy('n.created', 'DESC')
+                ->setMaxResults(5)
+                ->getQuery();
+        }
 
-        $query = $repository->createQueryBuilder('n')
-            //->where('p.price > :price')
-            //->setParameter('price', '19.99')
-            ->orderBy('n.created', 'DESC')
-            ->setMaxResults(5)
-            ->getQuery();
-
-        $notifications = $query->getResult();
-
+        $notifications = $q->getResult();
         return $this->render('SchooltripBundle:Base:notificationList.html.twig', array(
             'notifications' => $notifications
         ));
