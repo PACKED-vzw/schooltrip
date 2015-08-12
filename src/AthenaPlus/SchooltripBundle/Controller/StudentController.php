@@ -510,11 +510,22 @@ class StudentController extends Controller
      * @throws \Exception
      */
     protected function get_trip ($id = null) {
+        if ($id == 0) {
+            /* Kept here for legacy actions: some requests aks for id 0 (which does not exist), but mean id = null */
+            $id = null;
+        }
         $user = $this->getUser();
         $group = $user->getGroup();
         if ($id !== null) {
             $em = $this->getDoctrine()->getManager();
             $trip = $em->getRepository('SchooltripBundle:Trip')->findOneBy(array('id' => $id));
+            if (!$group) {
+                /* ROLE_ADMINs are never in a group */
+                if (!in_array('ROLE_ADMIN', $user->getRoles())) {
+                    throw new \Exception ('Only admins can access trips outside of their group(s)!');
+                }
+                return $trip;
+            }
             $group_trip = $group->getTrip();
             if ($trip->getId() != $group_trip->getId()) {
                 /* Users only have access to their own trips ($id = 0 || $id = $trip->getId()) - Admins may access all */
@@ -535,9 +546,6 @@ class StudentController extends Controller
      * @throws \Exception
      */
     public function finishedJournalAction($id) {
-        if ($id === 0) {
-            $id = null;
-        }
         $trip = $this->get_trip($id);
         $journal  = $trip->getJournal();
         $sections = $trip->getSections();
@@ -556,9 +564,6 @@ class StudentController extends Controller
      * @throws \Exception
      */
     public function singleTripAction($id) {
-        if ($id === 0) {
-            $id = null;
-        }
         $trip = $this->get_trip($id);
         $tripSectionsReady = false;
         foreach($trip->getSections() as $section){
@@ -581,9 +586,6 @@ class StudentController extends Controller
      * @throws \Exception
      */
     public function finaliseJournalAction ($id, $mode) {
-        if ($id === 0) {
-            $id = null;
-        }
         $trip = $this->get_trip($id);
         $journal  = $trip->getJournal();
         $preview = false;
@@ -660,9 +662,6 @@ class StudentController extends Controller
      * @throws \Exception
      */
     public function journalRecordsAction ($id) {
-        if ($id === 0) {
-            $id = null;
-        }
         $trip = $this->get_trip($id);
         $dateFrom = $trip->getDateFrom();
         $dateTo = $trip->getDateTo();
