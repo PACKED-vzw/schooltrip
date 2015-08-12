@@ -8,3 +8,4 @@ app/cache/*
 app/logs/*
 .idea/*
 app/config/parameters.yml
+.DS_Store

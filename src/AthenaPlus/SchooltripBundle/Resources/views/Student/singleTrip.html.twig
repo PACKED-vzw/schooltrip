@@ -77,13 +77,19 @@
                                     <h4><i class="fa {{ section.type }}"></i> {{ section.title }}</h4>
                                     <p>{{ section.description }}</p>
                                     <div class="recordboxes">
-                                        <p class="smalllinks">{% if section.parameters['challenge']  is defined %} {{ section.parameters['challenge'] }} {% endif %}</p>
-                                        <p class="smalllinks">{% if section.parameters['link']['url']  is defined %}<a href="{{ section.parameters['link']['url'] }}">{{ section.parameters['link']['label']  }}</a>{%  endif %}</p>
+                                        {% if section.parameters['challenge']  is defined %}<p class="smalllinks"> {{ section.parameters['challenge'] }} {% endif %}</p>
+                    {% if section.parameters['link']['url']  is defined %}<p class="smalllinks"><a href="{{ section.parameters['link']['url'] }}">{% if section.parameters['link']['label'] %}{{ section.parameters['link']['label']  }}{% else %}{{ section.parameters['link']['url']  }}{% endif %}</a>{% endif %}</p>
                                     </div>
                                     <div class="row">
-                                        <p class="clear">
-                                        </p>
-                                        <hr>
+                                        <div class="row">
+                                        {% for media in section.media %}
+                                        <div class="col-md3 thumbnail-cell">
+                                        <a class="thumbnail" href="#">
+                                        <img src="/{{ media.thumbnail }}" class="section-image" alt="{{ media.label }}" />
+                                        </a>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
                                     </div>
                                     <table class="table table-no-border" cellspacing="0px">
                                         <tbody id="records-table-{{ section.id }}">

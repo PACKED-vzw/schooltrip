@@ -1777,6 +1777,11 @@ ul.timeline2 > li > .timeline2-panel:after {
     text-align:left
 }
 
+div.row {
+    clear: both;
+    margin-left: 20px;
+}
+
 /* -----------------------------------------------------------------
 	4.8 RECORD SELECTOR PAGE - SCHOLAR
 ----------------------------------------------------------------- */
