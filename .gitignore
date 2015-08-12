@@ -7,3 +7,4 @@ web/uploads*
 app/cache/*
 app/logs/*
 .idea/*
+app/config/parameters.yml

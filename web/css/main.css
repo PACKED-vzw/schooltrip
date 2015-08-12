@@ -708,6 +708,15 @@ body {
     padding-left:5px
 }
 
+img.section-image {
+    max-width: 100px !important;
+}
+
+div.thumbnail-cell {
+    max-width: 140px !important;
+    width: 140px !important;
+}
+
 /* --------- Parameter box Modal Details --------- */
 .modalDetailTitle,.modalDetailDescr {
     background:#f1f4f5;

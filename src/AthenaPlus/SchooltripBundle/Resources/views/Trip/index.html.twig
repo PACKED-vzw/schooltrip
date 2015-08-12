@@ -238,6 +238,7 @@
 
             <tr class="datatr" id="edit-media-row">
                     <td class="modalDetailTitle">Media</td>
+                    <!-- Location for very small thumbnails -->
                     <td class="modalDetailDescr"></td>
                     <td class="modaledit"><a href="#" class="modalEditDetailbutton edit-media-btn" data-save-method="media" id="media-edit-button">Edit</a></td>
             </tr>
@@ -336,10 +337,11 @@
 
             </div>
         </script>
+        <!-- Template for images in the manage sections -> media -> edit template -->
         <script id="section-image-template" type="text/x-handlebars-template">
             <div class="col-md-3 thumbnail-cell" data-id="{{ id }}" data-uploaded="0">
                 <a href="#" class="thumbnail">
-                    <img src="/{{ thumbnail }}" data-id="{{ id }}" id="{{ id }}" />
+                    <img src="/{{ thumbnail }}" data-id="{{ id }}" id="{{ id }}" class="section-image" alt="{{ label }}" />
                     <a href="#" data-id="{{ id }}" class="closeButtonTopRight close delete-image"><i class="fa fa-close modalicondeletedetail"></i></a>
             </div>
         </script>
