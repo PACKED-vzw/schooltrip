@@ -62,8 +62,8 @@
                 <div class="dropPanel">
                     <p>{{ section.description }}</p>
 
-                    <p class="smalllinks">{% if section.parameters['challenge']  is defined %} {{ section.parameters['challenge'] }} {% endif %}</p>
-                    <p class="smalllinks">{% if section.parameters['link']['url']  is defined %}<a href="{{ section.parameters['link']['url'] }}">{{ section.parameters['link']['label']  }}</a> {% endif %}</p>
+                    {% if section.parameters['challenge']  is defined %}<p class="smalllinks"> {{ section.parameters['challenge'] }} {% endif %}</p>
+                    {% if section.parameters['link']['url']  is defined %}<p class="smalllinks"><a href="{{ section.parameters['link']['url'] }}">{% if section.parameters['link']['label'] %}{{ section.parameters['link']['label']  }}{% else %}{{ section.parameters['link']['url']  }}{% endif %}</a>{% endif %}</p>
                     <a data-toggle="modal" href="#manageRecords{{ section.id }}" class="managelink"><h4 class="managerecords" data-id="#records-table-{{ section.id }}" data-section="{{ section.id }}">Manage record</h4></a>
                     <!-- Modal RECORDS FOOD & DRINKS -->
                     <div class="modal fade" id="manageRecords{{ section.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">

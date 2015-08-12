@@ -20,47 +20,7 @@ use AthenaPlus\SchooltripBundle\Entity\Notification;
  */
 class StudentController extends Controller
 {
-    /**
-     * Lists single trip
-     *
-     */
-    public function singleTripAction($id)
-    {
-        // hier opzoeken aan welke gorep deze user gelinkt is, via die groep kunnen we gebruiker kennen
 
-        if ($id == 0){
-            $user = $this->getUser();
-            $group = $user->getGroup();
-            $trip = $group->getTrip();
-            $id = $trip->getId();
-        }
-        else {
-            if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
-                throw new \Exception("You can't access this trip!");
-            }
-        }
-
-        $em = $this->getDoctrine()->getManager();
-
-        $trip = $em->getRepository('SchooltripBundle:Trip')->find($id);
-
-        $tripSectionsReady = false;
-        $c = 0;
-        foreach($trip->getSections() as $section){
-            if(!$section->getReady()){
-                $c++;
-            }
-        }
-        if($c==0){
-            $tripSectionsReady = true;
-        }
-
-
-        return $this->render('SchooltripBundle:Student:singleTrip.html.twig', array(
-            'trip' => $trip,
-            'tripReady' => $tripSectionsReady
-        ));
-    }
 
     /**
      * Load records for section
@@ -637,36 +597,6 @@ class StudentController extends Controller
     }
 
 
-    public function finishedJournalAction($id)
-    {
-
-        if ($id == 0){
-            $user = $this->getUser();
-            $group = $user->getGroup();
-            $trip = $group->getTrip();
-            $id = $trip->getId();
-        }
-        else {
-            if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
-                throw new \Exception("You can't access this Journal!");
-            }
-        }
-
-        $em       = $this->getDoctrine()->getManager();
-        $trip     = $em->getRepository('SchooltripBundle:Trip')->find($id);
-        $journal  = $trip->getJournal();
-
-
-        $sections = $trip->getSections();
-
-        return $this->render('SchooltripBundle:Student:finishedJournal.html.twig', array(
-            'trip'     => $trip,
-            'journal'  => $journal,
-            'sections' => $sections
-        ));
-    }
-
-
 
     public function clearJournalAction(Journal $journal){
 
@@ -739,6 +669,72 @@ class StudentController extends Controller
         return $this->redirect($this->generateUrl('student_records_index', array('id' => $trip->getId())));
     }
 
+    /**
+     * Get a trip from the db. Either the trip is identified by $id (only for users with ROLE_ADMIN)
+     * or the trip is linked to the user via the group he/she is in.
+     * @param null $id
+     * @return object
+     * @throws \Exception
+     */
+    protected function get_trip ($id = null) {
+        $user = $this->getUser();
+        if ($id !== null) {
+            /* Users only have access to their own trips ($id = 0) - Admins may access all */
+            if (!in_array('ROLE_ADMIN', $user->getRoles())) {
+                throw new \Exception ('Only admins can access trips outside of their group(s)!');
+            }
+            $em = $this->getDoctrine()->getManager();
+            $trip = $em->getRepository('SchooltripBundle:Trip')->findOneBy(array('id' => $id));
+        } else {
+            $group = $user->getGroup();
+            $trip = $group->getTrip();
+        }
+        return $trip;
+    }
 
+    /**
+     * Controller for a finished journal
+     * @param $id
+     * @return Response
+     * @throws \Exception
+     */
+    public function finishedJournalAction($id) {
+        if ($id === 0) {
+            $id = null;
+        }
+        $trip = $this->get_trip($id);
+        $journal  = $trip->getJournal();
+        $sections = $trip->getSections();
+
+        return $this->render('SchooltripBundle:Student:finishedJournal.html.twig', array(
+            'trip'     => $trip,
+            'journal'  => $journal,
+            'sections' => $sections
+        ));
+    }
+
+    /**
+     * Fetch a single trip ($id) from the DB and parse it in a twig template that is returned.
+     * @param $id
+     * @return String
+     * @throws \Exception
+     */
+    public function singleTripAction($id) {
+        if ($id === 0) {
+            $id = null;
+        }
+        $trip = $this->get_trip($id);
+        $tripSectionsReady = false;
+        foreach($trip->getSections() as $section){
+            if ($section->getReady()) {
+                $tripSectionsReady = true;
+                break;
+            }
+        }
+        return $this->render('SchooltripBundle:Student:singleTrip.html.twig', array(
+            'trip' => $trip,
+            'tripReady' => $tripSectionsReady
+        ));
+    }
 
 }
