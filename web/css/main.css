@@ -1777,7 +1777,7 @@ ul.timeline2 > li > .timeline2-panel:after {
     text-align:left
 }
 
-div.row {
+div.row-section {
     clear: both;
     margin-left: 20px;
 }

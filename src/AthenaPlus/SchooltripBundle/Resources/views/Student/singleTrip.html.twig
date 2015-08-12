@@ -80,8 +80,7 @@
                                         {% if section.parameters['challenge']  is defined %}<p class="smalllinks"> {{ section.parameters['challenge'] }} {% endif %}</p>
                     {% if section.parameters['link']['url']  is defined %}<p class="smalllinks"><a href="{{ section.parameters['link']['url'] }}">{% if section.parameters['link']['label'] %}{{ section.parameters['link']['label']  }}{% else %}{{ section.parameters['link']['url']  }}{% endif %}</a>{% endif %}</p>
                                     </div>
-                                    <div class="row">
-                                        <div class="row">
+                                    <div class="row-section">
                                         {% for media in section.media %}
                                         <div class="col-md3 thumbnail-cell">
                                         <a class="thumbnail" href="#">
@@ -89,7 +88,6 @@
                                         </a>
                                         </div>
                                         {% endfor %}
-                                    </div>
                                     </div>
                                     <table class="table table-no-border" cellspacing="0px">
                                         <tbody id="records-table-{{ section.id }}">

@@ -500,104 +500,6 @@ class StudentController extends Controller
     }
 
 
-    private function prepareJournalForFinalisation($journal, $preview = false){
-        // 1. datetabs bestaan uit entries (met tijd enzo)
-        //    deze entries hebben een original_record_id
-        //    aangezien dit finaal is kunnen we nu alle info uit het record kopiëren
-        $em = $this->getDoctrine()->getEntityManager();
-
-        $dateTabs = $journal->getDates();
-
-        foreach($dateTabs as &$dateTab){
-            // sort array based on entries
-            // $entries =  usort($dateTab['entries'], array("self", "timeSort"));
-
-            foreach($dateTab['entries'] as &$entry){
-
-                $record = $em->getRepository('SchooltripBundle:Entry')->find($entry['original_record_id']);
-                $entry['title'] = $record->getTitle();
-                $entry['user']  = $record->getUser();
-                $entry['text']  = $record->getText();
-                $entry['url']  = $record->getUrl();
-                $entry['extra_title']  = '';
-                $entry['extra_description']  = '';
-
-                $images = $record->getMedia();
-
-
-                //echo "<pre>"; print_r($images); echo "</pre>"; continue;
-
-                if(count($images)>0){
-                    $entry['primary_image'] = array_shift($images);
-                    $entry['other_images']  = $images;
-                }
-                else {
-                    $entry['primary_image'] = null;
-                    $entry['other_images'] = array();
-                }
-                unset($record);
-            }
-        }
-
-
-        $journal->setJournalDates($dateTabs);
-        // if not preview => persist
-        if(!$preview){
-            $em->persist($journal);
-            $em->flush();
-        }
-
-        return $journal;
-
-    }
-
-    public function finaliseJournalAction($id, $mode)
-    {
-
-        if ($id == 0){
-            $user = $this->getUser();
-            $group = $user->getGroup();
-            $trip = $group->getTrip();
-            $id = $trip->getId();
-        }
-        else {
-            if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
-                throw new \Exception("You can't access this trip!");
-            }
-        }
-
-        $em       = $this->getDoctrine()->getManager();
-        $trip     = $em->getRepository('SchooltripBundle:Trip')->find($id);
-        $journal  = $trip->getJournal();
-
-        // set preview mode if is enabled
-        $preview = ($mode == 'preview' ? true : false);
-
-
-        // prepare journal
-        // in preview mode: nothing is persisted
-        if ($preview){
-            $journal  = $this->prepareJournalForFinalisation($journal, $preview);
-        }
-        else {
-            // when in edit mode and journalDates does not exist, we will create a new journalDates
-            if(!$journal->getJournalDates()){
-                $journal  = $this->prepareJournalForFinalisation($journal, $preview);
-            }
-        }
-
-        $sections = $trip->getSections();
-
-        return $this->render('SchooltripBundle:Student:finaliseJournal.html.twig', array(
-            'trip'     => $trip,
-            'journal'  => $journal,
-            'sections' => $sections,
-            'mode'     => $mode
-        ));
-    }
-
-
-
     public function clearJournalAction(Journal $journal){
 
         // check if user can empty this journal
@@ -735,6 +637,87 @@ class StudentController extends Controller
             'trip' => $trip,
             'tripReady' => $tripSectionsReady
         ));
+    }
+
+    /**
+     * Controller for the finalise journal action. Returns a parsed twig template with a journal (the journal is dependent on $mode)
+     * @param $id
+     * @param $mode
+     * @return Response
+     * @throws \Exception
+     */
+    public function finaliseJournalAction ($id, $mode) {
+        if ($id === 0) {
+            $id = null;
+        }
+        $trip = $this->get_trip($id);
+        $journal  = $trip->getJournal();
+        $preview = false;
+        if ($mode == 'preview') {
+            $preview = true;
+        }
+        /* If $journal->getJournalDates() is trueish, prepare for finalisation. Else, do nothing to the journal. */
+        if (!$journal->getJournalDates()) {
+            $journal = $this->prepareJournalForFinalisation($journal, $preview);
+        }
+        $sections = $trip->getSections();
+
+        return $this->render('SchooltripBundle:Student:finaliseJournal.html.twig', array(
+            'trip'     => $trip,
+            'journal'  => $journal,
+            'sections' => $sections,
+            'mode'     => $mode
+        ));
+    }
+
+    /**
+     * Prepare a "final" version of the journal, either for preview or for persistence (preview = false) in the DB
+     * @param $journal
+     * @param bool|false $preview
+     * @return object
+     */
+    private function prepareJournalForFinalisation ($journal, $preview = false){
+        // 1. datetabs bestaan uit entries (met tijd enzo)
+        //    deze entries hebben een original_record_id
+        //    aangezien dit finaal is kunnen we nu alle info uit het record kopiëren
+        $em = $this->getDoctrine()->getEntityManager();
+
+        $dateTabs = $journal->getDates();
+
+        /*
+         * Copy all information from the DB to the journal (as this a finalisation, no further changes are expected)
+         */
+        foreach($dateTabs as &$dateTab){
+            foreach($dateTab['entries'] as &$entry){
+                $record = $em->getRepository('SchooltripBundle:Entry')->find($entry['original_record_id']);
+                $entry['title'] = $record->getTitle();
+                $entry['user']  = $record->getUser();
+                $entry['text']  = $record->getText();
+                $entry['url']  = $record->getUrl();
+                $entry['extra_title']  = '';
+                $entry['extra_description']  = '';
+
+                $images = $record->getMedia();
+
+                if (count($images) > 0){
+                    $entry['primary_image'] = array_shift($images);
+                    $entry['other_images']  = $images;
+                }
+                else {
+                    $entry['primary_image'] = null;
+                    $entry['other_images'] = array();
+                }
+                unset($record);
+            }
+        }
+
+        $journal->setJournalDates($dateTabs);
+        if (!$preview){
+            $em->persist($journal);
+            $em->flush();
+        }
+        return $journal;
+
     }
 
 }
