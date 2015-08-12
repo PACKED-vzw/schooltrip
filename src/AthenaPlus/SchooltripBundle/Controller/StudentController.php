@@ -257,75 +257,6 @@ class StudentController extends Controller
     }
 
 
-    public function journalRecordsAction($id)
-    {
-
-        // todo: DRY it
-        if ($id == 0){
-            $user = $this->getUser();
-            $group = $user->getGroup();
-            $trip = $group->getTrip();
-            $id = $trip->getId();
-        }
-        else {
-            if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
-                throw new \Exception("You can't access this trip!");
-            }
-        }
-
-        $em = $this->getDoctrine()->getManager();
-        $trip = $em->getRepository('SchooltripBundle:Trip')->find($id);
-
-
-        $dateFrom = $trip->getDateFrom();
-        $dateTo = $trip->getDateTo();
-        //$diff = $dateFrom->diff($dateTo)->format("%a");
-
-        if (!$trip->getJournal()){
-        //if(true){
-            $journal = new Journal();
-            $journal->setPublished(false);
-            $journal->setTrip($trip);
-            $iteratorDate = clone $dateFrom;
-
-            $datesArray = array();
-
-            // prepare dates array
-            $i = 1;
-            while( $iteratorDate != $dateTo ){
-                $datesArray[$i] = array( "date" => $iteratorDate,
-                                         "dateString" => $iteratorDate->format('d/m/Y'),
-                                         "entries" =>
-                                           array()
-                                         );
-                $iteratorDate->modify('+1 day');
-                $i++;
-            }
-            $journal->setDates($datesArray);
-
-            $em->persist($journal);
-            $em->flush();
-        }
-        else {
-            $journal = $trip->getJournal();
-            //$journal = $journals[0];
-
-        }
-
-
-
-        $sections = $trip->getSections();
-
-
-        return $this->render('SchooltripBundle:Student:journalRecords.html.twig', array(
-            'trip' => $trip,
-            'journal' => $journal,
-            'sections' => $sections
-        ));
-
-    }
-
-
 
     private function formatDateTab($dateTab){
        // print_r($dateTab); die;
@@ -580,15 +511,18 @@ class StudentController extends Controller
      */
     protected function get_trip ($id = null) {
         $user = $this->getUser();
+        $group = $user->getGroup();
         if ($id !== null) {
-            /* Users only have access to their own trips ($id = 0) - Admins may access all */
-            if (!in_array('ROLE_ADMIN', $user->getRoles())) {
-                throw new \Exception ('Only admins can access trips outside of their group(s)!');
-            }
             $em = $this->getDoctrine()->getManager();
             $trip = $em->getRepository('SchooltripBundle:Trip')->findOneBy(array('id' => $id));
+            $group_trip = $group->getTrip();
+            if ($trip->getId() != $group_trip->getId()) {
+                /* Users only have access to their own trips ($id = 0 || $id = $trip->getId()) - Admins may access all */
+                if (!in_array('ROLE_ADMIN', $user->getRoles())) {
+                    throw new \Exception ('Only admins can access trips outside of their group(s)!');
+                }
+            }
         } else {
-            $group = $user->getGroup();
             $trip = $group->getTrip();
         }
         return $trip;
@@ -671,7 +605,7 @@ class StudentController extends Controller
     }
 
     /**
-     * Prepare a "final" version of the journal, either for preview or for persistence (preview = false) in the DB
+     * Prepare a "final" version of the journal, either for preview or for persistence (preview = false) in the DB.
      * @param $journal
      * @param bool|false $preview
      * @return object
@@ -680,13 +614,12 @@ class StudentController extends Controller
         // 1. datetabs bestaan uit entries (met tijd enzo)
         //    deze entries hebben een original_record_id
         //    aangezien dit finaal is kunnen we nu alle info uit het record kopiëren
-        $em = $this->getDoctrine()->getEntityManager();
-
         $dateTabs = $journal->getDates();
 
         /*
          * Copy all information from the DB to the journal (as this a finalisation, no further changes are expected)
          */
+        $em = $this->getDoctrine()->getEntityManager();
         foreach($dateTabs as &$dateTab){
             foreach($dateTab['entries'] as &$entry){
                 $record = $em->getRepository('SchooltripBundle:Entry')->find($entry['original_record_id']);
@@ -717,6 +650,51 @@ class StudentController extends Controller
             $em->flush();
         }
         return $journal;
+
+    }
+
+    /**
+     * Controller for the journal records action. Returns a parsed twig template.
+     * @param $id
+     * @return String
+     * @throws \Exception
+     */
+    public function journalRecordsAction ($id) {
+        if ($id === 0) {
+            $id = null;
+        }
+        $trip = $this->get_trip($id);
+        $dateFrom = $trip->getDateFrom();
+        $dateTo = $trip->getDateTo();
+        /* No journal yet */
+        if (!$trip->getJournal()){
+            $journal = new Journal();
+            $journal->setPublished(false);
+            $journal->setTrip($trip);
+            $iteratorDate = clone $dateFrom;
+            $datesArray = array();
+            while ($iteratorDate != $dateTo ){
+                array_push($datesArray, array( "date" => $iteratorDate,
+                    "dateString" => $iteratorDate->format('d/m/Y'),
+                    "entries" =>
+                        array()
+                ));
+                $iteratorDate->modify('+1 day');
+            }
+            $journal->setDates($datesArray);
+            $em = $this->getDoctrine()->getEntityManager();
+            $em->persist($journal);
+            $em->flush();
+        }
+        else {
+            $journal = $trip->getJournal();
+        }
+        $sections = $trip->getSections();
+        return $this->render('SchooltripBundle:Student:journalRecords.html.twig', array(
+            'trip' => $trip,
+            'journal' => $journal,
+            'sections' => $sections
+        ));
 
     }
 
