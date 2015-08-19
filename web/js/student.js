@@ -385,7 +385,7 @@ function drawSelect(entries){
 
 
 function europeanaSearch(query){
-    var url = "http://europeana.eu/api/v2/search.json?wskey=jws8nziqw&query="+ query +"&start=1&rows=96&profile=standard";
+    var url = "http://europeana.eu/api/v2/search.json?wskey=jws8nziqw&query="+ query +"&start=1&rows=96&profile=standard&reusability=open";
     $.ajax({
         dataType: "json",
         url: url,
