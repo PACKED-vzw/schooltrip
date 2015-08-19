@@ -19,6 +19,11 @@ Create the tables this application uses with the following command (executed in 
 php app/console doctrine:schema:update --force
 ```
 
+Execute this command to allow [FOSjsRouting](https://github.com/FriendsOfSymfony/FOSJsRoutingBundle/blob/master/Resources/doc/index.md) to work:
+```
+php app/console assets:install --symlink web
+```
+
 ## User administration
 Schooltrip requires at least one "teacher" account to function. You can create this account by executing the following command (executed in the root of your Symfony application):
 ```
