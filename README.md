@@ -29,6 +29,11 @@ Create the ```img``` directory in the ```web```-directory:
 mkdir -p web/img
 ```
 
+Create the ```media``` directory in the ```web```-directory:
+```
+mkdir -p web/media
+```
+
 ### Permissions
 You need to make sure that the web server user (e.g. www-data on Ubuntu) has write rights to the application sub tree.
 
