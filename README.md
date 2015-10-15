@@ -24,6 +24,14 @@ Execute this command to allow [FOSjsRouting](https://github.com/FriendsOfSymfony
 php app/console assets:install --symlink web
 ```
 
+Create the ```img``` directory in the ```web```-directory:
+```
+mkdir -p web/img
+```
+
+### Permissions
+You need to make sure that the web server user (e.g. www-data on Ubuntu) has write rights to the application sub tree.
+
 ## User administration
 Schooltrip requires at least one "teacher" account to function. You can create this account by executing the following command (executed in the root of your Symfony application):
 ```
