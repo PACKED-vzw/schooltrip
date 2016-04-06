@@ -6,9 +6,6 @@ Documentation may be found at the [AthenaPlus wiki](http://wiki.athenaplus.eu/in
 SchoolTrip was created by [PACKED vzw](http://packed.be/) as part of the [AthenaPlus project](http://www.athenaplus.eu/) funded by the European Commission.
 
 ## Installation instructions
-Install a vanilla [Symfony](https://symfony.com/) application using Symfony's installer.
-
-Download this git repository and copy the tree into the root of the Symfony application.
 
 Create a MySQL database and user (in MySQL) and update your parameters.yml (in app/config) with the database server, database name, user name and password.
 
