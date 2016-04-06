@@ -1,5 +1,3 @@
-web/resources/
-web/bundles/
 web/img*
 vendor/*
 web/media
@@ -9,4 +7,3 @@ app/logs/*
 .idea/*
 app/config/parameters.yml
 *.DS_Store
-bin/*
